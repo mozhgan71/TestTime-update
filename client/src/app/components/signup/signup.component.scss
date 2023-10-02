@@ -1,0 +1,62 @@
+form {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    background-color: rgb(253, 253, 253);
+    color: purple;
+
+    h2 {
+        background-color: rgb(139, 23, 139);
+        color: black;
+        padding: 0.5rem;
+        margin: 0;
+    }
+
+    h3 {
+        margin: 0;
+        padding: 0;
+    }
+
+    mat-form-field {
+        height: 3rem;
+        width: 25%;
+    }
+
+    mat-error {
+        color: red;
+    }
+
+    select {
+        height: 2.5rem;
+    }
+
+    input {
+        height: 2.5rem;
+        color: purple;
+        font-size: larger;
+    }
+
+    mat-label {
+        font-weight: bold;
+    }
+
+    mat-checkbox {
+        background-color: purple;
+        color: black;
+        font-weight: bold;
+    }
+
+    a {
+        color: rgb(250, 248, 248);
+        font-size: small;
+    }
+
+    .div-button {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

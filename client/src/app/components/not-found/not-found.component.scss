@@ -1,0 +1,33 @@
+div {
+    min-height: calc(100vh - (18.6rem));
+
+    .div-image {
+        background-color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .img {
+            height: 20rem;
+            width: 30rem;
+        }
+    }
+
+    button {
+        color: aqua;
+        background-color: aquamarine;
+        font-weight: bolder;
+    }
+}
+
+@media only screen and (min-width:30rem) {
+    div {
+        min-height: calc(100vh - (15.6rem));
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}

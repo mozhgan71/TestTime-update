@@ -1,0 +1,26 @@
+<div>
+    <form [formGroup]="suggestionFg">
+        <h2> فرم انتقاد و پیشنهاد</h2>
+        <mat-hint *ngIf="suggestionFg.invalid">وارد کردن همه ی موارد الزامی می باشد</mat-hint>
+        <mat-form-field appearance="outline">
+            <mat-label>نام و نام خانوادگی:</mat-label>
+            <input type="text" formControlName="fullNameCtrl" matInput>
+            <mat-error *ngIf="suggestionFg.dirty">نام و نام خانوادگی حداقل باید شامل 5 کاراکتر باشد</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>ایمیل:</mat-label>
+            <input type="email" formControlName="emailCtrl" matInput>
+            <mat-error *ngIf="suggestionFg.dirty">ایمیل وارد شده صحیح نیست</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>متن :</mat-label>
+            <textarea type="text" formControlName="textCtrl" matInput></textarea>
+            <mat-error *ngIf="suggestionFg.dirty">متن حداقل باید شامل 5 کاراکتر باشد</mat-error>
+        </mat-form-field>
+        <div class="div-button">
+            <button (click)="addSuggestion()" [disabled]="suggestionFg.invalid" mat-raised-button color="primary">ثبت
+            </button>
+            <button routerLink="/user-profile" mat-raised-button color="primary">بازگشت به پروفایل</button>
+        </div>
+    </form>
+</div>

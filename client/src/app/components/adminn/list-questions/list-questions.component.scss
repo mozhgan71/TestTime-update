@@ -1,0 +1,73 @@
+div {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    background-color: rgb(8, 8, 8);
+    color: rgb(187, 11, 158);
+    min-height: calc(100vh - (18.6rem));
+
+    .button {
+        color: black;
+        background-color: purple;
+    }
+
+    .button:hover {
+        background-color: rgb(211, 7, 109);
+    }
+
+    ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+
+        :nth-child(9) {
+            align-self: flex-end;
+            margin-right: 1rem;
+            gap: 0.3rem;
+        }
+
+        .div-button {
+            display: flex;
+            flex-direction: row;
+            min-height: 2rem;
+        }
+
+        hr {
+            width: 100%;
+        }
+    }
+
+    .top {
+        --offset: 50px;
+        position: sticky;
+        bottom: 20px;
+        margin-right: 10px;
+        place-self: end;
+        margin-top: calc((100vh + var(--offset)) - 8rem);
+
+        /* visual styling */
+        width: 45px;
+        aspect-ratio: 1;
+        background: #ad06ad;
+        border-radius: 10px;
+    }
+
+    .top:before {
+        content: "";
+        position: absolute;
+        inset: 30%;
+        transform: translateY(30%) rotate(-45deg);
+        border-top: 5px solid #080808;
+        border-right: 5px solid #080808;
+    }
+}
+
+@media only screen and (min-width:30rem) {
+    div {
+        min-height: calc(100vh - (15.6rem));
+    }
+
+    ul {
+        list-style-type: none;
+    }
+}

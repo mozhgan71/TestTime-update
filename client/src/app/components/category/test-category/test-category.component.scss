@@ -1,0 +1,58 @@
+.div-category {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-left: 0.5rem;
+    width: fit-content;
+
+    img {
+        height: 10rem;
+        width: 15rem;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .div-top {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin-left: 0.5rem;
+        margin-top: 1rem;
+        gap: 0.5rem;
+        min-height: 14rem;
+
+        img {
+            height: 10rem;
+            width: 15rem;
+        }
+
+        button {
+            width: 100%;
+        }
+
+        .div-show {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            color: purple;
+            min-height: 13rem;
+            width: 15rem;
+            margin: 0.5rem;
+
+            img {
+                height: 10rem;
+                width: 15rem;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    }
+}

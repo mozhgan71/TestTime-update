@@ -1,0 +1,58 @@
+<div>
+    <form [formGroup]="questionFg">
+        <h2>فرم ویرایش سوال مدیریت </h2>
+        <mat-form-field appearance="outline">
+            <mat-label>نام فیلد:</mat-label>
+            <select matNativeControl formControlName="feildNameCtrl">
+                <option value="C++">C++</option>
+                <option value="C#">C#</option>
+                <option value="Python">Python</option>
+                <option value="PHP">PHP</option>
+                <option value="Angular">Angular</option>
+                <option value="TypeScript">TypeScript</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Vue.Js">Vue.Js</option>
+                <option value="Html">Html</option>
+                <option value="React">React</option>
+                <option value="Css">Css</option>
+                <option value="Oracle">Oracle</option>
+                <option value="SqlServer">SqlServer</option>
+                <option value="MongoDB">MongoDB</option>
+            </select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>شماره سوال:</mat-label>
+            <input type="number" formControlName="numberCtrl" matInput>
+            <mat-error *ngIf="questionFg.dirty">عددی بین 1 تا 10 قابل قبول است</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>صورت سوال:</mat-label>
+            <textarea type="text" formControlName="descriptionCtrl" matInput></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>گزینه 1:</mat-label>
+            <input type="text" formControlName="option1Ctrl" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>گزینه 2:</mat-label>
+            <input type="text" formControlName="option2Ctrl" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>گزینه 3:</mat-label>
+            <input type="text" formControlName="option3Ctrl" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>گزینه 4:</mat-label>
+            <input type="text" formControlName="option4Ctrl" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label> گزینه درست:</mat-label>
+            <input type="number" formControlName="correctCtrl" matInput>
+            <mat-error *ngIf="questionFg.dirty">عددی بین 1 تا 4 قابل قبول است</mat-error>
+        </mat-form-field>
+        <button routerLink="/list-questions" (click)="editQuestion()" [disabled]="questionFg.invalid" mat-raised-button
+            class="button">ثبت
+            تغییرات</button>
+        <button routerLink="/admin-profile" mat-raised-button class="my-button">بازگشت به پروفایل </button>
+    </form>
+</div>

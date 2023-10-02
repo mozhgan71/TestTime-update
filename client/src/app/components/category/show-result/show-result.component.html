@@ -1,0 +1,17 @@
+<div>
+    <div *ngIf="resultRes" class="div-result">
+        <p>نام آزمون: {{resultRes.testName}}</p>
+        <hr>
+        <p> {{resultRes.myDate}}:تاریخ و ساعت انجام آزمون</p>
+        <p>مدت آزمون شما: {{resultRes.testHour}} ساعت و {{resultRes.testMinute}} دقیقه و {{ resultRes.testSecond}} ثانیه
+        </p>
+        <p>تعداد پاسخ های صحیح: {{resultRes.numberOfCorrect}}</p>
+        <p>تعداد پاسخ های غلط: {{resultRes.numberOfWrong}}</p>
+        <p>تعداد سوال های بی پاسخ: {{ resultRes.numberOfNoAnswer}}</p>
+        <h3>{{resultRes.description}}</h3>
+        <div class="button-result">
+            <button routerLink="/test-category" class="top1" mat-raised-button>بازگشت به دسته بندی</button>
+            <button routerLink="/home" class="top1" mat-raised-button>بازگشت به صفحه اصلی</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .div-result {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-self: center;
+        background-color: #080808;
+        color: #ad06ad;
+        padding: 1rem;
+        gap: 1rem;
+        border: solid 0.3rem plum;
+        width: 60%;
+    }
+
+    .button-result {
+        display: flex;
+        flex-direction: row;
+        min-height: 3rem;
+        gap: 1rem;
+    }
+
+    button {
+        background-color: #ad06ad;
+        color: #080808;
+        width: 12rem;
+    }
+
+    button:hover {
+        width: 15rem;
+    }
+
+    hr {
+        width: 80%;
+    }
+}

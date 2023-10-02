@@ -1,0 +1,60 @@
+.div-compare {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1.5rem;
+    font-size: x-large;
+    font-weight: bold;
+
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .div-top {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 1rem;
+        min-height: 5rem;
+    }
+
+    .div-bottom {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 1rem;
+        min-height: 5rem;
+    }
+
+    .div-button {
+        margin-top: 0.5rem;
+        width: 9rem;
+        height: 7rem;
+        background-color: rgb(214, 77, 196);
+        color: black;
+        border: solid 0.2rem rgb(133, 6, 101);
+        border-radius: 100%;
+        font-weight: bold;
+    }
+
+    .div-button:hover {
+        border: solid 0.4rem rgb(95, 4, 83);
+        background-color: rgb(199, 160, 196);
+        width: 10rem;
+        height: 8rem;
+    }
+}
+
+@media only screen and (min-width:30rem) {
+    div {
+        // min-height: calc(100vh - (14rem));
+        min-height: calc(100vh - (15.6rem));
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}

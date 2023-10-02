@@ -1,0 +1,121 @@
+div {
+    min-height: calc(100vh - (15.6rem));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .bottom {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        min-height: 3rem;
+        align-items: center;
+
+        .button-end {
+            width: 17rem;
+            background-color: rgb(109, 6, 109);
+            color: rgb(5, 3, 5);
+            font-weight: bold;
+        }
+
+        button {
+            width: 17rem;
+            background-color: rgb(137, 189, 18);
+            font-weight: bold;
+        }
+    }
+
+    .top1 {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        justify-content: space-around;
+        min-height: 3rem;
+
+        button {
+            width: 17rem;
+            background-color: purple;
+        }
+
+        p {
+            color: purple;
+            font-size: larger;
+        }
+    }
+
+    .div-question {
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(197, 132, 197);
+
+        ul {
+            list-style-type: none;
+        }
+
+        mat-radio-group {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .top {
+        --offset: 50px;
+        position: sticky;
+        bottom: 20px;
+        margin-right: 10px;
+        place-self: end;
+        // margin-top: calc((100vh + var(--offset)) - 8rem);
+
+        /* visual styling */
+        width: 45px;
+        aspect-ratio: 1;
+        background: #ad06ad;
+        border-radius: 10px;
+    }
+
+    .top:before {
+        content: "";
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        position: absolute;
+        inset: 30%;
+        transform: translateY(30%) rotate(-45deg);
+        border-top: 5px solid #080808;
+        border-right: 5px solid #080808;
+    }
+
+    .div-result {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-self: center;
+        background-color: #080808;
+        color: #ad06ad;
+        padding: 1rem;
+        gap: 1rem;
+        border: solid 0.3rem plum;
+        width: 60%;
+    }
+
+    .button-result {
+        display: flex;
+        flex-direction: row;
+        min-height: 3rem;
+        gap: 1rem;
+    }
+
+    hr {
+        width: 80%;
+    }
+
+    button {
+        background-color: #ad06ad;
+        color: #080808;
+    }
+
+    p {
+        padding: 0;
+        margin: 0;
+    }
+}

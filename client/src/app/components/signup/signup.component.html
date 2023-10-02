@@ -1,0 +1,63 @@
+<form [formGroup]="userFg" (ngSubmit)="registerUser()">
+    <h2>فرم ثبت نام</h2>
+    <mat-hint *ngIf="userFg.invalid">وارد کردن موارد ستاره دار(*)الزامی می باشد</mat-hint>
+    <mat-form-field appearance="outline">
+        <mat-label>نام:</mat-label>
+        <input type="text" formControlName="nameCtrl" matInput>
+        <mat-error>نام حداقل باید شامل 2 کاراکتر باشد</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>نام خانوادگی:</mat-label>
+        <input type="text" formControlName="familyCtrl" matInput>
+        <mat-error>نام خانوادگی حداقل باید شامل 2 کاراکتر باشد</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>ایمیل:</mat-label>
+        <input type="email" formControlName="emailCtrl" matInput>
+        <mat-error>لطفا یک ایمیل صحیح وارد کنید</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>رمز عبور:</mat-label>
+        <input type="text" formControlName="passwordCtrl" matInput>
+        <mat-error>حداقل 8 کاراکتر</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>تکرار رمزعبور:</mat-label>
+        <input type="text" formControlName="confirmPasswordCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>سن:</mat-label>
+        <input type="number" formControlName="ageCtrl" matInput>
+        <mat-error>گروه سنی 9 تا 99 سال قابل قبول می باشد</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>تحصیلات:</mat-label>
+        <select matNativeControl formControlName="educationCtrl">
+            <option value="دانش آموز">دانش آموز</option>
+            <option value="دیپلم">دیپلم</option>
+            <option value="فوق دیپلم">فوق دیپلم</option>
+            <option value="لیسانس">لیسانس</option>
+            <option value="فوق لیسانس">فوق لیسانس</option>
+            <option value="دکترا">دکترا</option>
+            <option value="PH.D">PH.D</option>
+        </select>
+    </mat-form-field>
+    <mat-checkbox formControlName="rulesCtrl" [labelPosition]="'before'">
+        .با <a routerLink="/terms-and-conditions"> قوانین و مقررات</a> سایت موافق هستم
+    </mat-checkbox>
+    <h3>{{myText}}</h3>
+    <div class="div-button">
+        <button type="submit" [disabled]="userFg.invalid" mat-raised-button color="primary">ثبت
+            اطلاعات</button>
+        <button routerLink="/login" mat-raised-button color="primary">ورود به پروفایل</button>
+    </div>
+</form>
+<div *ngIf="userRes">
+    <h1>{{userRes.id}}</h1>
+    <h1>{{userRes.name}}</h1>
+    <h1>{{userRes.family}}</h1>
+    <h1>{{userRes.email}}</h1>
+    <h1>{{userRes.password}}</h1>
+    <h1>{{userRes.age}}</h1>
+    <h1>{{userRes.education}}</h1>
+</div>

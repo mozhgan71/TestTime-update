@@ -1,0 +1,73 @@
+div {
+    min-height: calc(100vh - (18.6rem));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background-color: rgb(219, 157, 216);
+
+    .button:hover {
+        background-color: rgb(103, 13, 121);
+    }
+
+    ul,
+    li {
+        border: solid 0.2rem rgb(83, 3, 59);
+        align-self: center;
+        list-style-type: none;
+        padding: 0.5rem;
+        gap: 0.5rem;
+
+        :nth-child(8) {
+            align-self: flex-end;
+            margin-right: 1rem;
+            gap: 0.3rem;
+        }
+
+        .div-button {
+            display: flex;
+            flex-direction: row;
+            min-height: 2rem;
+        }
+    }
+
+    .top {
+
+        --offset: 50px;
+        position: sticky;
+        bottom: 20px;
+        margin-right: 10px;
+        place-self: end;
+        // margin-top: calc((100vh + var(--offset)) - 8rem);
+
+        /* visual styling */
+        width: 45px;
+        aspect-ratio: 1;
+        background: #ad06ad;
+        border-radius: 10px;
+    }
+
+    .top:before {
+        content: "";
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        position: absolute;
+        inset: 30%;
+        transform: translateY(30%) rotate(-45deg);
+        border-top: 5px solid #080808;
+        border-right: 5px solid #080808;
+    }
+}
+
+@media only screen and (min-width:30rem) {
+    div {
+        min-height: calc(100vh - (15.6rem));
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}

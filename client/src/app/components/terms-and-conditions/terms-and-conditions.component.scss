@@ -1,0 +1,35 @@
+div {
+    min-height: calc(100vh - (18.6rem));
+    color: purple;
+    background-color: black;
+
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    p {
+        direction: rtl;
+        padding-right: 0.5rem;
+        padding-top: 0.5rem;
+        font-size: larger;
+    }
+
+    li {
+        direction: rtl;
+        padding-right: 0.5rem;
+        list-style-type: none;
+        margin: 1rem;
+    }
+}
+
+@media only screen and (min-width:30rem) {
+    div {
+        min-height: calc(100vh - (15.6rem));
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}

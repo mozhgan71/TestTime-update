@@ -1,0 +1,109 @@
+/*#regionmobile*/
+.div-main {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(252, 250, 250);
+    min-height: calc(100vh - (20rem));
+
+    .div-slider {
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(245, 242, 242);
+        margin: 0.1rem;
+
+        .div-button {
+            background-color: rgb(250, 247, 250);
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 0.3rem;
+
+            h3 {
+                cursor: pointer;
+            }
+        }
+
+        button {
+            background-color: purple;
+        }
+
+        img {
+            cursor: pointer;
+            height: auto;
+            width: 100%;
+        }
+    }
+
+    .div-right {
+        background-color: rgb(249, 250, 250);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        color: purple;
+        font-weight: bold;
+        font-size: x-large;
+        direction: rtl;
+        gap: 1rem;
+        padding-bottom: 2rem;
+
+        button {
+            color: black;
+            background-color: purple;
+            min-width: 10rem;
+        }
+
+        h1 {
+            padding: 0;
+            margin: 0;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        h2 {
+            padding: 0;
+            margin: 0;
+            font-family: mixin-exists($name: space-around);
+        }
+
+        .img-right {
+            width: 10rem;
+            height: 10rem;
+        }
+    }
+}
+
+/*#endregionmobile*/
+
+/*#regiontablet*/
+@media only screen and (min-width:47rem) {
+    .div-main {
+        min-height: calc(100vh - (17rem));
+
+        .div-slider {
+            align-self: center;
+            max-height: 31.25rem;
+            max-width: 43.5rem;
+        }
+    }
+}
+
+/*#endregiontablet*/
+
+/*#regiondesktop*/
+@media only screen and (min-width:60rem) {
+
+    .div-main {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-around;
+    }
+}
+
+/*#endregiondesktop*/

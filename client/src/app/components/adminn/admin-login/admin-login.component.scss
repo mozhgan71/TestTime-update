@@ -1,0 +1,57 @@
+div {
+    min-height: calc(100vh - (18.6rem));
+
+    form {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        background-color: rgb(253, 253, 253);
+        color: purple;
+
+        h2 {
+            background-color: rgb(139, 23, 139);
+            color: black;
+            padding: 0.5rem;
+        }
+
+        mat-form-field {
+            height: 2.5rem;
+        }
+
+        mat-error {
+            color: red;
+        }
+
+        input {
+            height: 2rem;
+            width: 100%;
+            color: purple;
+            font-size: larger;
+        }
+
+        mat-label {
+            font-weight: bold;
+        }
+
+        .login {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
+
+@media only screen and (min-width:30rem) {
+    div {
+        // min-height: calc(100vh - (14rem));
+        min-height: calc(100vh - (16.6rem));
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}

@@ -1,0 +1,59 @@
+div {
+    min-height: calc(100vh - (18.6rem));
+
+    form {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2.5rem;
+        background-color: rgb(253, 253, 253);
+        color: purple;
+
+        h2 {
+            background-color: rgb(139, 23, 139);
+            color: black;
+            padding: 0.5rem;
+        }
+
+        mat-form-field {
+            height: 3rem;
+            width: 25%;
+        }
+
+        mat-error {
+            color: red;
+        }
+
+        button {
+            width: 20rem;
+            background-color: rgb(211, 112, 214);
+        }
+
+        select {
+            height: 2.5rem;
+        }
+
+        input {
+            height: 2.5rem;
+            color: purple;
+            font-size: larger;
+        }
+
+        mat-label {
+            font-weight: bold;
+        }
+    }
+}
+
+@media only screen and (min-width:30rem) {
+    div {
+        min-height: calc(100vh - (15.6rem));
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}

@@ -1,0 +1,78 @@
+div {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(240, 155, 252);
+    color: purple;
+    width: 100%;
+    gap: 1rem;
+    min-height: calc(100vh - (20rem));
+
+    .div-info {
+        display: flex;
+        flex-direction: column;
+        border: solid 0.1rem purple;
+        border-radius: 5rem;
+        background-color: rgb(216, 103, 201);
+        width: 30%;
+        margin: 0.2rem;
+        direction: rtl;
+
+        button {
+            width: 9rem;
+            height: 3rem;
+            background-color: purple;
+            color: black;
+            border: solid 0.2rem pink;
+        }
+
+        button:hover {
+            font-weight: bolder;
+            width: 10rem;
+            height: 4rem;
+        }
+    }
+
+    hr {
+        color: purple;
+        width: 0.1rem;
+        height: 20rem;
+    }
+
+    .div-button {
+        margin-top: 0.5rem;
+        width: 7rem;
+        height: 7rem;
+        background-color: purple;
+        color: black;
+        border: solid 0.2rem pink;
+        border-radius: 100%;
+    }
+
+    .div-button:hover {
+        border: solid 0.4rem rgb(95, 4, 83);
+        background-color: rgb(212, 230, 50);
+        font-weight: bolder;
+        width: 10rem;
+        height: 10rem;
+    }
+
+    mat-label {
+        margin-top: 0.5rem;
+        color: white;
+    }
+}
+
+@media only screen and (min-width:30rem) {
+    div {
+        min-height: calc(100vh - (17rem));
+    }
+
+    h4,
+    p,
+    hr {
+        margin: 0;
+        padding: 0;
+    }
+}

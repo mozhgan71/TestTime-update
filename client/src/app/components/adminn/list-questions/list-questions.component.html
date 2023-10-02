@@ -1,0 +1,22 @@
+<div>
+    <ul *ngFor="let question of questions">
+        <li>FieldName: {{question.feildName}}</li>
+        <li>NumberQuestion: {{question.numberQuestion}}</li>
+        <li>DescriptionQuestion: {{question.descriptionQuestion}}</li>
+        <li>Option1: {{question.option1}}</li>
+        <li>Option2: {{question.option2}}</li>
+        <li>Option3: {{question.option3}}</li>
+        <li>Option4: {{question.option4}}</li>
+        <li>CorrectAnswer: {{question.correctAnswer}}</li>
+        <div class="div-button">
+            <button (click)="deleteQuestion(question.id!)" class="button" mat-fab
+                title="حذف سوال"><mat-icon>delete</mat-icon></button>
+            <button routerLink="/edit-question" (click)="getQuestionId(question.id!)" class="button" mat-fab
+                title="ویرایش سوال"><mat-icon>edit</mat-icon></button>
+            <button routerLink="/add-question" class="button" mat-fab
+                title=" افزودن سوال جدید"><mat-icon>add</mat-icon></button>
+        </div>
+        <hr>
+    </ul>
+    <button id="gotop" (click)="goTop()" class="top"></button>
+</div>

@@ -1,0 +1,52 @@
+<div *ngIf="userRes">
+    <form [formGroup]="userFg">
+        <h2>فرم ویرایش اطلاعات</h2>
+        <mat-hint *ngIf="userFg.invalid">وارد کردن موارد ستاره دار(*)الزامی می باشد</mat-hint>
+        <mat-form-field appearance="outline">
+            <mat-label>نام:</mat-label>
+            <input type="text" formControlName="nameCtrl" matInput>
+            <mat-error>نام حداقل باید شامل 2 کاراکتر باشد</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>نام خانوادگی:</mat-label>
+            <input type="text" formControlName="familyCtrl" matInput>
+            <mat-error>نام خانوادگی حداقل باید شامل 2 کاراکتر باشد</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>ایمیل:</mat-label>
+            <input type="email" formControlName="emailCtrl" matInput readonly="true">
+            <mat-hint>ایمیل قابل ویرایش نیست</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>رمز عبور:</mat-label>
+            <input type="text" formControlName="passwordCtrl" matInput>
+            <mat-error>حداقل 8 کاراکتر</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>تکرار رمزعبور:</mat-label>
+            <input type="text" formControlName="confirmPasswordCtrl" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>سن:</mat-label>
+            <input type="number" formControlName="ageCtrl" matInput>
+            <mat-error>گروه سنی 9 تا 99 سال قابل قبول می باشد</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>تحصیلات:</mat-label>
+            <select matNativeControl formControlName="educationCtrl">
+                <option value="دانش آموز">دانش آموز</option>
+                <option value="دیپلم">دیپلم</option>
+                <option value="فوق دیپلم">فوق دیپلم</option>
+                <option value="لیسانس">لیسانس</option>
+                <option value="فوق لیسانس">فوق لیسانس</option>
+                <option value="دکترا">دکترا</option>
+                <option value="PH.D">PH.D</option>
+            </select>
+        </mat-form-field>
+        <div class="div-button">
+            <button (click)="editUser()" [disabled]="userFg.invalid" mat-raised-button color="primary">ثبت
+                تغییرات</button>
+            <button routerLink="/user-profile" mat-raised-button color="primary">بازگشت به پروفایل</button>
+        </div>
+    </form>
+</div>

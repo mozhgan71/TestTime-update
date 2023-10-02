@@ -1,0 +1,21 @@
+div {
+    min-height: calc(100vh - (18.6rem));
+
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    background-color: black;
+}
+
+@media only screen and (min-width:30rem) {
+    div {
+        min-height: calc(100vh - (15.6rem));
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}

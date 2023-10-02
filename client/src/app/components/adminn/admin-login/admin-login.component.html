@@ -1,0 +1,17 @@
+<div>
+    <form [formGroup]="adminFg">
+        <h2>ورود مدیر</h2>
+        <mat-form-field appearance="outline">
+            <mat-label>ایمیل</mat-label>
+            <input type="text" formControlName="emailCtrl" matInput>
+            <mat-error *ngIf="adminFg.dirty">لطفا یک ایمیل صحیح وارد کنید</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>رمزعبور</mat-label>
+            <input type="text" formControlName="passwordCtrl" matInput>
+            <mat-error *ngIf="adminFg.dirty">حداقل 8 کاراکتر</mat-error>
+        </mat-form-field>
+        <button mat-raised-button (click)="logIn()" [disabled]="adminFg.invalid" color="warn">ورود</button>
+        <h3>{{showError}}</h3>
+    </form>
+</div>

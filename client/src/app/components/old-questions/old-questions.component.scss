@@ -1,0 +1,19 @@
+div {
+    min-height: calc(100vh - (18.6rem));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: plum;
+    color: purple;
+}
+
+@media only screen and (min-width:30rem) {
+    div {
+        min-height: calc(100vh - (15.6rem));
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}

@@ -1,0 +1,13 @@
+<div>
+    <ul *ngFor="let question of userquestions">
+        <li>FieldName: {{question.feildName}}</li>
+        <li>DescriptionQuestion: {{question.descriptionQuestion}}</li>
+        <li>Option1: {{question.option1}}</li>
+        <li>Option2: {{question.option2}}</li>
+        <li>Option3: {{question.option3}}</li>
+        <li>Option4: {{question.option4}}</li>
+        <li>CorrectAnswer: {{question.correctAnswer}}</li>
+        <hr>
+    </ul>
+    <button id="gotop" (click)="goTop()" class="top"></button>
+</div>

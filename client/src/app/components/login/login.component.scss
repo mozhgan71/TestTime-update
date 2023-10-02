@@ -1,0 +1,66 @@
+div {
+    min-height: calc(100vh - (18.6rem));
+
+    form {
+        min-height: calc(100vh - (18.6rem));
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        color: purple;
+
+        .div-button {
+            display: flex;
+            color: purple;
+            gap: 1rem;
+            min-height: 3rem;
+            direction: rtl;
+        }
+
+        h2 {
+            color: black;
+            padding: 0.5rem;
+            border: solid 0.2rem purple;
+            border-radius: 0.2rem;
+        }
+
+        mat-form-field {
+            height: 3rem;
+        }
+
+        mat-error {
+            color: red;
+        }
+
+        input {
+            height: 2.5rem;
+            color: purple;
+            font-size: larger;
+
+        }
+
+        mat-label {
+            font-weight: bold;
+        }
+
+        .login {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
+
+@media only screen and (min-width:30rem) {
+    div {
+        // min-height: calc(100vh - (14rem));
+        min-height: calc(100vh - (16.6rem));
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}
