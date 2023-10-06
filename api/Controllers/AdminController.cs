@@ -9,47 +9,45 @@ namespace api.Controllers;
 [Route("api/[controller]")]
 public class AdminController : ControllerBase
 {
-    private readonly IMongoCollection<Admin> _collection;
-
+    private readonly IAdminRepository _adminRepository;
     // Dependency Injection
-    public AdminController(IMongoClient client, IMongoDbSettings dbSettings)
+    public AdminController(IAdminRepository adminRepository)
     {
-        var dbName = client.GetDatabase(dbSettings.DatabaseName);
-        _collection = dbName.GetCollection<Admin>("admins");
-    }
+        _adminRepository = adminRepository;
+    }    
 
+    /// <summary>
+    /// Create accounts
+    /// Concurrency => async is used
+    /// </summary>
+    /// <param name="userInput"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>AdminResponseDto</returns>
     [HttpPost("register")]
-    public ActionResult<Admin> Create(Admin adminInput)
+    public async Task<ActionResult<AdminResponseDto>> Create(RegisterAdminDto userInput, CancellationToken cancellationToken)
     {
-        bool hasDocs = _collection.AsQueryable().Where<Admin>(user => user.Email == adminInput.Email.ToLower().Trim()).Any();
+        if (userInput.Password != userInput.ConfirmPassword) 
+            return BadRequest("Passwords don't match!"); 
 
-        if (hasDocs)
-            return BadRequest($" ایمیل {adminInput.Email} تکراری است.");
-        {
-            Admin admin = new Admin(
-              Id: null,
-              Email: adminInput.Email.ToLower().Trim(),
-              Password: adminInput.Password,
-              ConfirmPassword: adminInput.ConfirmPassword
-            );
+        AdminResponseDto? adminDto = await _adminRepository.Create(userInput, cancellationToken);
 
-            _collection.InsertOne(admin);
+        if (adminDto is null)
+            return BadRequest("Email/Username is taken.");
 
-            return admin;
-        }
+        return adminDto;
     }
 
-    [HttpPost("login")]
-    public ActionResult<Admin> Login(Admin adminInput)
-    {
-        Admin admin = _collection.Find<Admin>(admin =>
-                admin.Email == adminInput.Email
-                && admin.Password == adminInput.Password
-            ).FirstOrDefault();
+    // [HttpPost("login")]
+    // public ActionResult<Admin> Login(Admin adminInput)
+    // {
+    //     Admin admin = _collection.Find<Admin>(admin =>
+    //             admin.Email == adminInput.Email
+    //             && admin.Password == adminInput.Password
+    //         ).FirstOrDefault();
 
-        if (admin is null)
-            return Unauthorized(".نام کاربری یا رمز عبور اشتباه است");
+    //     if (admin is null)
+    //         return Unauthorized(".نام کاربری یا رمز عبور اشتباه است");
 
-        return admin;
-    }
+    //     return admin;
+    // }
 }
