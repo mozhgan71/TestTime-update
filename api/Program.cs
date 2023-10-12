@@ -1,8 +1,3 @@
-using api.Repositoreis;
-using api.Settings;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-
 var builder = WebApplication.CreateBuilder(args);
 
 #region MongoDbSettings
@@ -32,7 +27,7 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 builder.Services.AddCors(options =>
     {
         options.AddDefaultPolicy(policy =>
-            policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+            policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
     });
 #endregion Cors
 

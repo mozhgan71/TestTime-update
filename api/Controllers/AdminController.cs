@@ -14,7 +14,7 @@ public class AdminController : ControllerBase
     public AdminController(IAdminRepository adminRepository)
     {
         _adminRepository = adminRepository;
-    }    
+    }
 
     /// <summary>
     /// Create accounts
@@ -26,8 +26,8 @@ public class AdminController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult<AdminResponseDto>> Create(RegisterAdminDto userInput, CancellationToken cancellationToken)
     {
-        if (userInput.Password != userInput.ConfirmPassword) 
-            return BadRequest("Passwords don't match!"); 
+        if (userInput.Password != userInput.ConfirmPassword)
+            return BadRequest("Passwords don't match!");
 
         AdminResponseDto? adminDto = await _adminRepository.Create(userInput, cancellationToken);
 
@@ -35,6 +35,29 @@ public class AdminController : ControllerBase
             return BadRequest("Email/Username is taken.");
 
         return adminDto;
+    }
+
+    [HttpGet("getall")]
+    public async Task<IEnumerable<Admin>?> GetAll(CancellationToken cancellationToken)
+    {
+        IEnumerable<Admin>? admins = await _adminRepository.GetAll(cancellationToken);
+
+        if (admins is null)
+            return null;
+
+        return admins;
+    }
+
+    [HttpPut("update/{userId}")]
+    public async Task<ActionResult<UpdateResult?>> Update(string userId, RegisterAdminDto userInput, CancellationToken cancellationToken)
+    {
+        return await _adminRepository.UpdateById(userId, userInput, cancellationToken);
+    }
+
+    [HttpDelete("delete/{userId}")]
+    public async Task<ActionResult<DeleteResult?>> Delete(string userId, CancellationToken cancellationToken)
+    {
+        return await _adminRepository.Delete(userId, cancellationToken);
     }
 
     // [HttpPost("login")]
