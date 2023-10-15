@@ -1,8 +1,6 @@
 namespace api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class AdminController : ControllerBase
+public class AdminController : BaseApiController
 {
     private readonly IAdminRepository _adminRepository;
     // Dependency Injection
@@ -24,7 +22,7 @@ public class AdminController : ControllerBase
         if (userInput.Password != userInput.ConfirmPassword)
             return BadRequest("Passwords don't match!");
 
-        AdminResponseDto? adminDto = await _adminRepository.Create(userInput, cancellationToken);
+        AdminResponseDto? adminDto = await _adminRepository.CreateAsync(userInput, cancellationToken);
 
         if (adminDto is null)
             return BadRequest("Email/Username is taken.");
@@ -33,12 +31,12 @@ public class AdminController : ControllerBase
     }
 
     [HttpGet("getall")]
-    public async Task<IEnumerable<Admin>?> GetAll(CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<Admin>>> GetAll(CancellationToken cancellationToken)
     {
-        IEnumerable<Admin>? admins = await _adminRepository.GetAll(cancellationToken);
+        List<Admin>? admins = await _adminRepository.GetAllAsync(cancellationToken);
 
         if (admins is null)
-            return null;
+            return NoContent();
 
         return admins;
     }
@@ -46,13 +44,13 @@ public class AdminController : ControllerBase
     [HttpPut("update/{userId}")]
     public async Task<ActionResult<UpdateResult?>> Update(string userId, RegisterAdminDto userInput, CancellationToken cancellationToken)
     {
-        return await _adminRepository.UpdateById(userId, userInput, cancellationToken);
+        return await _adminRepository.UpdateByIdAsync(userId, userInput, cancellationToken);
     }
 
     [HttpDelete("delete/{userId}")]
     public async Task<ActionResult<DeleteResult?>> Delete(string userId, CancellationToken cancellationToken)
     {
-        return await _adminRepository.Delete(userId, cancellationToken);
+        return await _adminRepository.DeleteAsync(userId, cancellationToken);
     }
 
     // [HttpPost("login")]

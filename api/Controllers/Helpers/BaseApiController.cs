@@ -1,4 +1,4 @@
-namespace api.Controllers;
+namespace api.Controllers.Helpers;
 
 [ApiController]
 [Route("api/[controller]")]

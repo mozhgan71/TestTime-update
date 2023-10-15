@@ -11,7 +11,7 @@ public class AdminRepository : IAdminRepository
         _collection = database.GetCollection<Admin>(_collectionName);
     }
 
-    public async Task<AdminResponseDto?> Create(RegisterAdminDto userInput, CancellationToken cancellationToken)
+    public async Task<AdminResponseDto?> CreateAsync(RegisterAdminDto userInput, CancellationToken cancellationToken)
     {
         //check kardane inke email vojod darad ya na
         bool doesExist = await _collection.Find<Admin>(user =>
@@ -44,7 +44,7 @@ public class AdminRepository : IAdminRepository
         return null;
     }
 
-    public async Task<IEnumerable<Admin>?> GetAll(CancellationToken cancellationToken)
+    public async Task<List<Admin>?> GetAllAsync(CancellationToken cancellationToken)
     {
         List<Admin> admins = await _collection.Find<Admin>(new BsonDocument()).ToListAsync();
 
@@ -56,7 +56,7 @@ public class AdminRepository : IAdminRepository
         return admins;
     }
 
-    public async Task<UpdateResult?> UpdateById(string userId, RegisterAdminDto userInput, CancellationToken cancellationToken)
+    public async Task<UpdateResult?> UpdateByIdAsync(string userId, RegisterAdminDto userInput, CancellationToken cancellationToken)
     {
         var updatedDoc = Builders<Admin>.Update
         .Set(doc => doc.Email, userInput.Email)
@@ -66,7 +66,7 @@ public class AdminRepository : IAdminRepository
         return await _collection.UpdateOneAsync<Admin>(doc => doc.Id == userId, updatedDoc);
     }
 
-    public async Task<DeleteResult?> Delete(string userId, CancellationToken cancellationToken)
+    public async Task<DeleteResult?> DeleteAsync(string userId, CancellationToken cancellationToken)
     {
         return await _collection.DeleteOneAsync<Admin>(doc => doc.Id == userId);
     }

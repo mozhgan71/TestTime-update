@@ -2,11 +2,11 @@ namespace api.Interfaces;
 
 public interface IAdminRepository
 {
-    public Task<AdminResponseDto?> Create(RegisterAdminDto userInput, CancellationToken cancellationToken);
+    public Task<AdminResponseDto?> CreateAsync(RegisterAdminDto userInput, CancellationToken cancellationToken);
 
-    public Task<IEnumerable<Admin>?> GetAll(CancellationToken cancellationToken);
+    public Task<List<Admin>?> GetAllAsync(CancellationToken cancellationToken);
 
-    public Task<UpdateResult?> UpdateById(string userId, RegisterAdminDto userInput, CancellationToken cancellationToken);
+    public Task<UpdateResult?> UpdateByIdAsync(string userId, RegisterAdminDto userInput, CancellationToken cancellationToken);
 
-    public Task<DeleteResult?> Delete(string userId, CancellationToken cancellationToken);
+    public Task<DeleteResult?> DeleteAsync(string userId, CancellationToken cancellationToken);
 }
