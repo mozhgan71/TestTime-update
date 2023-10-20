@@ -34,6 +34,8 @@ builder.Services.AddCors(options =>
 #region Dependency Injections
 // builder.Services.AddSingleton<IAdminRepository, AdminRepository>(); App LifeCycle
 builder.Services.AddScoped<IAdminRepository, AdminRepository>(); // Controller LifeCycle
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 #endregion Dependency Injections
 

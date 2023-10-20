@@ -22,8 +22,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { SignUpComponent } from './components/signup/signup.component';
-import { LogInComponent } from './components/login/login.component';
+import { SignUpComponent } from './components/account/signup/signup.component';
+import { LogInComponent } from './components/account/login/login.component';
 import { UserProfileComponent } from './components/user/userprofile/userprofile.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TestCategoryComponent } from './components/category/test-category/test-category.component';
@@ -77,6 +77,7 @@ import { EditQuestionComponent } from './components/adminn/edit-question/edit-qu
 import { AddQuestionComponent } from './components/adminn/add-question/add-question.component';
 import { ShowResultComponent } from './components/category/show-result/show-result.component';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { NoAccessComponent } from './components/no-access/no-access.component';
 
 
 @NgModule({
@@ -138,7 +139,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
     CompareInVuejsComponent,
     EditQuestionComponent,
     AddQuestionComponent,
-    ShowResultComponent
+    ShowResultComponent,
+    NoAccessComponent
   ],
   imports: [
     BrowserModule,

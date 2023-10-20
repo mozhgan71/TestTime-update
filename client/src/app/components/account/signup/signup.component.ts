@@ -75,7 +75,7 @@ export class SignUpComponent {
         rules: this.RulesCtrl.value,
       }
 
-      this.http.post<AppUser>('http://localhost:5000/api/user/register', user).subscribe(
+      this.http.post<AppUser>('https://localhost:5001/api/account/register', user).subscribe(
         {
           next: res => {
             this.userRes = res;

@@ -1,105 +1,99 @@
-using api.Models;
-using api.Settings;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using MongoDB.Driver;
-
 namespace api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class UserController : ControllerBase
+public class UserController : BaseApiController
 {
-    private readonly IMongoCollection<AppUser> _collection;
+    private readonly IUserRepository _userRepository;
 
-    public UserController(IMongoClient client, IMongoDbSettings dbSettings)
+    #region Db and Token Settings
+    // private readonly ITokenService _tokenService; // save user credential as a token
+
+    // constructor - dependency injection
+    public UserController(IUserRepository userRepository)
     {
-        var dbName = client.GetDatabase(dbSettings.DatabaseName);
-        _collection = dbName.GetCollection<AppUser>("users");
+        _userRepository = userRepository;
     }
-
-    [HttpPost("register")]
-    public ActionResult<AppUser> Create(AppUser userInput)
-    {
-        bool hasDocs = _collection.AsQueryable().Where<AppUser>(user => user.Email == userInput.Email.ToLower().Trim()).Any();
-
-        if (hasDocs)
-            return BadRequest($"کاربری با ایمیل {userInput.Email} قبلا ثبت نام کرده است.");
-        {
-            AppUser user = new AppUser(
-               Id: null,
-               Name: userInput.Name,
-               Family: userInput.Family,
-               Email: userInput.Email.ToLower().Trim(),
-               Password: userInput.Password,
-               ConfirmPassword: userInput.ConfirmPassword,
-               Age: userInput.Age,
-               Education: userInput.Education,
-               Rules: userInput.Rules
-            );
-
-            _collection.InsertOne(user);
-
-            return user;
-        }
-    }
-
-    [HttpGet("get-by-user-id/{userId}")]
-    public ActionResult<AppUser> Get(string userId)
-    {
-        AppUser user = _collection.Find(user => user.Id == userId).FirstOrDefault();
-
-        if (user is null)
-        {
-            return NotFound("No user with this user id was found.");
-        }
-
-        return user;
-    }
-
-    [HttpGet("get-by-email-password/{email}/{password}")]
-    public ActionResult<AppUser>? GetForLogIn(string email, string password)
-    {
-        AppUser user = _collection.Find(user => user.Email == email.ToLower().Trim() && user.Password == password.Trim()).FirstOrDefault();
-
-        if (user is null)
-        {
-            return Unauthorized("هویت شما تایید نشد لطفا ثبت نام کنید.");
-        }
-
-        return user;
-    }
+    #endregion
 
     [HttpGet]
-    public ActionResult<IEnumerable<AppUser>> GetAll()
+    public async Task<ActionResult<IEnumerable<UserDto>>> GetAll(CancellationToken cancellationToken)
     {
-        List<AppUser> users = _collection.Find<AppUser>(new BsonDocument()).ToList();
+        List<UserDto> userDtos = await _userRepository.GetAllAsync(cancellationToken);
 
-        if (!users.Any())
+        if (!userDtos.Any()) // []
+            return NoContent();
+
+        return userDtos;
+    }
+
+    [HttpGet("get-by-id/{userId}")]
+    public async Task<ActionResult<UserDto>?> GetById(string userId, CancellationToken cancellationToken)
+    {
+        UserDto? userDto = await _userRepository.GetByIdAsync(userId, cancellationToken);
+
+        if (userDto is null)
         {
-            return Ok("Your userlist is empty.");
+            return NotFound("No user was found");
         }
 
-        return users;
+        return userDto;
     }
 
     [HttpPut("update/{userId}")]
-    public ActionResult<UpdateResult> UpdateUserById(string userId, AppUser userIn)
+    public async Task<ActionResult<UpdateResult?>> Update(string userId, RegisterDto userInput, CancellationToken cancellationToken)
     {
-        var updatedDoc = Builders<AppUser>.Update
-        .Set(doc => doc.Name, userIn.Name)
-        .Set(doc => doc.Family, userIn.Family)
-        .Set(doc => doc.Password, userIn.Password)
-        .Set(doc => doc.ConfirmPassword, userIn.ConfirmPassword)
-        .Set(doc => doc.Age, userIn.Age)
-        .Set(doc => doc.Education, userIn.Education);
-
-        return _collection.UpdateOne<AppUser>(doc => doc.Id == userId, updatedDoc);
+        return await _userRepository.UpdateByIdAsync(userId, userInput, cancellationToken);
     }
 
     [HttpDelete("delete/{userId}")]
-    public ActionResult<DeleteResult> Delete(string userId)
+    public async Task<ActionResult<DeleteResult?>> Delete(string userId, CancellationToken cancellationToken)
     {
-        return _collection.DeleteOne<AppUser>(doc => doc.Id == userId);
+        return await _userRepository.DeleteAsync(userId, cancellationToken);
     }
+
+    // [HttpGet("get-by-user-id/{userId}")]
+    // public ActionResult<AppUser> Get(string userId)
+    // {
+    //     AppUser user = _collection.Find(user => user.Id == userId).FirstOrDefault();
+
+    //     if (user is null)
+    //     {
+    //         return NotFound("No user with this user id was found.");
+    //     }
+
+    //     return user;
+    // }
+
+
+    // [HttpGet]
+    // public ActionResult<IEnumerable<AppUser>> GetAll()
+    // {
+    //     List<AppUser> users = _collection.Find<AppUser>(new BsonDocument()).ToList();
+
+    //     if (!users.Any())
+    //     {
+    //         return Ok("Your userlist is empty.");
+    //     }
+
+    //     return users;
+    // }
+
+    // [HttpPut("update/{userId}")]
+    // public ActionResult<UpdateResult> UpdateUserById(string userId, AppUser userIn)
+    // {
+    //     var updatedDoc = Builders<AppUser>.Update
+    //     .Set(doc => doc.Name, userIn.Name)
+    //     .Set(doc => doc.Family, userIn.Family)
+    //     .Set(doc => doc.Password, userIn.Password)
+    //     .Set(doc => doc.ConfirmPassword, userIn.ConfirmPassword)
+    //     .Set(doc => doc.Age, userIn.Age)
+    //     .Set(doc => doc.Education, userIn.Education);
+
+    //     return _collection.UpdateOne<AppUser>(doc => doc.Id == userId, updatedDoc);
+    // }
+
+    // [HttpDelete("delete/{userId}")]
+    // public ActionResult<DeleteResult> Delete(string userId)
+    // {
+    //     return _collection.DeleteOne<AppUser>(doc => doc.Id == userId);
+    // }
 }

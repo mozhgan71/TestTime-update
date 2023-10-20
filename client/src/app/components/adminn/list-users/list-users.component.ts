@@ -17,7 +17,7 @@ export class ListUsersComponent {
   }
 
   showUsers(): void {
-    this.http.get<AppUser[]>('http://localhost:5000/api/user/').subscribe(
+    this.http.get<AppUser[]>('https://localhost:5001/api/user/').subscribe(
       {
         next: response => this.users = response
       }

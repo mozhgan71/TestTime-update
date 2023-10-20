@@ -44,16 +44,28 @@ public class AdminRepository : IAdminRepository
         return null;
     }
 
-    public async Task<List<Admin>?> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<List<AdminResponseDto>> GetAllAsync(CancellationToken cancellationToken)
     {
         List<Admin> admins = await _collection.Find<Admin>(new BsonDocument()).ToListAsync();
 
-        if (!admins.Any())
+        List<AdminResponseDto> adminResponseDtos = new List<AdminResponseDto>();
+
+        if (admins.Any())
         {
-            return null;
+            foreach (Admin admin in admins)
+            {
+                AdminResponseDto adminResponseDto = new AdminResponseDto(
+                    Id: admin.Id!,
+                    Email: admin.Email
+                );
+
+                adminResponseDtos.Add(adminResponseDto);
+            }
+
+            return adminResponseDtos;
         }
 
-        return admins;
+        return adminResponseDtos;
     }
 
     public async Task<UpdateResult?> UpdateByIdAsync(string userId, RegisterAdminDto userInput, CancellationToken cancellationToken)
@@ -67,7 +79,30 @@ public class AdminRepository : IAdminRepository
     }
 
     public async Task<DeleteResult?> DeleteAsync(string userId, CancellationToken cancellationToken)
+
     {
         return await _collection.DeleteOneAsync<Admin>(doc => doc.Id == userId);
+    }
+
+    public async Task<AdminResponseDto?> LoginAsync(AdminLoginDto userInput, CancellationToken cancellationToken)
+    {
+        Admin admin = await _collection.Find<Admin>(user =>
+            user.Email == userInput.Email.ToLower().Trim()
+            && user.Password == userInput.Password).FirstOrDefaultAsync(cancellationToken);
+
+        if (admin is null)
+            return null;
+
+        if (admin.Id is not null)
+        {
+            AdminResponseDto adminResponseDto = new AdminResponseDto(
+                Id: admin.Id,
+                Email: admin.Email
+            );
+
+            return adminResponseDto;
+        }
+
+        return null;
     }
 }

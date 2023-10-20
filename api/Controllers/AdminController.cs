@@ -31,11 +31,11 @@ public class AdminController : BaseApiController
     }
 
     [HttpGet("getall")]
-    public async Task<ActionResult<IEnumerable<Admin>>> GetAll(CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<AdminResponseDto>>> GetAll(CancellationToken cancellationToken)
     {
-        List<Admin>? admins = await _adminRepository.GetAllAsync(cancellationToken);
+        List<AdminResponseDto> admins = await _adminRepository.GetAllAsync(cancellationToken);
 
-        if (admins is null)
+        if (!admins.Any())
             return NoContent();
 
         return admins;
@@ -53,17 +53,14 @@ public class AdminController : BaseApiController
         return await _adminRepository.DeleteAsync(userId, cancellationToken);
     }
 
-    // [HttpPost("login")]
-    // public ActionResult<Admin> Login(Admin adminInput)
-    // {
-    //     Admin admin = _collection.Find<Admin>(admin =>
-    //             admin.Email == adminInput.Email
-    //             && admin.Password == adminInput.Password
-    //         ).FirstOrDefault();
+    [HttpPost("login")]
+    public async Task<ActionResult<AdminResponseDto>> Login(AdminLoginDto userInput, CancellationToken cancellationToken)
+    {
+        AdminResponseDto? adminResponseDto = await _adminRepository.LoginAsync(userInput, cancellationToken);
 
-    //     if (admin is null)
-    //         return Unauthorized(".نام کاربری یا رمز عبور اشتباه است");
+        if (adminResponseDto is null)
+            return Unauthorized("Wrong username or password");
 
-    //     return admin;
-    // }
+        return adminResponseDto; // successful login
+    }
 }

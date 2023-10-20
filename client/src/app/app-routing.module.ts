@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './components/main/main.component';
-import { SignUpComponent } from './components/signup/signup.component';
-import { LogInComponent } from './components/login/login.component';
+import { SignUpComponent } from './components/account/signup/signup.component';
+import { LogInComponent } from './components/account/login/login.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { TestCategoryComponent } from './components/category/test-category/test-category.component';

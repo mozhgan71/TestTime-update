@@ -15,7 +15,7 @@ export class UserService {
 
   logIn(userLogInEmail: string, userLogInPassword: string): Observable<AppUser | null> {
 
-    return this.http.get<AppUser>('http://localhost:5000/api/user/get-by-email-password/' + userLogInEmail + '/' + userLogInPassword)
+    return this.http.get<AppUser>('https://localhost:5001/api/account/login/' + userLogInEmail + '/' + userLogInPassword)
       .pipe(
         map(user => {
           if (user) {

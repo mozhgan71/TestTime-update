@@ -38,10 +38,11 @@ export class AdminLogInComponent {
       password: this.PasswordCtrl.value,
     }
 
-    this.http.post<Admin>('http://localhost:5000/api/admin/login', admin).subscribe(
+    this.http.post<Admin>('https://localhost:5001/api/admin/login', admin).subscribe(
       {
         next: res => {
           this.mainAdmin = res
+          console.log(res);
           if (this.mainAdmin) {
             this.router.navigateByUrl('/admin-profile');
 
