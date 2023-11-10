@@ -69,7 +69,7 @@ export class AddQuestionComponent {
       correctAnswer: this.CorrectCtrl.value
     }
 
-    this.http.post<Question>('http://localhost:5000/api/question/add-question', question).subscribe(
+    this.http.post<Question>('https://localhost:5001/api/userquestion/add-question', question).subscribe(
       {
         next: res => {
           this.questionRes = res;

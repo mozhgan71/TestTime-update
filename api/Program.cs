@@ -31,11 +31,35 @@ builder.Services.AddCors(options =>
     });
 #endregion Cors
 
+#region Authentication & Authorization
+string tokenValue = builder.Configuration["TokenKey"]!;
+
+if (!string.IsNullOrEmpty(tokenValue))
+{
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenValue)),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        });
+}
+#endregion Authentication & Authorization
+
 #region Dependency Injections
 // builder.Services.AddSingleton<IAdminRepository, AdminRepository>(); App LifeCycle
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>(); // Controller LifeCycle
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRipository>();
+builder.Services.AddScoped<IResultRepository, ResultRepository>();
+builder.Services.AddScoped<ISuggestionRepository, SuggestionRepository>();
+builder.Services.AddScoped<IUserQuestionRepository, UserQuestionRepository>();
 
 #endregion Dependency Injections
 
@@ -58,6 +82,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

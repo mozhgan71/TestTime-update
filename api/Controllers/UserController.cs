@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace api.Controllers;
 
 public class UserController : BaseApiController
 {
     private readonly IUserRepository _userRepository;
 
-    #region Db and Token Settings
-    // private readonly ITokenService _tokenService; // save user credential as a token
+    #region constructor
 
     // constructor - dependency injection
     public UserController(IUserRepository userRepository)
@@ -13,7 +14,7 @@ public class UserController : BaseApiController
         _userRepository = userRepository;
     }
     #endregion
-
+    // [Authorize]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDto>>> GetAll(CancellationToken cancellationToken)
     {

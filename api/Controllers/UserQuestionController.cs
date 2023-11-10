@@ -1,58 +1,32 @@
-using api.Models;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
-using api.Settings;
-using MongoDB.Bson;
-
 namespace api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class UserQuestionController : ControllerBase
+public class UserQuestionController : BaseApiController
 {
-    private readonly IMongoCollection<Question> _collection;
+    private readonly IUserQuestionRepository _userQuestionRepository;
 
-    public UserQuestionController(IMongoClient client, IMongoDbSettings dbSettings)
+    public UserQuestionController(IUserQuestionRepository userQuestionRepository)
     {
-        var dbName = client.GetDatabase(dbSettings.DatabaseName);
-        _collection = dbName.GetCollection<Question>("user-questions");
+        _userQuestionRepository = userQuestionRepository;
     }
 
     [HttpPost("add-question")]
-    public ActionResult<Question> Create(Question userInput)
+    public async Task<ActionResult<Question>> Create(QuestionDto userInput, CancellationToken cancellationToken)
     {
-        bool hasDocs = _collection.AsQueryable().Where<Question>(q => q.DescriptionQuestion == userInput.DescriptionQuestion.ToLower().Trim()).Any();
+        Question? question = await _userQuestionRepository.CreateAsync(userInput, cancellationToken);
 
-        if (hasDocs)
-            return BadRequest("The entered question is duplicate.");
-        {
-            Question question = new Question(
-               Id: null,
-               FeildName: userInput.FeildName.ToLower().Trim(),
-               NumberQuestion: userInput.NumberQuestion,
-               DescriptionQuestion: userInput.DescriptionQuestion,
-               Option1: userInput.Option1,
-               Option2: userInput.Option2,
-               Option3: userInput.Option3,
-               Option4: userInput.Option4,
-               CorrectAnswer: userInput.CorrectAnswer
-            );
+        if (question is null)
+            return BadRequest("question is duplicate.");
 
-            _collection.InsertOne(question);
-
-            return question;
-        }
+        return question;
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Question>> GetAll()
+    public async Task<ActionResult<IEnumerable<Question>>> GetAll(CancellationToken cancellationToken)
     {
-        List<Question> questions = _collection.Find<Question>(new BsonDocument()).ToList();
+        List<Question>? questions = await _userQuestionRepository.GetAllAsync(cancellationToken);
 
-        if (!questions.Any())
-        {
-            return Ok("Your suggestionlist is empty.");
-        }
+        if (questions is null)
+            return NoContent();
 
         return questions;
     }

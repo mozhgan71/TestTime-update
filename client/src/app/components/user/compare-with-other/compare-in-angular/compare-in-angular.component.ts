@@ -24,7 +24,7 @@ export class CompareInAngularComponent {
   showAngularResult(): void {
     var userId = sessionStorage.getItem('user-id');
 
-    this.http.get<Result[]>('http://localhost:5000/api/result/get-by-test-name/angular').subscribe(
+    this.http.get<Result[]>('https://localhost:5001/api/result/get-by-test-name/ANGULAR').subscribe(
       {
         next: response => {
           this.angularResults = response

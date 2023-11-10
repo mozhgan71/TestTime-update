@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Question } from 'src/app/models/question.model';
 import { MatRadioModule } from '@angular/material/radio';
 import { Result } from 'src/app/models/result.model';
+import { ResultInputDto } from 'src/app/models/resultInputDto.model';
 
 @Component({
   selector: 'app-angularquestions',
@@ -30,7 +31,7 @@ export class AngularQuestionsComponent {
   constructor(private http: HttpClient) { }
 
   showAngularQuestion(): void {
-    this.http.get<Question[]>('http://localhost:5000/api/question/get-by-feild-name/Angular').subscribe(
+    this.http.get<Question[]>('https://localhost:5001/api/question/get-by-feild-name/ANGULAR').subscribe(
       { next: response => this.angularQuestions = response }
     );
 
@@ -223,7 +224,7 @@ export class AngularQuestionsComponent {
   addResult(): void {
     var userId = sessionStorage.getItem('user-id');
 
-    let result: Result = {
+    let result: ResultInputDto = {
       userId: userId!,
       testName: "angular",
       myDate: new Date().toString(),
@@ -236,7 +237,7 @@ export class AngularQuestionsComponent {
       description: this.description
     }
 
-    this.http.post<Result>('http://localhost:5000/api/result/add-result', result).subscribe(
+    this.http.post<Result>('https://localhost:5001/api/result/add-result', result).subscribe(
       {
         next: res => {
           this.resultRes = res;

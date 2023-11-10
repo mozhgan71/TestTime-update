@@ -19,7 +19,7 @@ export class EditQuestionComponent {
   showQuestion(): void {
     var id = sessionStorage.getItem('id-question');
 
-    this.http.get<Question>('http://localhost:5000/api/question/get-by-id/' + id).subscribe(
+    this.http.get<Question>('https://localhost:5001/api/question/get-by-id/' + id).subscribe(
       {
         next: res => {
           this.questionRes = res;

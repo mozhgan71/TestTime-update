@@ -1,49 +1,28 @@
-using api.Models;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
-using api.Settings;
-using MongoDB.Bson;
-
 namespace api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class ResultController : ControllerBase
+public class ResultController : BaseApiController
 {
-    private readonly IMongoCollection<Result> _collection;
-
-    public ResultController(IMongoClient client, IMongoDbSettings dbSettings)
+    private readonly IResultRepository _resultRepository;
+    public ResultController(IResultRepository resultRepository)
     {
-        var dbName = client.GetDatabase(dbSettings.DatabaseName);
-        _collection = dbName.GetCollection<Result>("results");
+        _resultRepository = resultRepository;
     }
 
     [HttpPost("add-result")]
-    public ActionResult<Result> Create(Result autoInput)
+    public async Task<ActionResult<Result>> Create(ResultInputDto userInput, CancellationToken cancellationToken)
     {
-        Result result = new Result(
-           Id: null,
-           UserId: autoInput.UserId,
-           TestName: autoInput.TestName.ToUpper().Trim(),
-           MyDate: autoInput.MyDate,
-           TestHour: autoInput.TestHour,
-           TestMinute: autoInput.TestMinute,
-           TestSecond: autoInput.TestSecond,
-           NumberOfCorrect: autoInput.NumberOfCorrect,
-           NumberOfWrong: autoInput.NumberOfWrong,
-           NumberOfNoAnswer: autoInput.NumberOfNoAnswer,
-           Description: autoInput.Description
-        );
+        Result? result = await _resultRepository.CreateAsync(userInput, cancellationToken);
 
-        _collection.InsertOne(result);
+        if (result is null)
+            return BadRequest("result is duplicate.");
 
         return result;
     }
 
     [HttpGet("get-by-user-id/{userId}")]
-    public ActionResult<List<Result>> Get(string userId)
+    public async Task<ActionResult<IEnumerable<Result>>> GetByUserId(string userId, CancellationToken cancellationToken)
     {
-        List<Result> results = _collection.Find(result => result.UserId == userId).ToList();
+        List<Result>? results = await _resultRepository.GetByUserIdAsync(userId, cancellationToken);
 
         if (results is null)
         {
@@ -54,22 +33,22 @@ public class ResultController : ControllerBase
     }
 
     [HttpGet("get-by-id/{resultId}")]
-    public ActionResult<Result> GetById(string resultId)
+    public async Task<ActionResult<Result>> GetById(string resultId, CancellationToken cancellationToken)
     {
-        Result result = _collection.Find(result => result.Id == resultId).FirstOrDefault();
+        Result? result = await _resultRepository.GetByIdAsync(resultId, cancellationToken);
 
         if (result is null)
         {
-            return NotFound("No result with this id was found.");
+            return NotFound("No result with this result id was found.");
         }
 
         return result;
     }
 
     [HttpGet("get-by-test-name/{testName}")]
-    public ActionResult<List<Result>> GetByTestName(string testName)
+    public async Task<ActionResult<List<Result>>> GetByTestName(string testName, CancellationToken cancellationToken)
     {
-        List<Result> results = _collection.Find(result => result.TestName == testName.ToUpper().Trim()).ToList();
+        List<Result>? results = await _resultRepository.GetByTestNameAsync(testName, cancellationToken);
 
         if (results is null)
         {
@@ -80,21 +59,19 @@ public class ResultController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Result>> GetAll()
+    public async Task<ActionResult<IEnumerable<Result>>> GetAll(CancellationToken cancellationToken)
     {
-        List<Result> results = _collection.Find<Result>(new BsonDocument()).ToList();
+        List<Result>? results = await _resultRepository.GetAllAsync(cancellationToken);
 
-        if (!results.Any())
-        {
-            return Ok("Your resultlist is empty.");
-        }
+        if (results is null)
+            return NoContent();
 
         return results;
     }
 
     [HttpDelete("delete/{resultId}")]
-    public ActionResult<DeleteResult> Delete(string resultId)
+    public async Task<ActionResult<DeleteResult?>> Delete(string resultId, CancellationToken cancellationToken)
     {
-        return _collection.DeleteOne<Result>(doc => doc.Id == resultId);
+        return await _resultRepository.DeleteAsync(resultId, cancellationToken);
     }
 }

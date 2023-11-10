@@ -48,7 +48,7 @@ export class SuggestionComponent {
       text: this.TextCtrl.value
     }
 
-    this.http.post<Suggestion>('http://localhost:5000/api/suggestion/add-suggestion', seggestion).subscribe(
+    this.http.post<Suggestion>('https://localhost:5001/api/suggestion/add-suggestion', seggestion).subscribe(
       {
         next: res => {
           this.suggestionRes = res;

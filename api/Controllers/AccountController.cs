@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace api.Controllers;
 
 public class AccountController : BaseApiController
 {
-    #region Token Settings
+    #region Token constructor
 
     // private readonly ITokenService _tokenService; // save user credential as a token
     private readonly IAccountRepository _accountRepository;
@@ -11,8 +13,6 @@ public class AccountController : BaseApiController
     public AccountController(IAccountRepository accountRepository)
     {
         _accountRepository = accountRepository;
-
-        // _tokenService = tokenService;
     }
     #endregion
 
@@ -24,17 +24,17 @@ public class AccountController : BaseApiController
     /// <param name="cancellationToken"></param>
     /// <returns>UserDto</returns>
     [HttpPost("register")]
-    public async Task<ActionResult<UserDto>> Register(RegisterDto userInput, CancellationToken cancellationToken) // parameter
+    public async Task<ActionResult<LoggedInDto>> Register(RegisterDto userInput, CancellationToken cancellationToken) // parameter
     {
         if (userInput.Password != userInput.ConfirmPassword) // check if passwords match
             return BadRequest("Passwords don't match!"); // is it correct? What does it do?
 
-        UserDto? userDto = await _accountRepository.CreateAsync(userInput, cancellationToken); // argument
+        LoggedInDto? loggedInDto = await _accountRepository.CreateAsync(userInput, cancellationToken); // argument
 
-        if (userDto is null)
+        if (loggedInDto is null)
             return BadRequest("Email/Username is taken.");
 
-        return userDto;
+        return loggedInDto;
     }
 
     /// <summary>
@@ -43,15 +43,17 @@ public class AccountController : BaseApiController
     /// <param name="userLogInEmail" name="userLogInPassword"></param>
     /// <param name="cancellationToken"></param>
     /// <returns>UserDto</returns>
-    [HttpGet("login/{userLogInEmail}/{userLogInPassword}")]
-    public async Task<ActionResult<UserDto>> Login(string userLogInEmail, string userLogInPassword, CancellationToken cancellationToken)
-    {
-        UserDto? userDto = await _accountRepository.LoginAsync(userLogInEmail, userLogInPassword, cancellationToken);
 
-        if (userDto is null)
+    [AllowAnonymous]
+    [HttpGet("login/{userLogInEmail}/{userLogInPassword}")]
+    public async Task<ActionResult<LoggedInDto>> Login(string userLogInEmail, string userLogInPassword, CancellationToken cancellationToken)
+    {
+        LoggedInDto? loggedInDto = await _accountRepository.LoginAsync(userLogInEmail, userLogInPassword, cancellationToken);
+
+        if (loggedInDto is null)
             return Unauthorized("Wrong username or password");
 
-        return userDto;
+        return loggedInDto;
     }
 
     // [HttpGet("get-by-email-password/{email}/{password}")]

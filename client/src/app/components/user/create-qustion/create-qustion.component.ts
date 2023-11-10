@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Question } from 'src/app/models/question.model';
+import { QuestionDto } from 'src/app/models/questionDto.model';
 
 @Component({
   selector: 'app-create-qustion',
@@ -54,7 +55,7 @@ export class CreateQustionComponent {
   addQuestion(): void {
     console.log(this.questionFg.value);
 
-    let question: Question = {
+    let question: QuestionDto = {
       feildName: this.FeildNameCtrl.value,
       descriptionQuestion: this.DscriptionCtrl.value,
       option1: this.Option1Ctrl.value,
@@ -64,7 +65,7 @@ export class CreateQustionComponent {
       correctAnswer: this.CorrectCtrl.value
     }
 
-    this.http.post<Question>('http://localhost:5000/api/userquestion/add-question', question).subscribe(
+    this.http.post<Question>('https://localhost:5001/api/userquestion/add-question', question).subscribe(
       {
         next: res => {
           this.questionRes = res;

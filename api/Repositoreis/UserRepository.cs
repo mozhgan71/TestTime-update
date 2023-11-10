@@ -69,8 +69,8 @@ public class UserRepository : IUserRepository
         .Set(doc => doc.Name, userInput.Name)
         .Set(doc => doc.Family, userInput.Family)
         .Set(doc => doc.Email, userInput.Email)
-        .Set(doc => doc.Password, userInput.Password)
-        .Set(doc => doc.ConfirmPassword, userInput.ConfirmPassword)
+        //.Set(doc => doc.Password, userInput.Password)
+        //.Set(doc => doc.ConfirmPassword, userInput.ConfirmPassword)
         .Set(doc => doc.Age, userInput.Age)
         .Set(doc => doc.Education, userInput.Education);
 

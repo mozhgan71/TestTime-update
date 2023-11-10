@@ -20,7 +20,7 @@ export class EditComponent {
   showInfo(): void {
     var userId = sessionStorage.getItem('user-id');
 
-    this.http.get<AppUser>('http://localhost:5000/api/user/get-by-user-id/' + userId).subscribe(
+    this.http.get<AppUser>('https://localhost:5001/api/user/get-by-id/' + userId).subscribe(
       {
         next: res => {
           this.userRes = res;
@@ -28,8 +28,8 @@ export class EditComponent {
           this.NameCtrl.setValue(this.userRes.name);
           this.FamilyCtrl.setValue(this.userRes.family);
           this.EmailCtrl.setValue(this.userRes.email);
-          this.PasswordCtrl.setValue(this.userRes.password);
-          this.ConfirmPasswordCtrl.setValue(this.userRes.confirmPassword);
+          // this.PasswordCtrl.setValue(this.userRes.password);
+          // this.ConfirmPasswordCtrl.setValue(this.userRes.confirmPassword);
           this.AgeCtrl.setValue(this.userRes.age);
           this.EducationCtrl.setValue(this.userRes.education);
         },
@@ -42,8 +42,8 @@ export class EditComponent {
     nameCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
     familyCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
     emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
-    passwordCtrl: ['', [Validators.required, Validators.minLength(8)]],
-    confirmPasswordCtrl: ['', [Validators.required, Validators.minLength(8)]],
+    // passwordCtrl: ['', [Validators.required, Validators.minLength(8)]],
+    // confirmPasswordCtrl: ['', [Validators.required, Validators.minLength(8)]],
     ageCtrl: ['', [Validators.required, Validators.min(9), Validators.max(99)]],
     educationCtrl: [''],
   });
@@ -59,12 +59,12 @@ export class EditComponent {
   get EmailCtrl(): FormControl {
     return this.userFg.get('emailCtrl') as FormControl;
   }
-  get PasswordCtrl(): FormControl {
-    return this.userFg.get('passwordCtrl') as FormControl;
-  }
-  get ConfirmPasswordCtrl(): FormControl {
-    return this.userFg.get('confirmPasswordCtrl') as FormControl;
-  }
+  // get PasswordCtrl(): FormControl {
+  //   return this.userFg.get('passwordCtrl') as FormControl;
+  // }
+  // get ConfirmPasswordCtrl(): FormControl {
+  //   return this.userFg.get('confirmPasswordCtrl') as FormControl;
+  // }
   get AgeCtrl(): FormControl {
     return this.userFg.get('ageCtrl') as FormControl;
   }
@@ -79,35 +79,35 @@ export class EditComponent {
 
     console.log(this.userFg.value);
 
-    if (this.PasswordCtrl.value == this.ConfirmPasswordCtrl.value) {
+    // if (this.PasswordCtrl.value == this.ConfirmPasswordCtrl.value) {
 
-      let user: AppUserRegister = {
-        name: this.NameCtrl.value,
-        family: this.FamilyCtrl.value,
-        email: this.EmailCtrl.value,
-        password: this.PasswordCtrl.value,
-        confirmPassword: this.ConfirmPasswordCtrl.value,
-        age: this.AgeCtrl.value,
-        education: this.EducationCtrl.value,
-      }
+    let user: AppUserRegister = {
+      name: this.NameCtrl.value,
+      family: this.FamilyCtrl.value,
+      email: this.EmailCtrl.value,
+      // password: this.PasswordCtrl.value,
+      // confirmPassword: this.ConfirmPasswordCtrl.value,
+      age: this.AgeCtrl.value,
+      education: this.EducationCtrl.value,
+    }
 
-      this.http.put<AppUser>('http://localhost:5000/api/user/update/' + userId, user).subscribe(
-        {
-          next: res => {
-            this.userRes = res;
-            alert("تغییرات با موفقیت اعمال شد.");
-          },
-          error: err => {
-            this.showError = err.error;
-            alert(this.showError);
-          }
+    this.http.put<AppUser>('https://localhost:5001/api/user/update/' + userId, user).subscribe(
+      {
+        next: res => {
+          this.userRes = res;
+          alert("تغییرات با موفقیت اعمال شد.");
+        },
+        error: err => {
+          this.showError = err.error;
+          alert(this.showError);
         }
-      );
-      this.userFg.reset();
-    }
-    else {
-      alert("تغییرات اعمال نشد؛ تکرار رمز عبور مشابه رمز عبور نمی باشد.");
-    }
+      }
+    );
+    this.userFg.reset();
   }
+  //   else {
+  //     alert("تغییرات اعمال نشد؛ تکرار رمز عبور مشابه رمز عبور نمی باشد.");
+
+  // }
   //#endregion
 }

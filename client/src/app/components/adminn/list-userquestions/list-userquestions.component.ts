@@ -15,7 +15,7 @@ export class ListUserQuestionsComponent {
   }
 
   showUserQuestion(): void {
-    this.http.get<Question[]>('http://localhost:5000/api/userquestion/').subscribe(
+    this.http.get<Question[]>('https://localhost:5001/api/userquestion/').subscribe(
       { next: response => this.userquestions = response }
     );
   }

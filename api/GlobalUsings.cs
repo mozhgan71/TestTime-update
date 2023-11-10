@@ -9,10 +9,12 @@ global using MongoDB.Driver.Linq; // needed for AnyAsync()
 global using System.ComponentModel.DataAnnotations;
 global using MongoDB.Bson.Serialization.Attributes;
 global using api.Interfaces;
+global using api.Services;
 
 global using System.Text;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.IdentityModel.Tokens;
+global using Microsoft.AspNetCore.Authorization;
 
 global using api.Repositoreis;
 //global using Microsoft.Extensions.Options;

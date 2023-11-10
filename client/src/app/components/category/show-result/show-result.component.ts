@@ -17,7 +17,7 @@ export class ShowResultComponent {
   showResult(): void {
     var resultId = sessionStorage.getItem('result-id');
 
-    this.http.get<Result>('http://localhost:5000/api/result/get-by-id/' + resultId).subscribe(
+    this.http.get<Result>('https://localhost:5001/api/result/get-by-id/' + resultId).subscribe(
       {
         next: response => {
           this.resultRes = response

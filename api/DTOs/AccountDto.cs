@@ -12,6 +12,16 @@ public record RegisterDto(
 );
 
 public record LoginDto(
-     string Email,
-     string Password
+    [MaxLength(50), RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$", ErrorMessage = "Bad Email Format.")] string Email,
+    [DataType(DataType.Password), MinLength(7), MaxLength(20)] string Password
+);
+
+public record LoggedInDto(
+    string Id,
+    string Name,
+    string Family,
+    string Email,
+    int Age,
+    string Education,
+    string Token
 );
