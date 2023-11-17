@@ -10,6 +10,7 @@ global using System.ComponentModel.DataAnnotations;
 global using MongoDB.Bson.Serialization.Attributes;
 global using api.Interfaces;
 global using api.Services;
+global using api.Extensions;
 
 global using System.Text;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;

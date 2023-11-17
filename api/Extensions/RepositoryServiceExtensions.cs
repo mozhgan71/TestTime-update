@@ -2,10 +2,21 @@ namespace api.Extensions;
 
 public static class RepositoryServiceExtensions
 {
-    //  public static IServiceCollection AddRepositoryServices(this IServiceCollection services, IConfiguration config) {
-    //     services.AddScoped<ILabsRepository, LabsRepository>();
-    //     services.AddScoped<ITokenService, TokenService>();
+    public static IServiceCollection AddRepositoryServices(this IServiceCollection services)
+    {
+        #region Dependency Injections
+        // builder.Services.AddSingleton<IAdminRepository, AdminRepository>(); App LifeCycle
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IAdminRepository, AdminRepository>(); // Controller LifeCycle
+        services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IQuestionRepository, QuestionRipository>();
+        services.AddScoped<IResultRepository, ResultRepository>();
+        services.AddScoped<ISuggestionRepository, SuggestionRepository>();
+        services.AddScoped<IUserQuestionRepository, UserQuestionRepository>();
 
-    //     return services;
-    // }
+        #endregion Dependency Injections
+
+        return services;
+    }
 }
