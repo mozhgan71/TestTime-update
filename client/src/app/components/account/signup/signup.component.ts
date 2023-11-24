@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AppUser } from 'src/app/models/app-user.model'
 import { AppUserRegister } from 'src/app/models/app-user-register.model';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-signup',
@@ -10,12 +11,12 @@ import { AppUserRegister } from 'src/app/models/app-user-register.model';
   styleUrls: ['./signup.component.scss']
 })
 export class SignUpComponent {
-  userRes: AppUser | undefined;
+  userRes: AppUser | null | undefined;
   showError: AppUser | undefined;
 
   myText: string | null | undefined;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private accountService: AccountService) {
   }
 
   //#region Create Form Group/controler (AbstractControl)
@@ -75,12 +76,11 @@ export class SignUpComponent {
         rules: this.RulesCtrl.value,
       }
 
-      this.http.post<AppUser>('https://localhost:5001/api/account/register', user).subscribe(
+      this.accountService.registerUser(user).subscribe(
         {
           next: res => {
             this.userRes = res;
-            console.log(res);
-            this.myText = " .عزیز به گروه کاربران ما خوش آمدید" + this.userRes.name;
+            this.myText = " .عزیز به گروه کاربران ما خوش آمدید" + this.userRes!.name;
           },
           error: err => {
             this.showError = err.error;

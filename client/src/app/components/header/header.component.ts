@@ -3,6 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AppUser } from 'src/app/models/app-user.model';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  user: AppUser | null | undefined;
+  user$: Observable<AppUser | null> | undefined;
 
   isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -17,7 +21,25 @@ export class HeaderComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router) { }
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private accountService: AccountService) { }
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+
+    // this.accountService.currentUser$.subscribe({
+    //   next: (response) => this.user = response
+
+      this.user$ = this.accountService.currentUser$;
+  }
+
+  logOut(): void {       //with service
+    this.accountService.logOut();
+
+    this.user = null;
+
+    this.router.navigateByUrl('home');
+  }
 
   checkUserLogIn(): void {     //for user profile with service
     const logedIn = localStorage.getItem('user');

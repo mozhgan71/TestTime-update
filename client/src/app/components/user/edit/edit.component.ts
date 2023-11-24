@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { AppUserRegister } from 'src/app/models/app-user-register.model';
+import { AppUserRegister, AppUserUpdate } from 'src/app/models/app-user-register.model';
 import { AppUser } from 'src/app/models/app-user.model';
 
 @Component({
@@ -81,7 +81,7 @@ export class EditComponent {
 
     // if (this.PasswordCtrl.value == this.ConfirmPasswordCtrl.value) {
 
-    let user: AppUserRegister = {
+    let user: AppUserUpdate = {
       name: this.NameCtrl.value,
       family: this.FamilyCtrl.value,
       email: this.EmailCtrl.value,

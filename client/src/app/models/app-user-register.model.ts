@@ -8,3 +8,12 @@ export interface AppUserRegister {
     education?: string,
     rules?: boolean,
 }
+
+export interface AppUserUpdate {
+    name: string,
+    family: string,
+    email: string,
+    age: number,
+    education?: string,
+    rules?: boolean,
+}

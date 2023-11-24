@@ -3,9 +3,7 @@ export interface AppUser {
     name: string,
     family: string,
     email: string,
-    password: string,
-    confirmPassword: string,
     age: number,
-    education?: string,
-    rules: boolean,
+    education: string,
+    token: string
 }

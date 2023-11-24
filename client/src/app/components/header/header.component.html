@@ -10,7 +10,7 @@
                 <li><a routerLink="about-us" mat-list-item href="#">درباره ما</a></li>
                 <li><a (click)="checkLogIn()" mat-list-item href="#">دسته بندی آزمون ها</a></li>
                 <li><a (click)="checkUserLogIn()" mat-list-item href="#">پروفایل من</a></li>
-                <li><a routerLink="sign-up" mat-list-item href="#">ثبت نام</a></li>
+                <li><a *ngIf="!user" routerLink="sign-up" mat-list-item href="#">ثبت نام</a></li>
             </ul>
         </mat-nav-list>
     </mat-sidenav>
@@ -26,11 +26,18 @@
                 <a routerLink="about-us">درباره ما</a>
                 <a (click)="checkLogIn()">دسته بندی آزمون ها</a>
                 <a (click)="checkUserLogIn()">پروفایل من</a>
-                <a routerLink="sign-up">ثبت نام</a>
+                <a *ngIf="!user" routerLink="sign-up">ثبت نام</a>
             </div>
-            <div>
-                <button routerLink="login" title="User-LogIn"
-                    mat-icon-button><mat-icon>account_circle</mat-icon></button>
+            <div class="left">
+                <span *ngIf="user$ | async as user; else showLogin" class="email">Your Email:{{user.email |
+                    titlecase}}</span>
+                <button *ngIf="user$ | async" (click)="logOut()" title="User-LogOut"
+                    mat-icon-button><mat-icon>exit_to_app</mat-icon>
+                </button>
+                <ng-template #showLogin>
+                    <button routerLink="login" title="User-LogIn"
+                        mat-icon-button><mat-icon>account_circle</mat-icon></button>
+                </ng-template>
                 <button (click)="checkAdminLogIn()" title="Admin-LogIn"
                     mat-icon-button><mat-icon>brightness_auto</mat-icon></button>
             </div>

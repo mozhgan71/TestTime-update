@@ -25,7 +25,7 @@ public class UserController : BaseApiController
 
         return userDtos;
     }
-
+    [Authorize]
     [HttpGet("get-by-id/{userId}")]
     public async Task<ActionResult<UserDto>?> GetById(string userId, CancellationToken cancellationToken)
     {
@@ -38,9 +38,9 @@ public class UserController : BaseApiController
 
         return userDto;
     }
-
+      
     [HttpPut("update/{userId}")]
-    public async Task<ActionResult<UpdateResult?>> Update(string userId, RegisterDto userInput, CancellationToken cancellationToken)
+    public async Task<ActionResult<UpdateResult?>> Update(string userId, UpdateDto userInput, CancellationToken cancellationToken)
     {
         return await _userRepository.UpdateByIdAsync(userId, userInput, cancellationToken);
     }

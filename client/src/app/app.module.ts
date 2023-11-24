@@ -8,8 +8,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { AppComponent } from './app.component';
 import { ErrorStateMatcher } from '@angular/material/core';
 
-import { MaterialModule } from './modules/material.module';
+// import { MaterialModule } from './modules/material.module';
 import { ComponentModule } from './modules/component.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,10 +23,11 @@ import { ComponentModule } from './modules/component.module';
     BrowserAnimationsModule,
     LayoutModule,
 
-    MaterialModule,
+    // MaterialModule,
     ComponentModule
   ],
-  providers: [{ provide: ErrorStateMatcher, useClass: DefaultErrorStateMatcher }],
+  providers: [{ provide: ErrorStateMatcher, useClass: DefaultErrorStateMatcher },
+  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

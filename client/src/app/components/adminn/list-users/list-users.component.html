@@ -1,12 +1,13 @@
 <div *ngIf="users">
-    <ul *ngFor="let user of users">
+    <ul *ngFor="let user of allUsers$ | async">
         <hr>
         <li>Name: {{user.name}}</li>
         <li>Family: {{user.family}}</li>
         <li>Email: {{user.email}}</li>
         <li>Age: {{user.age}}</li>
         <li *ngIf="user.education">Education: {{user.education}}</li>
-        <button (click)="deleteUser(user.id!)" class="button" mat-fab title="حذف کاربر"><mat-icon>delete</mat-icon></button>
+        <button (click)="deleteUser(user.id!)" class="button" mat-fab
+            title="حذف کاربر"><mat-icon>delete</mat-icon></button>
         <!-- <hr> -->
     </ul>
     <button id="gotop" (click)="goTop()" class="top"></button>

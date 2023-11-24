@@ -62,6 +62,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
 
 const components = [ // vari-able
   HeaderComponent,
@@ -136,6 +137,7 @@ const components = [ // vari-able
     //Form
     FormsModule,
     ReactiveFormsModule,
+    MaterialModule
   ],
   exports: [components]
 })

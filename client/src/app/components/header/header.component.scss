@@ -91,6 +91,22 @@ button:hover {
     width: 100%;
 }
 
+.left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    mat-icon {
+        color: purple;
+    }
+
+    .email {
+        color: purple;
+        margin: 0.5rem;
+    }
+}
+
 /*#endregionmobile*/
 
 /*#regiontablet*/

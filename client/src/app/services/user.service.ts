@@ -1,48 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
 import { AppUser } from '../models/app-user.model';
-import { Router } from '@angular/router';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private currentUserSource = new BehaviorSubject<AppUser | null>(null);
-  currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient) { }
 
-  logIn(userLogInEmail: string, userLogInPassword: string): Observable<AppUser | null> {
+  getAllUsers(): Observable<AppUser[] | null> {
+    return this.http.get<AppUser[]>('https://localhost:5001/api/user/').pipe(
+      map((users: AppUser[]) => {
+        if (users)
+          return users;
 
-    return this.http.get<AppUser>('https://localhost:5001/api/account/login/' + userLogInEmail + '/' + userLogInPassword)
-      .pipe(
-        map(user => {
-          if (user) {
-            this.currentUserSource.next(user);
-
-            this.setCurrentUser(user);
-
-            return user;
-          }
-
-          return null;
-        })
-      );
+        return null;
+      })
+    )
   }
 
-  setCurrentUser(user: AppUser): void {
-    const userString = JSON.stringify(user);
+  getUserById(id: string | null): Observable<AppUser | null> {
+    return this.http.get<AppUser>('https://localhost:5001/api/user/get-by-id/' + id).pipe(
+      map((user: AppUser | null) => {
+        if (user)
+          return user;
 
-    this.currentUserSource.next(user);
-    localStorage.setItem('user', userString)
-
-    this.currentUserSource.next(user);
-  }
-
-  logOut(): void {
-    localStorage.removeItem('user');
-    this.currentUserSource.next(null);
-    this.router.navigate([''])
+        return null;
+      })
+    )
   }
 }

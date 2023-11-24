@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppUser } from 'src/app/models/app-user.model';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-users',
@@ -9,19 +11,30 @@ import { Router } from '@angular/router';
   styleUrls: ['./list-users.component.scss']
 })
 export class ListUsersComponent {
-  users: AppUser[] | undefined;
+  users: AppUser[] | null | undefined;
   delUser: AppUser | undefined;
+  allUsers$: Observable<AppUser[] | null> | undefined;
+  // subscription: Subscription | undefined;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private userService: UserService) {
     this.showUsers();
   }
 
+  // ngOnDestroy(): void {
+  //   this.subscription?.unsubscribe();
+
+  //   console.log('Unsubscribe Done');
+  // }
+
   showUsers(): void {
-    this.http.get<AppUser[]>('https://localhost:5001/api/user').subscribe(
+    this.userService.getAllUsers().subscribe(
       {
-        next: response => this.users = response
+        next: (users: AppUser[] | null) => this.users = users,
+        error: (err: any) => console.log(err.message),
       }
     );
+
+    this.allUsers$ = this.userService.getAllUsers();
   }
 
   deleteUser(id: string): void {
