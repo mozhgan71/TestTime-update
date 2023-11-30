@@ -26,7 +26,9 @@
                 <a routerLink="about-us">درباره ما</a>
                 <a (click)="checkLogIn()">دسته بندی آزمون ها</a>
                 <a (click)="checkUserLogIn()">پروفایل من</a>
-                <a *ngIf="!user" routerLink="sign-up">ثبت نام</a>
+                <!-- <ng-container *ngIf="user$ | async"> -->
+                <a routerLink="sign-up">ثبت نام</a>
+                <!-- </ng-container> -->
             </div>
             <div class="left">
                 <span *ngIf="user$ | async as user; else showLogin" class="email">Your Email:{{user.email |

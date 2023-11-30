@@ -35,6 +35,8 @@ export class AccountService {
         map(user => {
           if (user) {
             this.currentUserSource.next(user);
+            
+            this.router.navigateByUrl('/user-profile');
 
             this.setCurrentUser(user);
 

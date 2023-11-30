@@ -14,13 +14,13 @@ export class ListUsersComponent {
   users: AppUser[] | null | undefined;
   delUser: AppUser | undefined;
   allUsers$: Observable<AppUser[] | null> | undefined;
-  // subscription: Subscription | undefined;
+  // subscription: Subscription | undefined;         //zamani ke bekhaym error haro begirim az api az in ravesh mirim
 
   constructor(private http: HttpClient, private router: Router, private userService: UserService) {
     this.showUsers();
   }
 
-  // ngOnDestroy(): void {
+  // ngOnDestroy(): void {                       //zamani ke bekhaym error haro begirim az api az in ravesh mirim
   //   this.subscription?.unsubscribe();
 
   //   console.log('Unsubscribe Done');

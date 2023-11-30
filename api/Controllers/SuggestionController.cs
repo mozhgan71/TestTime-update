@@ -1,13 +1,7 @@
 namespace api.Controllers;
 
-public class SuggestionController : BaseApiController
+public class SuggestionController(ISuggestionRepository _suggestionRepository) : BaseApiController
 {
-    private readonly ISuggestionRepository _suggestionRepository;
-    public SuggestionController(ISuggestionRepository suggestionRepository)
-    {
-        _suggestionRepository = suggestionRepository;
-    }
-
     [HttpPost("add-suggestion")]
     public async Task<ActionResult<Suggestion>> Create(SuggestionDto userInput, CancellationToken cancellationToken)
     {

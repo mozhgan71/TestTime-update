@@ -1,13 +1,7 @@
 namespace api.Controllers;
 
-public class ResultController : BaseApiController
+public class ResultController(IResultRepository _resultRepository) : BaseApiController
 {
-    private readonly IResultRepository _resultRepository;
-    public ResultController(IResultRepository resultRepository)
-    {
-        _resultRepository = resultRepository;
-    }
-
     [HttpPost("add-result")]
     public async Task<ActionResult<Result>> Create(ResultInputDto userInput, CancellationToken cancellationToken)
     {

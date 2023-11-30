@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AppUser } from 'src/app/models/app-user.model';
 import { AccountService } from 'src/app/services/account.service';
 import { UserService } from 'src/app/services/user.service';
@@ -14,6 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LogInComponent {
   userLogIn: AppUser | undefined;
   showError: AppUser | undefined;
+  subscription: Subscription | undefined;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private accountService: AccountService) {
   }
@@ -34,10 +36,15 @@ export class LogInComponent {
   }
   //#endregion
 
+   ngOnDestroy(): void {                       //zamani ke bekhaym error haro begirim az api az in ravesh mirim
+    this.subscription?.unsubscribe();
+
+    console.log('Unsubscribe Done');
+  }
+
   logInUser(): void {
     this.accountService.logIn(this.EmailCtrl.value, this.PasswordCtrl.value).subscribe({
       next: response => {
-        this.router.navigateByUrl('/user-profile');
         console.log(response);
         if (response) {
           sessionStorage.setItem('user-id', response.id!); //for edit & show results & suggestion & createquestion & compare

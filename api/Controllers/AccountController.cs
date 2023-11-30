@@ -2,20 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controllers;
 
-public class AccountController : BaseApiController
+public class AccountController(IAccountRepository _accountRepository) : BaseApiController
 {
-    #region Token constructor
-
-    // private readonly ITokenService _tokenService; // save user credential as a token
-    private readonly IAccountRepository _accountRepository;
-
-    // constructor - dependency injection
-    public AccountController(IAccountRepository accountRepository)
-    {
-        _accountRepository = accountRepository;
-    }
-    #endregion
-
     /// <summary>
     /// Create accounts
     /// Concurrency => async is used

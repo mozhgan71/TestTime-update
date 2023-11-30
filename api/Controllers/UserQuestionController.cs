@@ -1,14 +1,7 @@
 namespace api.Controllers;
 
-public class UserQuestionController : BaseApiController
+public class UserQuestionController(IUserQuestionRepository _userQuestionRepository) : BaseApiController
 {
-    private readonly IUserQuestionRepository _userQuestionRepository;
-
-    public UserQuestionController(IUserQuestionRepository userQuestionRepository)
-    {
-        _userQuestionRepository = userQuestionRepository;
-    }
-
     [HttpPost("add-question")]
     public async Task<ActionResult<Question>> Create(QuestionDto userInput, CancellationToken cancellationToken)
     {

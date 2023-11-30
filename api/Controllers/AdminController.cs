@@ -1,14 +1,7 @@
 namespace api.Controllers;
 
-public class AdminController : BaseApiController
+public class AdminController(IAdminRepository _adminRepository) : BaseApiController
 {
-    private readonly IAdminRepository _adminRepository;
-    // Dependency Injection
-    public AdminController(IAdminRepository adminRepository)
-    {
-        _adminRepository = adminRepository;
-    }
-
     /// <summary>
     /// Create accounts
     /// Concurrency => async is used

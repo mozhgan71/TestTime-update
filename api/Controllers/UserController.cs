@@ -2,18 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controllers;
 
-public class UserController : BaseApiController
+public class UserController(IUserRepository _userRepository) : BaseApiController
 {
-    private readonly IUserRepository _userRepository;
-
-    #region constructor
-
-    // constructor - dependency injection
-    public UserController(IUserRepository userRepository)
-    {
-        _userRepository = userRepository;
-    }
-    #endregion
     // [Authorize]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDto>>> GetAll(CancellationToken cancellationToken)

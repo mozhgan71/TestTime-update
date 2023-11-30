@@ -1,16 +1,7 @@
 namespace api.Controllers;
 
-public class QuestionController : BaseApiController
+public class QuestionController(IQuestionRepository _questionRepository) : BaseApiController
 {
-    // private readonly ITokenService _tokenService; // save user credential as a token
-    private readonly IQuestionRepository _questionRepository;
-
-    // constructor - dependency injection
-    public QuestionController(IQuestionRepository questionRepository)
-    {
-        _questionRepository = questionRepository;
-    }
-
     [HttpPost("add-question")]
     public async Task<ActionResult<Question>> Create(QuestionDto adminInput, CancellationToken cancellationToken)
     {

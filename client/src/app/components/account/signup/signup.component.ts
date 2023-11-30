@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AppUser } from 'src/app/models/app-user.model'
 import { AppUserRegister } from 'src/app/models/app-user-register.model';
 import { AccountService } from 'src/app/services/account.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -13,10 +14,17 @@ import { AccountService } from 'src/app/services/account.service';
 export class SignUpComponent {
   userRes: AppUser | null | undefined;
   showError: AppUser | undefined;
+  subscription: Subscription | undefined;
 
   myText: string | null | undefined;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private accountService: AccountService) {
+  }
+
+  ngOnDestroy(): void {                       //zamani ke bekhaym error haro begirim az api az in ravesh mirim
+    this.subscription?.unsubscribe();
+
+    console.log('Unsubscribe Done');
   }
 
   //#region Create Form Group/controler (AbstractControl)
