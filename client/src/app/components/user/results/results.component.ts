@@ -1,12 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Result } from 'src/app/models/result.model';
+import { Result } from '../../../models/result.model';
+import { MatIconModule } from '@angular/material/icon';
 
-@Component({
+@Component({standalone:true,
   selector: 'app-results',
   templateUrl: './results.component.html',
-  styleUrls: ['./results.component.scss']
+  styleUrls: ['./results.component.scss'],
+  imports:[CommonModule, MatIconModule]
 })
 export class ResultsComponent {
   resultRes: Result[] | undefined;

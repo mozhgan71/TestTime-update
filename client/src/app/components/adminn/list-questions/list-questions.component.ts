@@ -1,12 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { Question } from 'src/app/models/question.model';
+import { Question } from '../../../models/question.model';
 
 @Component({
+  standalone:true,
   selector: 'app-list-questions',
   templateUrl: './list-questions.component.html',
-  styleUrls: ['./list-questions.component.scss']
+  styleUrls: ['./list-questions.component.scss'],
+  imports:[CommonModule,MatIconModule]
 })
 export class ListQuestionsComponent {
   questions: Question[] | undefined;

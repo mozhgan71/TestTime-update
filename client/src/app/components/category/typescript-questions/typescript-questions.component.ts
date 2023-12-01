@@ -1,12 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Question } from 'src/app/models/question.model';
-import { Result } from 'src/app/models/result.model';
+import { MatRadioModule } from '@angular/material/radio';
+import { Question } from '../../../models/question.model';
+import { Result } from '../../../models/result.model';
 
 @Component({
+  standalone:true,
   selector: 'app-typescript-questions',
   templateUrl: './typescript-questions.component.html',
-  styleUrls: ['./typescript-questions.component.scss']
+  styleUrls: ['./typescript-questions.component.scss'],
+  imports:[CommonModule,MatRadioModule]
 })
 export class TypeScriptQuestionsComponent {
   typeScriptQuestions: Question[] | undefined;

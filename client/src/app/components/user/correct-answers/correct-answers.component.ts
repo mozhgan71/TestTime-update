@@ -1,11 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Question } from 'src/app/models/question.model';
+import { Question } from '../../../models/question.model';
 
 @Component({
+  standalone:true,
   selector: 'app-correct-answers',
   templateUrl: './correct-answers.component.html',
-  styleUrls: ['./correct-answers.component.scss']
+  styleUrls: ['./correct-answers.component.scss'],
+  imports:[CommonModule]
 })
 export class CorrectAnswersComponent {
   questions: Question[] | undefined;

@@ -1,15 +1,19 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AppUser } from 'src/app/models/app-user.model'
-import { AppUserRegister } from 'src/app/models/app-user-register.model';
-import { AccountService } from 'src/app/services/account.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { AppUserRegister } from '../../../models/app-user-register.model';
+import { AppUser } from '../../../models/app-user.model';
+import { AccountService } from '../../../services/account.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
+  standalone:true,
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
+  imports:[MatFormFieldModule, MatCheckboxModule, ReactiveFormsModule]
 })
 export class SignUpComponent {
   userRes: AppUser | null | undefined;

@@ -1,22 +1,32 @@
 import { Component, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppUser } from 'src/app/models/app-user.model';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
 import { Observable, Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { AppUser } from '../../../models/app-user.model';
+import { UserService } from '../../../services/user.service';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 @Component({
+  standalone:true,
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
-  styleUrls: ['./list-users.component.scss']
+  styleUrls: ['./list-users.component.scss'],
+  imports:[CommonModule,MatIconModule]
 })
 export class ListUsersComponent {
+  public get userService(): UserService {
+    return this._userService;
+  }
+  public set userService(value: UserService) {
+    this._userService = value;
+  }
   users: AppUser[] | null | undefined;
   delUser: AppUser | undefined;
   allUsers$: Observable<AppUser[] | null> | undefined;
   // subscription: Subscription | undefined;         //zamani ke bekhaym error haro begirim az api az in ravesh mirim
 
-  constructor(private http: HttpClient, private router: Router, private userService: UserService) {
+  constructor(private http: HttpClient, private router: Router, private _userService: UserService) {
     this.showUsers();
   }
 

@@ -2,14 +2,22 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { AppUser } from 'src/app/models/app-user.model';
-import { AccountService } from 'src/app/services/account.service';
+import { Router, RouterModule } from '@angular/router';
+import { AppUser } from '../../models/app-user.model';
+import { AccountService } from '../../services/account.service';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
+  standalone:true,
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  imports:[RouterModule,CommonModule,MatSidenavModule,
+    MatToolbarModule,MatIconModule, MatListModule]
 })
 export class HeaderComponent {
   user: AppUser | null | undefined;

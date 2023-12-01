@@ -1,13 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { AppUserRegister, AppUserUpdate } from 'src/app/models/app-user-register.model';
-import { AppUser } from 'src/app/models/app-user.model';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AppUserUpdate } from '../../../models/app-user-register.model';
+import { AppUser } from '../../../models/app-user.model';
 
 @Component({
+  standalone:true,
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  styleUrls: ['./edit.component.scss'],
+  imports:[CommonModule, MatFormFieldModule, ReactiveFormsModule]
 })
 export class EditComponent {
   userRes: AppUser | undefined;

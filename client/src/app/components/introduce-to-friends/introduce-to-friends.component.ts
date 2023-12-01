@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 // declare var require: any;
 // const crypto = require('crypto');
 @Component({
+  standalone:true,
   selector: 'app-introduce-to-friends',
   templateUrl: './introduce-to-friends.component.html',
   styleUrls: ['./introduce-to-friends.component.scss']

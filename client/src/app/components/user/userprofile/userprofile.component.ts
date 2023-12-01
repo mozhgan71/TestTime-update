@@ -1,14 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppUser } from 'src/app/models/app-user.model';
-import { AccountService } from 'src/app/services/account.service';
-import { UserService } from 'src/app/services/user.service';
+import { AppUser } from '../../../models/app-user.model';
+import { AccountService } from '../../../services/account.service';
+import { UserService } from '../../../services/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone:true,
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
-  styleUrls: ['./userprofile.component.scss']
+  styleUrls: ['./userprofile.component.scss'],
+  imports:[CommonModule]
 })
 export class UserProfileComponent {
   userRes: AppUser | null | undefined;

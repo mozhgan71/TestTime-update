@@ -1,12 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Question } from 'src/app/models/question.model';
-import { Result } from 'src/app/models/result.model';
+import { MatRadioModule } from '@angular/material/radio';
+import { Question } from '../../../models/question.model';
+import { Result } from '../../../models/result.model';
 
 @Component({
+  standalone:true,
   selector: 'app-php-questions',
   templateUrl: './php-questions.component.html',
-  styleUrls: ['./php-questions.component.scss']
+  styleUrls: ['./php-questions.component.scss'],
+  imports:[CommonModule,MatRadioModule]
 })
 export class PhpQuestionsComponent {
   phprQuestions: Question[] | undefined;

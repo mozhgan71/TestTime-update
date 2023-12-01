@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Suggestion } from 'src/app/models/suggestion.model';
+import { FormBuilder, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { Suggestion } from '../../../models/suggestion.model';
 
 @Component({
+  standalone:true,
   selector: 'app-suggestion',
   templateUrl: './suggestion.component.html',
-  styleUrls: ['./suggestion.component.scss']
+  styleUrls: ['./suggestion.component.scss'],
+  imports:[MatFormFieldModule, ReactiveFormsModule]
 })
 export class SuggestionComponent {
   suggestionRes: Suggestion | undefined;

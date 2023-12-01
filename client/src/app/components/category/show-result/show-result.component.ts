@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { Result } from 'src/app/models/result.model';
+import { Component } from '@angular/core';import { Result } from '../../../models/result.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone:true,
   selector: 'app-show-result',
   templateUrl: './show-result.component.html',
-  styleUrls: ['./show-result.component.scss']
+  styleUrls: ['./show-result.component.scss'],
+  imports:[CommonModule]
 })
 export class ShowResultComponent {
   resultRes: Result | undefined;

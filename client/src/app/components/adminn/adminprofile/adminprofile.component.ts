@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
+  standalone:true,
   selector: 'app-adminprofile',
   templateUrl: './adminprofile.component.html',
   styleUrls: ['./adminprofile.component.scss']

@@ -1,16 +1,18 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AppUser } from 'src/app/models/app-user.model';
-import { AccountService } from 'src/app/services/account.service';
-import { UserService } from 'src/app/services/user.service';
+import { AppUser } from '../../../models/app-user.model';
+import { AccountService } from '../../../services/account.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
+  standalone:true,
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  imports:[RouterModule, MatFormFieldModule,ReactiveFormsModule]
 })
 export class LogInComponent {
   userLogIn: AppUser | undefined;

@@ -1,14 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Question } from 'src/app/models/question.model';
 import { MatRadioModule } from '@angular/material/radio';
-import { Result } from 'src/app/models/result.model';
-import { ResultInputDto } from 'src/app/models/resultInputDto.model';
+import { CommonModule } from '@angular/common';
+import { Question } from '../../../models/question.model';
+import { Result } from '../../../models/result.model';
+import { ResultInputDto } from '../../../models/resultInputDto.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
+  standalone:true,
   selector: 'app-angularquestions',
   templateUrl: './angularquestions.component.html',
-  styleUrls: ['./angularquestions.component.scss']
+  styleUrls: ['./angularquestions.component.scss'],
+  imports:[RouterModule,CommonModule,MatRadioModule]
 })
 export class AngularQuestionsComponent {
   angularQuestions: Question[] | undefined;

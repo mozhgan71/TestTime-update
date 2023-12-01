@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Result } from 'src/app/models/result.model';
-import { Chart } from 'chart.js/auto';
+import { Result } from '../../../../models/result.model';
+import {Chart} from 'chart.js/auto';
 
 @Component({
+  standalone:true,
   selector: 'app-compare-in-angular',
   templateUrl: './compare-in-angular.component.html',
   styleUrls: ['./compare-in-angular.component.scss']

@@ -1,13 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Admin } from 'src/app/models/admin-login.model';
 import { Router } from '@angular/router';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { Admin } from '../../../models/admin-login.model';
 
 @Component({
+  standalone:true,
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.scss']
+  styleUrls: ['./admin-login.component.scss'],
+  imports:[MatFormFieldModule,ReactiveFormsModule]
 })
 export class AdminLogInComponent {
   mainAdmin: Admin | undefined;

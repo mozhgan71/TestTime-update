@@ -1,12 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Question } from 'src/app/models/question.model';
-import { Result } from 'src/app/models/result.model';
+import { MatRadioModule } from '@angular/material/radio';
+import { Question } from '../../../models/question.model';
+import { Result } from '../../../models/result.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
+  standalone:true,
   selector: 'app-css-questions',
   templateUrl: './css-questions.component.html',
-  styleUrls: ['./css-questions.component.scss']
+  styleUrls: ['./css-questions.component.scss'],
+  imports:[RouterModule,CommonModule,MatRadioModule]
 })
 export class CssQuestionsComponent {
   cssQuestions: Question[] | undefined;

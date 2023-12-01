@@ -1,13 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Question } from 'src/app/models/question.model';
-import { QuestionDto } from 'src/app/models/questionDto.model';
+import { FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { Question } from '../../../models/question.model';
+import { QuestionDto } from '../../../models/questionDto.model';
 
 @Component({
+  standalone:true,
   selector: 'app-create-qustion',
   templateUrl: './create-qustion.component.html',
-  styleUrls: ['./create-qustion.component.scss']
+  styleUrls: ['./create-qustion.component.scss'],
+  imports:[MatFormFieldModule, ReactiveFormsModule]
 })
 export class CreateQustionComponent {
   questionRes: Question | undefined;
