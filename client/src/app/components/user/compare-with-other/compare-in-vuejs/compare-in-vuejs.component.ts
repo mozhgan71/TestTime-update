@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Result } from '../../../../models/result.model';
 
@@ -10,6 +10,7 @@ import { Result } from '../../../../models/result.model';
   styleUrls: ['./compare-in-vuejs.component.scss']
 })
 export class CompareInVuejsComponent {
+  private http = inject(HttpClient);
   vueJsResults: Result[] = [];
 
   sum: number = 0
@@ -18,7 +19,7 @@ export class CompareInVuejsComponent {
   yourScore: number = 0;
   averageOfUsers: number = 0;
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.showVueJsResult();
   }
 

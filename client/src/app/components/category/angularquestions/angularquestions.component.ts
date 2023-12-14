@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
 import { Question } from '../../../models/question.model';
@@ -8,13 +8,15 @@ import { ResultInputDto } from '../../../models/resultInputDto.model';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-angularquestions',
   templateUrl: './angularquestions.component.html',
   styleUrls: ['./angularquestions.component.scss'],
-  imports:[RouterModule,CommonModule,MatRadioModule]
+  imports: [RouterModule, CommonModule, MatRadioModule]
 })
 export class AngularQuestionsComponent {
+  private http = inject(HttpClient);
+
   angularQuestions: Question[] | undefined;
 
   resultRes: Result | undefined;
@@ -31,8 +33,6 @@ export class AngularQuestionsComponent {
   noAnswers: number = 0;
   wrongAnswers: number = 0;
   description: string | undefined;
-
-  constructor(private http: HttpClient) { }
 
   showAngularQuestion(): void {
     this.http.get<Question[]>('https://localhost:5001/api/question/get-by-feild-name/ANGULAR').subscribe(

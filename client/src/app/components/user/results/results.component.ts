@@ -1,23 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Result } from '../../../models/result.model';
 import { MatIconModule } from '@angular/material/icon';
 
-@Component({standalone:true,
+@Component({
+  standalone: true,
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss'],
-  imports:[CommonModule, MatIconModule]
+  imports: [CommonModule, MatIconModule]
 })
 export class ResultsComponent {
+  private http = inject(HttpClient);
+  private fb = inject(FormBuilder);
+
   resultRes: Result[] | undefined;
   delResult: Result | undefined;
 
   chart2: any;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor() {
     this.showResult();
   }
 

@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-adminprofile',
   templateUrl: './adminprofile.component.html',
   styleUrls: ['./adminprofile.component.scss']
 })
 export class AdminProfileComponent {
-
-  constructor(private router: Router) { }
+  private router = inject(Router);
 
   adminLogOut(): void {
     sessionStorage.setItem('logedin', "false");

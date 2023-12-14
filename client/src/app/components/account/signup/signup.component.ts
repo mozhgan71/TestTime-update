@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -9,21 +9,22 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
-  imports:[MatFormFieldModule, MatCheckboxModule, ReactiveFormsModule]
+  imports: [MatFormFieldModule, MatCheckboxModule, ReactiveFormsModule]
 })
 export class SignUpComponent {
+  private fb = inject(FormBuilder);
+  private http = inject(HttpClient);
+  private accountService = inject(AccountService);
+
   userRes: AppUser | null | undefined;
   showError: AppUser | undefined;
   subscription: Subscription | undefined;
 
   myText: string | null | undefined;
-
-  constructor(private fb: FormBuilder, private http: HttpClient, private accountService: AccountService) {
-  }
 
   ngOnDestroy(): void {                       //zamani ke bekhaym error haro begirim az api az in ravesh mirim
     this.subscription?.unsubscribe();

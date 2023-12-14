@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';import { Result } from '../../../models/result.model';
+import { Component, inject } from '@angular/core';import { Result } from '../../../models/result.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,9 +10,11 @@ import { CommonModule } from '@angular/common';
   imports:[CommonModule]
 })
 export class ShowResultComponent {
+  private http = inject(HttpClient);
+
   resultRes: Result | undefined;
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.showResult();
   }
 

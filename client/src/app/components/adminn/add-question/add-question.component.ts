@@ -1,21 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Question } from '../../../models/question.model';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-add-question',
   templateUrl: './add-question.component.html',
   styleUrls: ['./add-question.component.scss'],
-  imports:[MatFormFieldModule,ReactiveFormsModule]
+  imports: [MatFormFieldModule, ReactiveFormsModule]
 })
 export class AddQuestionComponent {
-  questionRes: Question | undefined;
+  private fb = inject(FormBuilder);
+  private http = inject(HttpClient);
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
-  }
+  questionRes: Question | undefined;
 
   //#region Create Form Group/controler (AbstractControl)
   questionFg = this.fb.group({ // formGroup

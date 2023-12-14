@@ -1,21 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Suggestion } from '../../../models/suggestion.model';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-suggestion',
   templateUrl: './suggestion.component.html',
   styleUrls: ['./suggestion.component.scss'],
-  imports:[MatFormFieldModule, ReactiveFormsModule]
+  imports: [MatFormFieldModule, ReactiveFormsModule]
 })
 export class SuggestionComponent {
-  suggestionRes: Suggestion | undefined;
+  private http = inject(HttpClient);
+  private fb = inject(FormBuilder);
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
-  }
+  suggestionRes: Suggestion | undefined;
 
   //#region Create Form Group/controler (AbstractControl)
   suggestionFg = this.fb.group({ // formGroup

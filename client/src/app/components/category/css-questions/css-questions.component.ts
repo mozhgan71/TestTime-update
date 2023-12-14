@@ -1,19 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-css-questions',
   templateUrl: './css-questions.component.html',
   styleUrls: ['./css-questions.component.scss'],
-  imports:[RouterModule,CommonModule,MatRadioModule]
+  imports: [RouterModule, CommonModule, MatRadioModule]
 })
 export class CssQuestionsComponent {
+  private http = inject(HttpClient);
+
   cssQuestions: Question[] | undefined;
 
   resultRes: Result | undefined;
@@ -30,8 +32,6 @@ export class CssQuestionsComponent {
   noAnswers: number = 0;
   wrongAnswers: number = 0;
   description: string | undefined;
-
-  constructor(private http: HttpClient) { }
 
   showCssQuestion(): void {
     this.http.get<Question[]>('http://localhost:5000/api/question/get-by-feild-name/css').subscribe(

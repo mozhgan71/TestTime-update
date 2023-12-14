@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -12,14 +12,18 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports:[RouterModule,CommonModule,MatSidenavModule,
-    MatToolbarModule,MatIconModule, MatListModule]
+  imports: [RouterModule, CommonModule, MatSidenavModule,
+    MatToolbarModule, MatIconModule, MatListModule]
 })
 export class HeaderComponent {
+  private breakpointObserver = inject(BreakpointObserver);
+  private router = inject(Router);
+  private accountService = inject(AccountService);
+
   user: AppUser | null | undefined;
   user$: Observable<AppUser | null> | undefined;
 
@@ -29,8 +33,6 @@ export class HeaderComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private accountService: AccountService) { }
-
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
@@ -38,7 +40,7 @@ export class HeaderComponent {
     // this.accountService.currentUser$.subscribe({
     //   next: (response) => this.user = response
 
-      this.user$ = this.accountService.currentUser$;
+    this.user$ = this.accountService.currentUser$;
   }
 
   logOut(): void {       //with service

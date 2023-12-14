@@ -1,18 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-cplus-questions',
   templateUrl: './cplus-questions.component.html',
   styleUrls: ['./cplus-questions.component.scss'],
-  imports:[CommonModule,MatRadioModule,]
+  imports: [CommonModule, MatRadioModule,]
 })
 export class CplusQuestionsComponent {
+  private http = inject(HttpClient);
+
   cplusQuestions: Question[] | undefined;
 
   resultRes: Result | undefined;
@@ -29,8 +31,6 @@ export class CplusQuestionsComponent {
   noAnswers: number = 0;
   wrongAnswers: number = 0;
   description: string | undefined;
-
-  constructor(private http: HttpClient) { }
 
   showCplusQuestion(): void {
     this.http.get<Question[]>('http://localhost:5000/api/question/get-by-feild-name/c++').subscribe(

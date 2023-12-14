@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Question } from '../../../models/question.model';
 
 @Component({
@@ -11,9 +11,11 @@ import { Question } from '../../../models/question.model';
   imports:[CommonModule]
 })
 export class CorrectAnswersComponent {
+  private http = inject(HttpClient);
+  
   questions: Question[] | undefined;
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.showAnswerQuestion();
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -8,25 +8,22 @@ import { UserService } from '../../../services/user.service';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
   styleUrls: ['./list-users.component.scss'],
-  imports:[CommonModule,MatIconModule]
+  imports: [CommonModule, MatIconModule]
 })
 export class ListUsersComponent {
-  public get userService(): UserService {
-    return this._userService;
-  }
-  public set userService(value: UserService) {
-    this._userService = value;
-  }
+  private http = inject(HttpClient);
+  private _userService = inject(UserService);
+
   users: AppUser[] | null | undefined;
   delUser: AppUser | undefined;
   allUsers$: Observable<AppUser[] | null> | undefined;
   // subscription: Subscription | undefined;         //zamani ke bekhaym error haro begirim az api az in ravesh mirim
 
-  constructor(private http: HttpClient, private router: Router, private _userService: UserService) {
+  constructor() {
     this.showUsers();
   }
 
@@ -37,14 +34,14 @@ export class ListUsersComponent {
   // }
 
   showUsers(): void {
-    this.userService.getAllUsers().subscribe(
+    this._userService.getAllUsers().subscribe(
       {
         next: (users: AppUser[] | null) => this.users = users,
         error: (err: any) => console.log(err.message),
       }
     );
 
-    this.allUsers$ = this.userService.getAllUsers();
+    this.allUsers$ = this._userService.getAllUsers();
   }
 
   deleteUser(id: string): void {

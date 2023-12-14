@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';import { MatRadioModule } from '@angular/material/radio';
+import { Component, inject } from '@angular/core';import { MatRadioModule } from '@angular/material/radio';
 import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
 ;
@@ -13,6 +13,8 @@ import { Result } from '../../../models/result.model';
   imports:[CommonModule,MatRadioModule]
 })
 export class PythonQuestionsComponent {
+  private http = inject(HttpClient);
+
   pythonQuestions: Question[] | undefined;
 
   resultRes: Result | undefined;
@@ -29,8 +31,6 @@ export class PythonQuestionsComponent {
   noAnswers: number = 0;
   wrongAnswers: number = 0;
   description: string | undefined;
-
-  constructor(private http: HttpClient) { }
 
   showPythonQuestion(): void {
     this.http.get<Question[]>('http://localhost:5000/api/question/get-by-feild-name/python').subscribe(

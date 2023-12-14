@@ -1,23 +1,24 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Admin } from '../../../models/admin-login.model';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
   styleUrls: ['./admin-login.component.scss'],
-  imports:[MatFormFieldModule,ReactiveFormsModule]
+  imports: [MatFormFieldModule, ReactiveFormsModule]
 })
 export class AdminLogInComponent {
+  private fb = inject(FormBuilder);
+  private http = inject(HttpClient);
+  private router = inject(Router);
+
   mainAdmin: Admin | undefined;
   showError: Admin | undefined;
-
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
-  }
 
   //#region Create Form Group/controler (AbstractControl)
   adminFg = this.fb.group({ // formGroup

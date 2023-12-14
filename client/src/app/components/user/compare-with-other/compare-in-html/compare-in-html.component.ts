@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Result } from '../../../../models/result.model';
 
@@ -10,6 +10,8 @@ import { Result } from '../../../../models/result.model';
   styleUrls: ['./compare-in-html.component.scss']
 })
 export class CompareInHtmlComponent {
+  private http = inject(HttpClient);
+
   htmlResults: Result[] = [];
 
   sum: number = 0
@@ -18,7 +20,7 @@ export class CompareInHtmlComponent {
   yourScore: number = 0;
   averageOfUsers: number = 0;
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.showHtmlResult();
   }
 

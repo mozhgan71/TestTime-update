@@ -1,22 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { Question } from '../../../models/question.model';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-list-questions',
   templateUrl: './list-questions.component.html',
   styleUrls: ['./list-questions.component.scss'],
-  imports:[CommonModule,MatIconModule]
+  imports: [CommonModule, MatIconModule]
 })
 export class ListQuestionsComponent {
+  private http = inject(HttpClient);
+
   questions: Question[] | undefined;
   delQuestion: Question | undefined;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor() {
     this.showQuestion();
   }
 

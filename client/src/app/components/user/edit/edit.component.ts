@@ -1,23 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppUserUpdate } from '../../../models/app-user-register.model';
 import { AppUser } from '../../../models/app-user.model';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
-  imports:[CommonModule, MatFormFieldModule, ReactiveFormsModule]
+  imports: [CommonModule, MatFormFieldModule, ReactiveFormsModule]
 })
 export class EditComponent {
+  private http = inject(HttpClient);
+  private fb = inject(FormBuilder);
+
   userRes: AppUser | undefined;
   showError: AppUser | undefined;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor() {
     this.showInfo();
   }
 

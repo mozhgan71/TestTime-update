@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppUser } from '../../../models/app-user.model';
 import { AccountService } from '../../../services/account.service';
@@ -7,18 +7,22 @@ import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
   styleUrls: ['./userprofile.component.scss'],
-  imports:[CommonModule]
+  imports: [CommonModule]
 })
 export class UserProfileComponent {
+  private router = inject(Router);
+  private accountService = inject(AccountService);
+  private userService = inject(UserService);
+
   userRes: AppUser | null | undefined;
 
-  constructor(private router: Router, private accountService: AccountService, private http: HttpClient, private userService: UserService) {
-    accountService.currentUser$.subscribe(
-      response => this.userRes = response
+  constructor() {
+    this.accountService.currentUser$.subscribe(
+      (response: any) => this.userRes = response
     );
 
     this.showInfo();

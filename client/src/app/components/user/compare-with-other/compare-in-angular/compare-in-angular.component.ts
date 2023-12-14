@@ -1,15 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Result } from '../../../../models/result.model';
-import {Chart} from 'chart.js/auto';
+import { Chart } from 'chart.js/auto';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-compare-in-angular',
   templateUrl: './compare-in-angular.component.html',
   styleUrls: ['./compare-in-angular.component.scss']
 })
 export class CompareInAngularComponent {
+  private http = inject(HttpClient);
+
   angularResults: Result[] = [];
 
   sum: number = 0
@@ -18,7 +20,7 @@ export class CompareInAngularComponent {
   yourScore: number = 0;
   averageOfUsers: number = 0;
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.showAngularResult();
   }
 

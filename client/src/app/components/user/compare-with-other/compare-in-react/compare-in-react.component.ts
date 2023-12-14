@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Result } from '../../../../models/result.model';
 
@@ -10,6 +10,8 @@ import { Result } from '../../../../models/result.model';
   styleUrls: ['./compare-in-react.component.scss']
 })
 export class CompareInReactComponent {
+  private http = inject(HttpClient);
+  
   reactResults: Result[] = [];
 
   sum: number = 0
@@ -18,7 +20,7 @@ export class CompareInReactComponent {
   yourScore: number = 0;
   averageOfUsers: number = 0;
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.showReactResult();
   }
 

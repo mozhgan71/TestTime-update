@@ -1,21 +1,24 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Question } from '../../../models/question.model';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-edit-question',
   templateUrl: './edit-question.component.html',
   styleUrls: ['./edit-question.component.scss'],
-  imports:[MatFormFieldModule,ReactiveFormsModule]
+  imports: [MatFormFieldModule, ReactiveFormsModule]
 })
 export class EditQuestionComponent {
+  private fb = inject(FormBuilder);
+  private http = inject(HttpClient);
+
   questionRes: Question | undefined;
   showError: Question | undefined;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor() {
     this.showQuestion();
   }
 

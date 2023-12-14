@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -8,19 +8,20 @@ import { AccountService } from '../../../services/account.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports:[RouterModule, MatFormFieldModule,ReactiveFormsModule]
+  imports: [RouterModule, MatFormFieldModule, ReactiveFormsModule]
 })
 export class LogInComponent {
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private accountService = inject(AccountService);
+
   userLogIn: AppUser | undefined;
   showError: AppUser | undefined;
   subscription: Subscription | undefined;
-
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private accountService: AccountService) {
-  }
 
   //#region Create Form Group/controler (AbstractControl)
   userFg = this.fb.group({ // formGroup
@@ -38,7 +39,7 @@ export class LogInComponent {
   }
   //#endregion
 
-   ngOnDestroy(): void {                       //zamani ke bekhaym error haro begirim az api az in ravesh mirim
+  ngOnDestroy(): void {                       //zamani ke bekhaym error haro begirim az api az in ravesh mirim
     this.subscription?.unsubscribe();
 
     console.log('Unsubscribe Done');
