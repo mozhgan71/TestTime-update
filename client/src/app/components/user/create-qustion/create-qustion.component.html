@@ -1,7 +1,9 @@
 <div>
     <form [formGroup]="questionFg">
         <h2>فرم طراحی سوال </h2>
-        <mat-hint *ngIf="questionFg.invalid">وارد کردن همه ی موارد الزامی می باشد</mat-hint>
+        @if (questionFg.invalid) {
+        <mat-hint>وارد کردن همه ی موارد الزامی می باشد</mat-hint>
+        }
         <mat-form-field appearance="outline">
             <mat-label>نام فیلد:</mat-label>
             <select matNativeControl formControlName="feildNameCtrl">

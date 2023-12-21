@@ -1,5 +1,6 @@
 <div>
-    <ul *ngFor="let question of userquestions">
+    @for (question of userquestions; track $index) {
+    <ul>
         <li>FieldName: {{question.feildName}}</li>
         <li>DescriptionQuestion: {{question.descriptionQuestion}}</li>
         <li>Option1: {{question.option1}}</li>
@@ -9,5 +10,6 @@
         <li>CorrectAnswer: {{question.correctAnswer}}</li>
         <hr>
     </ul>
+}
     <button id="gotop" (click)="goTop()" class="top"></button>
 </div>

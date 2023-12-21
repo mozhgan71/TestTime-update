@@ -1,5 +1,6 @@
 <div>
-    <div *ngIf="userRes" class="div-info">
+    @if (userRes) {
+    <div class="div-info">
         <h4>مشخصات کاربر</h4>
         <h4>----------------------------------</h4>
         <h4>نام : {{userRes.name}}</h4>
@@ -7,10 +8,13 @@
         <h4>ایمیل : {{userRes.email}}</h4>
         <!-- <h4>رمز عبور : {{userRes.password}}</h4> -->
         <h4>سن : {{userRes.age}}</h4>
-        <h4 *ngIf="userRes.education"> تحصیلات : {{userRes.education}}</h4>
+        @if (userRes.education) {
+        <h4> تحصیلات : {{userRes.education}}</h4>
+        }
         <button routerLink="/edit" mat-raised-button color="warn">ویرایش اطلاعات</button>
         <button (click)="logOut()" mat-raised-button color="warn">خروج</button>
     </div>
+    }
     <hr>
     <button routerLink="/test-category" mat-raised-button color="warn" class="div-button">شروع</button>
     <button routerLink="/result" mat-raised-button color="warn" class="div-button">مشاهده کارنامه ها</button>

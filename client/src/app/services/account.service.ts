@@ -1,21 +1,25 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { AppUser } from '../models/app-user.model';
 import { Router } from '@angular/router';
 import { AppUserRegister } from '../models/app-user-register.model';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
+  private http = inject(HttpClient);
+  private router = inject(Router);
+
+  private readonly baseApiUrl = environment.apiUrl +'account/';
+
   private currentUserSource = new BehaviorSubject<AppUser | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
-
   registerUser(userInput: AppUserRegister): Observable<AppUser | null> {
-    return this.http.post<AppUser>('https://localhost:5001/api/account/register', userInput).pipe(
+    return this.http.post<AppUser>(this.baseApiUrl + 'register', userInput).pipe(
       map(userResponse => {
         if (userResponse) {
           this.setCurrentUser(userResponse);
@@ -30,12 +34,12 @@ export class AccountService {
 
   logIn(userLogInEmail: string, userLogInPassword: string): Observable<AppUser | null> {
 
-    return this.http.get<AppUser>('https://localhost:5001/api/account/login/' + userLogInEmail + '/' + userLogInPassword)
+    return this.http.get<AppUser>(this.baseApiUrl + 'login/' + userLogInEmail + '/' + userLogInPassword)
       .pipe(
         map(user => {
           if (user) {
             this.currentUserSource.next(user);
-            
+
             this.router.navigateByUrl('/user-profile');
 
             this.setCurrentUser(user);

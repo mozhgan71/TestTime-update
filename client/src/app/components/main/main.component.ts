@@ -12,16 +12,16 @@ export class MainComponent {
   private router = inject(Router);
   
   constructor() {
-    this.createSlider();
+    //this.createSlider();
   }
 
-  createSlider() {
-    var i = 0;
-    setInterval(function () {
-      document.getElementById('mySlide')?.setAttribute('src', 'assets/images/' + i + '.jpg');
-      i = (i + 1) % 14;
-    }, 3000);
-  }
+  // createSlider() {
+  //   var i = 0;
+  //   setInterval(function () {
+  //     document.getElementById('mySlide')?.setAttribute('src', 'assets/images/' + i + '.jpg');
+  //     i = (i + 1) % 14;
+  //   }, 3000);
+  // }
 
   checkLogIn(): void { //for test category
     const logedIn = localStorage.getItem('user');

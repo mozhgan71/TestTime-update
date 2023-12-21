@@ -6,8 +6,10 @@
             <button id="back" routerLink="/test-category" mat-raised-button> بازگشت به دسته بندی</button>
         </div>
     </ng-container>
-    <div *ngIf="cplusQuestions" class="div-question">
-        <ul *ngFor="let question of  cplusQuestions,let i=index">
+    @if (cplusQuestions) {
+    <div class="div-question">
+        @for (question of cplusQuestions; track $index) {
+        <ul *ngFor="let question of  cplusQuestions,l">
             <li>سوال:{{question.numberQuestion}}</li>
             <li>{{question.descriptionQuestion}}</li>
             <li>
@@ -19,8 +21,10 @@
                 </mat-radio-group>
             </li>
         </ul>
+    }
         <button id="gotop" (click)="goTop()" class="top"></button>
     </div>
+}
     <div class="bottom">
         <button class="button-end" id="end" mat-raised-button hidden="true"
             (click)="calcTime();calcResultCplus();addResult()">پایان

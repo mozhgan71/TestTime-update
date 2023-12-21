@@ -5,13 +5,14 @@ import { HeaderComponent } from "./components/header/header.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { RouterModule } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { MainComponent } from "./components/main/main.component";
 
 @Component({
-  standalone: true,
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  imports: [RouterModule, HeaderComponent, FooterComponent]
+    standalone: true,
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    imports: [RouterModule, HeaderComponent, FooterComponent, MainComponent]
 })
 export class AppComponent implements OnInit {
   accountService = inject(AccountService);

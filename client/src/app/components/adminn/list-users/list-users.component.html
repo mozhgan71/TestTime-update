@@ -1,5 +1,7 @@
-<div *ngIf="users">
-    <ul *ngFor="let user of allUsers$ | async">
+@if (users) {
+<div>
+    @for (user of allUsers$ | async; track $index) {
+    <ul>
         <hr>
         <li>Name: {{user.name}}</li>
         <li>Family: {{user.family}}</li>
@@ -10,5 +12,7 @@
             title="حذف کاربر"><mat-icon>delete</mat-icon></button>
         <!-- <hr> -->
     </ul>
+    }
     <button id="gotop" (click)="goTop()" class="top"></button>
 </div>
+}

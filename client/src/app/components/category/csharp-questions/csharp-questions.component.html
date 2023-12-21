@@ -6,8 +6,10 @@
             <button id="back" routerLink="/test-category" mat-raised-button> بازگشت به دسته بندی</button>
         </div>
     </ng-container>
-    <div *ngIf="cSharpQuestions " class="div-question">
-        <ul *ngFor="let question of  cSharpQuestions ,let i=index">
+    @if (cSharpQuestions) {
+    <div class="div-question">
+        @for (question of cSharpQuestions; track $index) {
+        <ul>
             <li>سوال:{{question.numberQuestion}}</li>
             <li>{{question.descriptionQuestion}}</li>
             <li>
@@ -19,8 +21,10 @@
                 </mat-radio-group>
             </li>
         </ul>
+        }
         <button id="gotop" (click)="goTop()" class="top"></button>
     </div>
+    }
     <div class="bottom">
         <button id="end" class="button-end" mat-raised-button hidden="true"
             (click)="calcTime();calcResultCsharp();addResult()">پایان

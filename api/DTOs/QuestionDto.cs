@@ -1,7 +1,7 @@
 namespace api.DTOs;
 
 public record QuestionDto(
-    [MinLength(1), MaxLength(15)] string FeildName,
+    [Length(1, 15)] string FeildName,
     [Range(1, 10)] int? NumberQuestion,
     [MinLength(10)] string DescriptionQuestion,
     string Option1,

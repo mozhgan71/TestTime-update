@@ -1,7 +1,10 @@
-<div *ngIf="userRes">
+@if (userRes) {
+<div>
     <form [formGroup]="userFg">
         <h2>فرم ویرایش اطلاعات</h2>
-        <mat-hint *ngIf="userFg.invalid">وارد کردن موارد ستاره دار(*)الزامی می باشد</mat-hint>
+        @if (userFg.invalid) {
+        <mat-hint>وارد کردن موارد ستاره دار(*)الزامی می باشد</mat-hint>
+        }
         <mat-form-field appearance="outline">
             <mat-label>نام:</mat-label>
             <input type="text" formControlName="nameCtrl" matInput>
@@ -50,3 +53,4 @@
         </div>
     </form>
 </div>
+}

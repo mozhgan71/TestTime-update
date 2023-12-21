@@ -2,8 +2,8 @@ namespace api.Models;
 
 public record Result(
 [property: BsonId, BsonRepresentation(BsonType.ObjectId)] string? Id,
-[MinLength(24), MaxLength(24)] string? UserId,
-[MinLength(1), MaxLength(15)] string TestName,
+[Length(24, 24)] string? UserId,
+[Length(1, 15)] string TestName,
 string MyDate,
 int? TestHour,
 int TestMinute,

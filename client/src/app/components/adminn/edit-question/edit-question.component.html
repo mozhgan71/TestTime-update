@@ -23,7 +23,9 @@
         <mat-form-field appearance="outline">
             <mat-label>شماره سوال:</mat-label>
             <input type="number" formControlName="numberCtrl" matInput>
-            <mat-error *ngIf="questionFg.dirty">عددی بین 1 تا 10 قابل قبول است</mat-error>
+            @if (questionFg.dirty){
+            <mat-error>عددی بین 1 تا 10 قابل قبول است</mat-error>
+            }
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>صورت سوال:</mat-label>
@@ -48,7 +50,9 @@
         <mat-form-field appearance="outline">
             <mat-label> گزینه درست:</mat-label>
             <input type="number" formControlName="correctCtrl" matInput>
-            <mat-error *ngIf="questionFg.dirty">عددی بین 1 تا 4 قابل قبول است</mat-error>
+            @if (questionFg.dirty){
+            <mat-error>عددی بین 1 تا 4 قابل قبول است</mat-error>
+            }
         </mat-form-field>
         <button routerLink="/list-questions" (click)="editQuestion()" [disabled]="questionFg.invalid" mat-raised-button
             class="button">ثبت

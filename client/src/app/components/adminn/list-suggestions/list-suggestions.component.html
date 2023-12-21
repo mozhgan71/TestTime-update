@@ -1,10 +1,12 @@
 <div>
-    <ul *ngFor="let suggestion of suggestions">
+    @for (suggestion of suggestions; track $index) {
+    <ul>
         <li>FullName: {{suggestion.fullName}}</li>
         <li>Email: {{suggestion.email}}</li>
         <li>Date: {{suggestion.date}}</li>
         <li>Text: {{suggestion.text}}</li>
         <hr>
     </ul>
+}
     <!-- <button id="gotop" (click)="goTop()" class="top"></button> -->
 </div>

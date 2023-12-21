@@ -1,5 +1,6 @@
 <div>
-    <div *ngIf="resultRes" class="div-result">
+    @if (resultRes) {
+    <div class="div-result">
         <p>نام آزمون: {{resultRes.testName}}</p>
         <hr>
         <p> {{resultRes.myDate}}:تاریخ و ساعت انجام آزمون</p>
@@ -14,4 +15,5 @@
             <button routerLink="/home" class="top1" mat-raised-button>بازگشت به صفحه اصلی</button>
         </div>
     </div>
+    }
 </div>

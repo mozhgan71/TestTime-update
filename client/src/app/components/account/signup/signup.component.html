@@ -1,6 +1,8 @@
 <form [formGroup]="userFg" (ngSubmit)="registerUser()">
     <h2>فرم ثبت نام</h2>
-    <mat-hint *ngIf="userFg.invalid">وارد کردن موارد ستاره دار(*)الزامی می باشد</mat-hint>
+    @if (userFg.invalid) {
+    <mat-hint>وارد کردن موارد ستاره دار(*)الزامی می باشد</mat-hint>
+    }
     <mat-form-field appearance="outline">
         <mat-label>نام:</mat-label>
         <input type="text" formControlName="nameCtrl" matInput>

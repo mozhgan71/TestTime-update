@@ -1,5 +1,7 @@
-<div *ngIf="resultRes">
-    <ul *ngFor="let result of resultRes">
+@if (resultRes) {
+<div>
+    @for (result of resultRes; track $index) {
+    <ul>
         <li>نام آزمون : {{result.testName}}</li>
         <li>تاریخ انجام آزمون: {{result.myDate}}</li>
         <li>مدت آزمون شما: {{result.testHour}} ساعت و {{result.testMinute}} دقیقه و {{ result.testSecond}} ثانیه</li>
@@ -8,9 +10,11 @@
         <li>تعداد سوال های بی پاسخ: {{ result.numberOfNoAnswer}}</li>
         <li>توضیحات : {{result.description}}</li>
         <div class="div-button">
-            <button (click)="deleteResult(result.id!)"  class="button" mat-fab
+            <button (click)="deleteResult(result.id!)" class="button" mat-fab
                 title="حذف کارنامه"><mat-icon>delete</mat-icon></button>
         </div>
     </ul>
+    }
     <button id="gotop" (click)="goTop()" class="top"></button>
 </div>
+}
