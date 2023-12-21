@@ -35,7 +35,7 @@ export class AngularQuestionsComponent {
   description: string | undefined;
 
   showAngularQuestion(): void {
-    this.http.get<Question[]>('https://localhost:5001/api/question/get-by-feild-name/ANGULAR').subscribe(
+    this.http.get<Question[]>('http://localhost:5000/api/question/get-by-feild-name/ANGULAR').subscribe(
       { next: response => this.angularQuestions = response }
     );
 
@@ -241,7 +241,7 @@ export class AngularQuestionsComponent {
       description: this.description
     }
 
-    this.http.post<Result>('https://localhost:5001/api/result/add-result', result).subscribe(
+    this.http.post<Result>('http://localhost:5000/api/result/add-result', result).subscribe(
       {
         next: res => {
           this.resultRes = res;

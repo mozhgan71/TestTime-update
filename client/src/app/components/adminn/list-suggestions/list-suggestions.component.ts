@@ -20,7 +20,7 @@ export class ListSuggestionsComponent {
   }
 
   showSuggestion(): void {
-    this.http.get<Suggestion[]>('https://localhost:5001/api/suggestion/').subscribe(
+    this.http.get<Suggestion[]>('http://localhost:5000/api/suggestion/').subscribe(
       { next: response => this.suggestions = response }
     );
   }

@@ -42,15 +42,13 @@
                     mat-icon-button><mat-icon>account_circle</mat-icon></button>
                 }
                 @if (user$ | async) {
-                <button (click)="logOut()" title="User-LogOut"
-                    mat-icon-button><mat-icon>exit_to_app</mat-icon>
+                <button (click)="logOut()" title="User-LogOut" mat-icon-button><mat-icon>exit_to_app</mat-icon>
                 </button>
-            }
+                }
                 <button (click)="checkAdminLogIn()" title="Admin-LogIn"
                     mat-icon-button><mat-icon>brightness_auto</mat-icon></button>
             </div>
         </mat-toolbar>
-        <ng-content #name></ng-content>
     </mat-sidenav-content>
 </mat-sidenav-container>
 <div class="div-image">

@@ -45,7 +45,7 @@ export class ListUsersComponent {
   }
 
   deleteUser(id: string): void {
-    this.http.delete<AppUser>('https://localhost:5001/api/user/delete/' + id).subscribe(
+    this.http.delete<AppUser>('http://localhost:5000/api/user/delete/' + id).subscribe(
       {
         next: response => {
           this.delUser = response

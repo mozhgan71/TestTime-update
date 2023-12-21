@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AppUser } from '../../../models/app-user.model';
 import { AccountService } from '../../../services/account.service';
 import { UserService } from '../../../services/user.service';
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
   styleUrls: ['./userprofile.component.scss'],
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule]
 })
 export class UserProfileComponent {
   private router = inject(Router);

@@ -5,13 +5,17 @@ import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angu
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppUserUpdate } from '../../../models/app-user-register.model';
 import { AppUser } from '../../../models/app-user.model';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
-  imports: [CommonModule, MatFormFieldModule, ReactiveFormsModule]
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule,
+    ReactiveFormsModule, RouterModule]
 })
 export class EditComponent {
   private http = inject(HttpClient);
@@ -27,7 +31,7 @@ export class EditComponent {
   showInfo(): void {
     var userId = sessionStorage.getItem('user-id');
 
-    this.http.get<AppUser>('https://localhost:5001/api/user/get-by-id/' + userId).subscribe(
+    this.http.get<AppUser>('http://localhost:5000/api/user/get-by-id/' + userId).subscribe(
       {
         next: res => {
           this.userRes = res;
@@ -98,7 +102,7 @@ export class EditComponent {
       education: this.EducationCtrl.value,
     }
 
-    this.http.put<AppUser>('https://localhost:5001/api/user/update/' + userId, user).subscribe(
+    this.http.put<AppUser>('http://localhost:5000/api/user/update/' + userId, user).subscribe(
       {
         next: res => {
           this.userRes = res;

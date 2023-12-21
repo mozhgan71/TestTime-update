@@ -3,13 +3,17 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Suggestion } from '../../../models/suggestion.model';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-suggestion',
   templateUrl: './suggestion.component.html',
   styleUrls: ['./suggestion.component.scss'],
-  imports: [MatFormFieldModule, ReactiveFormsModule]
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule,
+     RouterModule]
 })
 export class SuggestionComponent {
   private http = inject(HttpClient);
@@ -51,7 +55,7 @@ export class SuggestionComponent {
       text: this.TextCtrl.value
     }
 
-    this.http.post<Suggestion>('https://localhost:5001/api/suggestion/add-suggestion', seggestion).subscribe(
+    this.http.post<Suggestion>('http://localhost:5000/api/suggestion/add-suggestion', seggestion).subscribe(
       {
         next: res => {
           this.suggestionRes = res;

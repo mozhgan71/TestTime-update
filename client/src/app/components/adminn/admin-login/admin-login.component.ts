@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Admin } from '../../../models/admin-login.model';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   standalone: true,
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
   styleUrls: ['./admin-login.component.scss'],
-  imports: [MatFormFieldModule, ReactiveFormsModule]
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule]
 })
 export class AdminLogInComponent {
   private fb = inject(FormBuilder);
@@ -42,7 +44,7 @@ export class AdminLogInComponent {
       password: this.PasswordCtrl.value,
     }
 
-    this.http.post<Admin>('https://localhost:5001/api/admin/login', admin).subscribe(
+    this.http.post<Admin>('http://localhost:5000/api/admin/login', admin).subscribe(
       {
         next: res => {
           this.mainAdmin = res

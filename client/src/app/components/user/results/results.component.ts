@@ -4,13 +4,14 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Result } from '../../../models/result.model';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss'],
-  imports: [CommonModule, MatIconModule]
+  imports: [CommonModule, MatIconModule, RouterModule]
 })
 export class ResultsComponent {
   private http = inject(HttpClient);
@@ -28,7 +29,7 @@ export class ResultsComponent {
   showResult() {
     var userId = sessionStorage.getItem('user-id');
 
-    this.http.get<Result[]>('https://localhost:5001/api/result/get-by-user-id/' + userId).subscribe(
+    this.http.get<Result[]>('http://localhost:5000/api/result/get-by-user-id/' + userId).subscribe(
       {
         next: res => {
           this.resultRes = res;
@@ -39,7 +40,7 @@ export class ResultsComponent {
   }
 
   deleteResult(id: string): void {
-    this.http.delete<Result>('https://localhost:5001/api/result/delete/' + id).subscribe(
+    this.http.delete<Result>('http://localhost:5000/api/result/delete/' + id).subscribe(
       {
         next: response => {
           this.delResult = response

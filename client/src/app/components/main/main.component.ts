@@ -15,16 +15,16 @@ export class MainComponent {
     //this.createSlider();
   }
 
-  // createSlider() {
-  //   var i = 0;
-  //   setInterval(function () {
-  //     document.getElementById('mySlide')?.setAttribute('src', 'assets/images/' + i + '.jpg');
-  //     i = (i + 1) % 14;
-  //   }, 3000);
-  // }
+  createSlider() {
+    var i = 0;
+    setInterval(function () {
+      document.getElementById('mySlide')?.setAttribute('src', 'assets/images/' + i + '.jpg');
+      i = (i + 1) % 14;
+    }, 3000);
+  }
 
   checkLogIn(): void { //for test category
-    const logedIn = localStorage.getItem('user');
+    const logedIn = sessionStorage.getItem('user');
 
     if (logedIn) {
       this.router.navigateByUrl('/test-category');

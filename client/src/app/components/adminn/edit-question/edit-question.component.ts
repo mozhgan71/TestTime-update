@@ -3,13 +3,15 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Question } from '../../../models/question.model';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   standalone: true,
   selector: 'app-edit-question',
   templateUrl: './edit-question.component.html',
   styleUrls: ['./edit-question.component.scss'],
-  imports: [MatFormFieldModule, ReactiveFormsModule]
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule]
 })
 export class EditQuestionComponent {
   private fb = inject(FormBuilder);
@@ -25,7 +27,7 @@ export class EditQuestionComponent {
   showQuestion(): void {
     var id = sessionStorage.getItem('id-question');
 
-    this.http.get<Question>('https://localhost:5001/api/question/get-by-id/' + id).subscribe(
+    this.http.get<Question>('http://localhost:5000/api/question/get-by-id/' + id).subscribe(
       {
         next: res => {
           this.questionRes = res;

@@ -28,32 +28,14 @@ public class AccountRepository : IAccountRepository
         using var hmac = new HMACSHA512();
 
         // if user/email does not exist, create a new AppUser. 
-        AppUser appUser = new AppUser(
-            Id: null,
-            Name: userInput.Name,
-            Family: userInput.Family,
-            Email: userInput.Email.ToLower().Trim(),
-            PasswordSalt: hmac.Key,
-            PasswordHash: hmac.ComputeHash(Encoding.UTF8.GetBytes(userInput.Password)),
-            Age: userInput.Age,
-            Education: userInput.Education,
-            Rules: userInput.Rules
-        );
+        AppUser appUser = _Mappers.ConvertRegisterDtoToAppUser(userInput);
 
         if (_collection is not null)
             await _collection.InsertOneAsync(appUser, null, cancellationToken);
 
         if (appUser.Id is not null)
         {
-            LoggedInDto loggedInDto = new LoggedInDto(
-                Id: appUser.Id,
-                Name: appUser.Name,
-                Family: appUser.Family,
-                Email: appUser.Email,
-                Age: appUser.Age,
-                Education: appUser.Education!,
-                Token: _tokenService.CreateToken(appUser)
-            );
+            LoggedInDto loggedInDto = _Mappers.ConvertAppUserToLoggedInDto(appUser, _tokenService.CreateToken(appUser));
 
             return loggedInDto;
         }
@@ -78,22 +60,25 @@ public class AccountRepository : IAccountRepository
         // Check if password is correct and matched with Database PasswordHash.
         if (appUser.PasswordHash is not null && appUser.PasswordHash.SequenceEqual(ComptedHash))
         {
+            UpdateLastActiveInDb(appUser, cancellationToken);
+
             if (appUser.Id is not null)
             {
-                LoggedInDto loggedInDto = new LoggedInDto(
-                    Id: appUser.Id,
-                    Name: appUser.Name,
-                    Family: appUser.Family,
-                    Email: appUser.Email,
-                    Age: appUser.Age,
-                    Education: appUser.Education!,
-                    Token: _tokenService.CreateToken(appUser)
-                );
+                string token = _tokenService.CreateToken(appUser);
 
-                return loggedInDto;
+                return _Mappers.ConvertAppUserToLoggedInDto(appUser, token);
             }
         }
 
         return null;
+    }
+
+    private async void UpdateLastActiveInDb(AppUser appUser, CancellationToken cancellationToken)
+    {
+        UpdateDefinition<AppUser> newLastActive = Builders<AppUser>.Update.Set(user =>
+                       user.LastActive, DateTime.UtcNow);
+
+        await _collection.UpdateOneAsync<AppUser>(user =>
+        user.Id == appUser.Id, newLastActive, null, cancellationToken);
     }
 }

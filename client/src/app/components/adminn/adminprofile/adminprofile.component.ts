@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-adminprofile',
   templateUrl: './adminprofile.component.html',
-  styleUrls: ['./adminprofile.component.scss']
+  styleUrls: ['./adminprofile.component.scss'],
+  imports: [RouterModule]
 })
 export class AdminProfileComponent {
   private router = inject(Router);

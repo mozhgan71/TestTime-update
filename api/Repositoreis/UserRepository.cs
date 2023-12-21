@@ -18,20 +18,13 @@ public class UserRepository : IUserRepository
     {
         List<AppUser> appUsers = await _collection.Find<AppUser>(new BsonDocument()).ToListAsync(cancellationToken);
 
-        List<UserDto> userDtos = new List<UserDto>();
+        List<UserDto> userDtos = [];
 
         if (appUsers.Any())
         {
             foreach (AppUser appUser in appUsers)
             {
-                UserDto userDto = new UserDto(
-                     Id: appUser.Id!,
-                     Name: appUser.Name,
-                     Family: appUser.Family,
-                     Email: appUser.Email,
-                     Age: appUser.Age,
-                     Education: appUser.Education!
-                );
+              UserDto userDto = _Mappers.ConvertAppUserToUserDto(appUser);
 
                 userDtos.Add(userDto);
             }
@@ -48,16 +41,7 @@ public class UserRepository : IUserRepository
 
         if (appUser is not null)
         {
-            UserDto userDto = new UserDto(
-                 Id: appUser.Id!,
-                 Name: appUser.Name,
-                 Family: appUser.Family,
-                 Email: appUser.Email,
-                 Age: appUser.Age,
-                 Education: appUser.Education!
-            );
-
-            return userDto;
+            return _Mappers.ConvertAppUserToUserDto(appUser);
         }
 
         return null;
@@ -71,7 +55,7 @@ public class UserRepository : IUserRepository
         .Set(doc => doc.Email, userInput.Email)
         //.Set(doc => doc.Password, userInput.Password)
         //.Set(doc => doc.ConfirmPassword, userInput.ConfirmPassword)
-        .Set(doc => doc.Age, userInput.Age)
+        .Set(doc => doc.DateOfBirth, userInput.DateOfBirth)
         .Set(doc => doc.Education, userInput.Education);
 
         return await _collection.UpdateOneAsync<AppUser>(doc => doc.Id == userId, updatedDoc);

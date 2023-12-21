@@ -7,13 +7,15 @@ import { AppUser } from '../../../models/app-user.model';
 import { AccountService } from '../../../services/account.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   standalone: true,
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
-  imports: [MatFormFieldModule, MatCheckboxModule, ReactiveFormsModule]
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, ReactiveFormsModule]
 })
 export class SignUpComponent {
   private fb = inject(FormBuilder);
@@ -39,7 +41,7 @@ export class SignUpComponent {
     emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
     passwordCtrl: ['', [Validators.required, Validators.minLength(8)]],
     confirmPasswordCtrl: ['', [Validators.required, Validators.minLength(8)]],
-    ageCtrl: ['', [Validators.required, Validators.min(9), Validators.max(99)]],
+    ageCtrl: ['', [Validators.required]],
     educationCtrl: [''],
     rulesCtrl: ['', Validators.required]
   });

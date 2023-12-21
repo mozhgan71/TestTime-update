@@ -23,13 +23,13 @@ export class ListQuestionsComponent {
   }
 
   showQuestion(): void {
-    this.http.get<Question[]>('https://localhost:5001/api/question/').subscribe(
+    this.http.get<Question[]>('http://localhost:5000/api/question/').subscribe(
       { next: response => this.questions = response }
     );
   }
 
   deleteQuestion(id: string): void {
-    this.http.delete<Question>('https://localhost:5001/api/question/delete/' + id).subscribe(
+    this.http.delete<Question>('http://localhost:5000/api/question/delete/' + id).subscribe(
       {
         next: response => {
           this.delQuestion = response
