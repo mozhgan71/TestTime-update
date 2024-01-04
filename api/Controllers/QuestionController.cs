@@ -18,7 +18,7 @@ public class QuestionController(IQuestionRepository _questionRepository) : BaseA
     {
         List<QuestionDto> questionDtos = await _questionRepository.GetByFeildNameAsync(userInput, cancellationToken);
 
-        if (!questionDtos.Any()) // []
+        if (questionDtos.Count == 0) // []
             return NoContent();
 
         return questionDtos;

@@ -1,21 +1,21 @@
-import { inject } from '@angular/core';
+import { PLATFORM_ID, inject } from '@angular/core';
 import { HttpInterceptorFn } from '@angular/common/http';
-import { AccountService } from '../services/account.service';
-import { AppUser } from '../models/app-user.model';
-import { take } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
-  inject(AccountService).currentUser$.pipe(take(1)).subscribe({
-    next: (currentUser: AppUser | null) => {
-      if (currentUser) {
-        req = req.clone({
-          setHeaders: {
-            Authorization: `Bearer ${currentUser.token}`
-          }
-        });
-      }
+  const platformId = inject(PLATFORM_ID);
+
+  if (isPlatformBrowser(platformId)) {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
     }
-  });
+  }
 
   return next(req);
 }

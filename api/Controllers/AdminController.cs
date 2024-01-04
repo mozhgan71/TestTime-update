@@ -28,7 +28,7 @@ public class AdminController(IAdminRepository _adminRepository) : BaseApiControl
     {
         List<AdminResponseDto> admins = await _adminRepository.GetAllAsync(cancellationToken);
 
-        if (!admins.Any())
+        if (admins.Count == 0)
             return NoContent();
 
         return admins;

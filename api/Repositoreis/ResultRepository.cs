@@ -69,7 +69,7 @@ public class ResultRepository : IResultRepository
     {
         List<Result> results = await _collection.Find<Result>(new BsonDocument()).ToListAsync(cancellationToken);
 
-        if (results.Any())
+        if (results.Count != 0)
         {
             return results;
         }

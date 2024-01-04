@@ -20,7 +20,7 @@ public class UserRepository : IUserRepository
 
         List<UserDto> userDtos = [];
 
-        if (appUsers.Any())
+        if (appUsers.Count != 0)
         {
             foreach (AppUser appUser in appUsers)
             {
@@ -35,7 +35,7 @@ public class UserRepository : IUserRepository
         return userDtos; // []
     }
 
-    public async Task<UserDto?> GetByIdAsync(string userId, CancellationToken cancellationToken)
+    public async Task<UserDto?> GetByIdAsync(string? userId, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(user => user.Id == userId).FirstOrDefaultAsync(cancellationToken);
 

@@ -50,7 +50,7 @@ public class QuestionRipository : IQuestionRepository
 
         List<QuestionDto> questionDtos = new List<QuestionDto>();
 
-        if (questions.Any())
+        if (questions.Count != 0)
         {
             foreach (Question question in questions)
             {
@@ -89,7 +89,7 @@ public class QuestionRipository : IQuestionRepository
     {
         List<Question> questions = await _collection.Find<Question>(new BsonDocument()).ToListAsync(cancellationToken);
 
-        if (questions.Any())
+        if (questions.Count != 0)
         {
             return questions;
         }

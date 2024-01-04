@@ -32,7 +32,7 @@ public class SuggestionRepository : ISuggestionRepository
     {
         List<Suggestion> suggestions = await _collection.Find<Suggestion>(new BsonDocument()).ToListAsync(cancellationToken);
 
-        if (suggestions.Any())
+        if (suggestions.Count != 0)
         {
             return suggestions;
         }
@@ -44,7 +44,7 @@ public class SuggestionRepository : ISuggestionRepository
     {
         List<Suggestion> suggestions = await _collection.Find<Suggestion>(doc => doc.UserId == userId).ToListAsync(cancellationToken);
 
-        if (suggestions.Any())
+        if (suggestions.Count != 0)
         {
             return suggestions;
         }

@@ -34,7 +34,7 @@ public class UserQuestionRepository :IUserQuestionRepository
     {
         List<Question> questions = await _collection.Find<Question>(new BsonDocument()).ToListAsync(cancellationToken);
 
-        if (questions.Any())
+        if (questions.Count != 0)
         {
             return questions;
         }

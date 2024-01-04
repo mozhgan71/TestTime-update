@@ -54,6 +54,8 @@ import { EditComponent } from './components/user/edit/edit.component';
 import { ResultsComponent } from './components/user/results/results.component';
 import { SuggestionComponent } from './components/user/suggestion/suggestion.component';
 import { UserProfileComponent } from './components/user/userprofile/userprofile.component';
+import { ServerErrorComponent } from './components/server-error/server-error.component';
+import { MemberListComponent } from './components/member-list/member-list.component';
 
 export const routes: Routes = [
     { path: '', component: MainComponent },
@@ -111,5 +113,7 @@ export const routes: Routes = [
     { path: 'edit-question', component: EditQuestionComponent },
     { path: 'show-result', component: ShowResultComponent },
     { path: 'old-question', component: OldQuestionsComponent },
+    { path: 'server-error', component: ServerErrorComponent },
+    { path: 'members', component: MemberListComponent },
     { path: '**', component: NotFoundComponent },
 ];

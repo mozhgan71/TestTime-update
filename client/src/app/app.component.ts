@@ -6,13 +6,15 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { RouterModule } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { MainComponent } from "./components/main/main.component";
+import { LoggedInUser } from './models/logged-in-user.model';
+import { take } from 'rxjs';
 
 @Component({
-    standalone: true,
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    imports: [RouterModule, HeaderComponent, FooterComponent, MainComponent]
+  standalone: true,
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  imports: [RouterModule, HeaderComponent, FooterComponent, MainComponent]
 })
 export class AppComponent implements OnInit {
   accountService = inject(AccountService);
@@ -30,8 +32,22 @@ export class AppComponent implements OnInit {
 
     // if (isPlatformServer(this.platformId))
     if (isPlatformBrowser(this.platformId)) { // this code is ran on the browser now
-      console.log('PlatformId in method:', this.platformId);
-      userString = localStorage.getItem('user');
+      const tokenValue = localStorage.getItem('token');
+
+      if (tokenValue) { // do NOT call api if no token is in the localStorage!! Performance!
+        this.accountService.getLoggedInUser().pipe(take(1)).subscribe(
+          {
+            next: (loggedInUser: LoggedInUser | null) => {
+              if (loggedInUser)
+                this.accountService.setCurrentUser(loggedInUser);
+            },
+            error: () => this.accountService.logOut()
+            // error: (err) => {
+            //   console.log(err.error);
+            //   this.accountService.logoutUser()
+            // } //if token is expired and api call is unauthorized.
+          });
+      }
     }
 
     if (userString) {

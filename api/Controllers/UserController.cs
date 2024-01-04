@@ -10,7 +10,7 @@ public class UserController(IUserRepository _userRepository) : BaseApiController
     {
         List<UserDto> userDtos = await _userRepository.GetAllAsync(cancellationToken);
 
-        if (!userDtos.Any()) // []
+        if (userDtos.Count == 0) // []
             return NoContent();
 
         return userDtos;
@@ -19,7 +19,7 @@ public class UserController(IUserRepository _userRepository) : BaseApiController
     [HttpGet("get-by-id")]
     public async Task<ActionResult<UserDto>?> GetById(CancellationToken cancellationToken)
     {
-        UserDto? userDto = await _userRepository.GetByIdAsync(ClaimPrincipalExtensions.GetUserId(User), cancellationToken);
+        UserDto? userDto = await _userRepository.GetByIdAsync(User.GetUserId(), cancellationToken);
 
         if (userDto is null)
         {

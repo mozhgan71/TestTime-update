@@ -28,6 +28,7 @@ public record LoginDto(
 );
 
 public record LoggedInDto(
+    string Id,
     string Name,
     string Family,
     string Email,

@@ -50,7 +50,7 @@ public class AdminRepository : IAdminRepository
 
         List<AdminResponseDto> adminResponseDtos = new List<AdminResponseDto>();
 
-        if (admins.Any())
+        if (admins.Count != 0)
         {
             foreach (Admin admin in admins)
             {
