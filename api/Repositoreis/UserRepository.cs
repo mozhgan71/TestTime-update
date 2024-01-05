@@ -14,27 +14,6 @@ public class UserRepository : IUserRepository
         // // _tokenService = tokenService;
     }
 
-    public async Task<List<UserDto>> GetAllAsync(CancellationToken cancellationToken)
-    {
-        List<AppUser> appUsers = await _collection.Find<AppUser>(new BsonDocument()).ToListAsync(cancellationToken);
-
-        List<UserDto> userDtos = [];
-
-        if (appUsers.Count != 0)
-        {
-            foreach (AppUser appUser in appUsers)
-            {
-              UserDto userDto = _Mappers.ConvertAppUserToUserDto(appUser);
-
-                userDtos.Add(userDto);
-            }
-
-            return userDtos;
-        }
-
-        return userDtos; // []
-    }
-
     public async Task<UserDto?> GetByIdAsync(string? userId, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(user => user.Id == userId).FirstOrDefaultAsync(cancellationToken);

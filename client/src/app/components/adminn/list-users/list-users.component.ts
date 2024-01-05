@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { AppUser } from '../../../models/app-user.model';
 import { UserService } from '../../../services/user.service';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MemberService } from '../../../services/member.service';
 
 @Component({
   standalone: true,
@@ -16,7 +17,7 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 })
 export class ListUsersComponent {
   private http = inject(HttpClient);
-  private _userService = inject(UserService);
+  private _memberService = inject(MemberService);
 
   users: AppUser[] | null | undefined;
   delUser: AppUser | undefined;
@@ -34,14 +35,14 @@ export class ListUsersComponent {
   // }
 
   showUsers(): void {
-    this._userService.getAllUsers().subscribe(
+    this._memberService.getAllMembers().subscribe(
       {
         next: (users: AppUser[] | null) => this.users = users,
         error: (err: any) => console.log(err.message),
       }
     );
 
-    this.allUsers$ = this._userService.getAllUsers();
+    this.allUsers$ = this._memberService.getAllMembers();
   }
 
   deleteUser(id: string): void {

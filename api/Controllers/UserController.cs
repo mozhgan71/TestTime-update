@@ -1,20 +1,7 @@
-using Microsoft.AspNetCore.Authorization;
-
 namespace api.Controllers;
 
 public class UserController(IUserRepository _userRepository) : BaseApiController
 {
-    // [Authorize]
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<UserDto>>> GetAll(CancellationToken cancellationToken)
-    {
-        List<UserDto> userDtos = await _userRepository.GetAllAsync(cancellationToken);
-
-        if (userDtos.Count == 0) // []
-            return NoContent();
-
-        return userDtos;
-    }
     [Authorize]
     [HttpGet("get-by-id")]
     public async Task<ActionResult<UserDto>?> GetById(CancellationToken cancellationToken)

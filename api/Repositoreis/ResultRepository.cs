@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http.HttpResults;
-
 namespace api.Repositoreis;
 
 public class ResultRepository : IResultRepository

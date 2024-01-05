@@ -5,6 +5,7 @@ import { AppUser } from '../../../models/app-user.model';
 import { AccountService } from '../../../services/account.service';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { MemberService } from '../../../services/member.service';
 
 @Component({
   standalone: true,
@@ -16,7 +17,7 @@ import { CommonModule } from '@angular/common';
 export class UserProfileComponent {
   private router = inject(Router);
   private accountService = inject(AccountService);
-  private userService = inject(UserService);
+  private memberService = inject(MemberService);
 
   userRes: AppUser | null | undefined;
 
@@ -39,7 +40,7 @@ export class UserProfileComponent {
   showInfo(): void { //moshakhasate karbar ra az db namayesh dadam ke ba edit kardan taghirat emal shavad
     var userId = sessionStorage.getItem('user-id');
 
-    this.userService.getUserById(userId).subscribe(
+    this.memberService.getMemberById(userId).subscribe(
       {
         next: res => {
           this.userRes = res;

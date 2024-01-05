@@ -81,7 +81,7 @@ export class AccountService {
       localStorage.setItem('token', loggedInUser.token);
     }
 
-    this.navigateToReturnUrl(); // navigate to the url which user tried before log-in
+    // this.navigateToReturnUrl(); // navigate to the url which user tried before log-in
   }
 
   logOut(): void {

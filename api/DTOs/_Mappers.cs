@@ -27,7 +27,7 @@ public class _Mappers
     public static LoggedInDto ConvertAppUserToLoggedInDto(AppUser appUser, string tokenValue)
     {
         return new LoggedInDto(  
-                  Id:appUser.Id,
+                  Id:appUser.Id!,
                   Name: appUser.Name,
                   Family: appUser.Family,
                   Email: appUser.Email,

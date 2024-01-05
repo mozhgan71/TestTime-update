@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { AppUser } from '../models/app-user.model';
+import { Member } from '../models/member-model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,13 @@ import { AppUser } from '../models/app-user.model';
 export class MemberService {
   private http = inject(HttpClient);
 
-  private readonly baseApiUrl = environment.apiUrl + 'user/'; 
+  private readonly baseApiUrl = environment.apiUrl + 'member/'; 
 
-  getAllMembers(): Observable<AppUser[] | null> {
-    return this.http.get<AppUser[]>(this.baseApiUrl).pipe(
-      map((users: AppUser[]) => {
-        if (users)
-          return users;
+  getAllMembers(): Observable<Member[] | null> {
+    return this.http.get<Member[]>(this.baseApiUrl).pipe(
+      map((members: Member[]) => {
+        if (members)
+          return members;
 
         return null;
       })
