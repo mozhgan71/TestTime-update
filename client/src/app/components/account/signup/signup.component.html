@@ -27,10 +27,24 @@
         <mat-label>تکرار رمزعبور:</mat-label>
         <input type="text" formControlName="confirmPasswordCtrl" matInput>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <!-- <mat-form-field appearance="outline">
         <mat-label>سن:</mat-label>
-        <input type="number" formControlName="ageCtrl" matInput>
-        <!-- <mat-error>گروه سنی 9 تا 99 سال قابل قبول می باشد</mat-error> -->
+        <input type="number" formControlName="dateOfBirthCtrl" matInput> -->
+    <!-- <mat-error>گروه سنی 9 تا 99 سال قابل قبول می باشد</mat-error> -->
+    <!-- </mat-form-field> -->
+
+    <!-- Date of Birth -->
+    <mat-form-field>
+        <mat-label>تاریخ تولد:</mat-label>
+        <input formControlName="dateOfBirthCtrl" [min]="minDate" [max]="maxDate" matInput [matDatepicker]="dp3" placeholder="Enter your date of birth">
+        @if (DateOfBirthCtrl.invalid) { 
+        <mat-hint>Between {{minDate.getFullYear()}} to {{maxDate.getFullYear()}}</mat-hint>
+        } 
+        <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+        <mat-datepicker #dp3 touchUi disabled="false"></mat-datepicker>
+        @if (DateOfBirthCtrl.hasError('required')) {
+        <mat-error>This field is required</mat-error>
+        }
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>تحصیلات:</mat-label>

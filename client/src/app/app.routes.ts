@@ -56,21 +56,40 @@ import { SuggestionComponent } from './components/user/suggestion/suggestion.com
 import { UserProfileComponent } from './components/user/userprofile/userprofile.component';
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { MemberListComponent } from './components/member-list/member-list.component';
+import { authGuard } from './guards/auth.guard';
+import { authLoggedInGuard } from './guards/auth-logged-in.guard';
+import { NoAccessComponent } from './components/no-access/no-access.component';
 
 export const routes: Routes = [
+    {
+        path: '',
+        runGuardsAndResolvers: 'always',
+        canActivate: [authGuard],
+        children: [
+            { path: 'members', component: MemberListComponent },
+            { path: 'test-category', component: TestCategoryComponent },
+            { path: 'user-profile', component: UserProfileComponent },
+            { path: 'no-access', component: NoAccessComponent }
+        ]
+    },
+    {
+        path: '',
+        runGuardsAndResolvers: 'always',
+        canActivate: [authLoggedInGuard],
+        children: [
+            { path: 'sign-up', component: SignUpComponent },
+            { path: 'login', component: LogInComponent },
+        ]
+    },
     { path: '', component: MainComponent },
     { path: 'home', component: MainComponent },
-    { path: 'sign-up', component: SignUpComponent },
-    { path: 'login', component: LogInComponent },
     { path: 'about-us', component: AboutUsComponent },
     { path: 'contact-us', component: ContactUsComponent },
-    { path: 'test-category', component: TestCategoryComponent },
-    { path: 'user-profile', component: UserProfileComponent },
     { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
     { path: 'introduce-to-friends', component: IntroduceToFriendsComponent },
     { path: 'references', component: ReferencesComponent },
     { path: 'admin-profile', component: AdminProfileComponent },
-    { path: 'list-users', component: ListUsersComponent },
+    { path: 'list-users', component: ListUsersComponent },  //canActivate: [authGuard]
     { path: 'list-questions', component: ListQuestionsComponent },
     { path: 'admin-login', component: AdminLogInComponent },
     { path: 'edit', component: EditComponent },
@@ -114,6 +133,5 @@ export const routes: Routes = [
     { path: 'show-result', component: ShowResultComponent },
     { path: 'old-question', component: OldQuestionsComponent },
     { path: 'server-error', component: ServerErrorComponent },
-    { path: 'members', component: MemberListComponent },
-    { path: '**', component: NotFoundComponent },
+    { path: '**', component: NotFoundComponent, pathMatch: 'full' },
 ];

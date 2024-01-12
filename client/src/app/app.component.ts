@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
     }
 
     if (userString) {
-      const user: AppUser = JSON.parse(userString); // convert string to JSON before sending to method
+      const user: LoggedInUser = JSON.parse(userString); // convert string to JSON before sending to method
 
       this.accountService.setCurrentUser(user);
     }

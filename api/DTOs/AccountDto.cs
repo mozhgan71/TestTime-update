@@ -6,7 +6,7 @@ public record RegisterDto(
     [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$", ErrorMessage = "Bad Email Format.")] string Email,
     [MinLength(8)] string Password,
     [MinLength(8)] string ConfirmPassword,
-    DateOnly DateOfBirth,
+    [Range(typeof(DateOnly), "1900-01-01", "2050-01-01")] DateOnly DateOfBirth,
     //[Range(9, 99)] int Age,
     string? Education,
     bool Rules

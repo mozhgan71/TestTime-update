@@ -3,7 +3,7 @@ export interface AppUser {
     name: string,
     family: string,
     email: string,
-    age: number,
+    age: string | undefined,
     education: string,
     token: string
 }

@@ -4,7 +4,7 @@ export interface AppUserRegister {
     email: string,
     password?: string,
     confirmPassword?: string,
-    age: number,
+    dateOfBirth: string | undefined,
     education?: string,
     rules?: boolean,
 }
@@ -13,7 +13,7 @@ export interface AppUserUpdate {
     name: string,
     family: string,
     email: string,
-    age: number,
+    age: string | undefined,
     education?: string,
     rules?: boolean,
 }

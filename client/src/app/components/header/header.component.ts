@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { LoggedInUser } from '../../models/logged-in-user.model';
 
 @Component({
   standalone: true,
@@ -25,7 +26,7 @@ export class HeaderComponent {
   private accountService = inject(AccountService);
 
   user: AppUser | null | undefined;
-  user$: Observable<AppUser | null> | undefined;
+  user$: Observable<LoggedInUser | null> | undefined;
 
   isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -34,9 +35,6 @@ export class HeaderComponent {
     );
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-
     // this.accountService.currentUser$.subscribe({
     //   next: (response) => this.user = response
 
@@ -51,27 +49,27 @@ export class HeaderComponent {
     this.router.navigateByUrl('home');
   }
 
-  checkUserLogIn(): void {     //for user profile with service
-    const logedIn = localStorage.getItem('user');
+  // checkUserLogIn(): void {     //for user profile with service
+  //   const logedIn = localStorage.getItem('user');
 
-    if (logedIn) {
-      this.router.navigateByUrl('/user-profile');
-    }
-    else {
-      this.router.navigateByUrl('/login');
-    }
-  }
+  //   if (logedIn) {
+  //     this.router.navigateByUrl('/user-profile');
+  //   }
+  //   else {
+  //     this.router.navigateByUrl('/login');
+  //   }
+  // }
 
-  checkLogIn(): void {         //for test category with service
-    const logedIn = localStorage.getItem('user');
+  // checkLogIn(): void {         //for test category with service
+  //   const logedIn = localStorage.getItem('user');
 
-    if (logedIn) {
-      this.router.navigateByUrl('/test-category');
-    }
-    else {
-      this.router.navigateByUrl('/login');
-    }
-  }
+  //   if (logedIn) {
+  //     this.router.navigateByUrl('/test-category');
+  //   }
+  //   else {
+  //     this.router.navigateByUrl('/login');
+  //   }
+  // }
 
   checkAdminLogIn(): void {     //for admin with session
     var adminLogedIn = sessionStorage.getItem('logedin');

@@ -3,7 +3,7 @@ export interface Member {
     name: string,
     family: string,
     email: string,
-    age: number,
+    age: string | undefined,
     education: string,
     lastActive: Date
 }

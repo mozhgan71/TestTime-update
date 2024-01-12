@@ -8,8 +8,8 @@
                 <li><a routerLink="home" mat-list-item href="#">خانه</a></li>
                 <li><a routerLink="contact-us" mat-list-item href="#">ارتباط با ما</a></li>
                 <li><a routerLink="about-us" mat-list-item href="#">درباره ما</a></li>
-                <li><a (click)="checkLogIn()" mat-list-item href="#">دسته بندی آزمون ها</a></li>
-                <li><a (click)="checkUserLogIn()" mat-list-item href="#">پروفایل من</a></li>
+                <li><a routerLink="test-category" mat-list-item href="#">دسته بندی آزمون ها</a></li>
+                <li><a routerLink="user-profile" mat-list-item href="#">پروفایل من</a></li>
                 <li><a *ngIf="!user" routerLink="sign-up" mat-list-item href="#">ثبت نام</a></li>
             </ul>
         </mat-nav-list>
@@ -24,8 +24,8 @@
                 <a routerLink="home" href="#">خانه</a>
                 <a routerLink="contact-us">ارتباط با ما</a>
                 <a routerLink="about-us">درباره ما</a>
-                <a (click)="checkLogIn()">دسته بندی آزمون ها</a>
-                <a (click)="checkUserLogIn()">پروفایل من</a>
+                <a routerLink="test-category">دسته بندی آزمون ها</a>
+                <a routerLink="user-profile" >پروفایل من</a>
                 @if (user$ | async) {
                 <a> </a>
                 }

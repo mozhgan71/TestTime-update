@@ -7,6 +7,7 @@ import { AppUser } from '../../../models/app-user.model';
 import { UserService } from '../../../services/user.service';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MemberService } from '../../../services/member.service';
+import { Member } from '../../../models/member-model';
 
 @Component({
   standalone: true,
@@ -19,9 +20,9 @@ export class ListUsersComponent {
   private http = inject(HttpClient);
   private _memberService = inject(MemberService);
 
-  users: AppUser[] | null | undefined;
+  users: Member[] | null | undefined;
   delUser: AppUser | undefined;
-  allUsers$: Observable<AppUser[] | null> | undefined;
+  allUsers$: Observable<Member[] | null> | undefined;
   // subscription: Subscription | undefined;         //zamani ke bekhaym error haro begirim az api az in ravesh mirim
 
   constructor() {
@@ -37,7 +38,7 @@ export class ListUsersComponent {
   showUsers(): void {
     this._memberService.getAllMembers().subscribe(
       {
-        next: (users: AppUser[] | null) => this.users = users,
+        next: (users: Member[] | null) => this.users = users,
         error: (err: any) => console.log(err.message),
       }
     );

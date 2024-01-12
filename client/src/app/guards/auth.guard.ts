@@ -1,5 +1,30 @@
-import { CanActivateFn } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, inject } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CanActivateFn, Router } from '@angular/router';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  return true;
+  const snackbar = inject(MatSnackBar);
+  const router = inject(Router);
+  const platformId = inject(PLATFORM_ID);
+
+  if (isPlatformBrowser(platformId)) {
+    const token: string | null = localStorage.getItem('token');
+
+    if (token) {
+      return true;
+    }
+
+    snackbar.open('Please login first.', 'Close', {
+      verticalPosition: 'bottom', // top
+      horizontalPosition: 'center', // start, end
+      duration: 7000
+    });
+
+    localStorage.setItem('returnUrl', state.url);
+
+    router.navigate(['login'], { queryParams: { 'returnUrl': state.url } });
+  }
+
+  return false;
 };
