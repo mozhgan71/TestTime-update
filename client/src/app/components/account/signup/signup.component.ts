@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { LoggedInUser } from '../../../models/logged-in-user.model';
+import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
 
 @Component({
   standalone: true,
@@ -20,7 +21,7 @@ import { LoggedInUser } from '../../../models/logged-in-user.model';
   styleUrls: ['./signup.component.scss'],
   imports: [MatFormFieldModule, MatInputModule,
     MatButtonModule, MatCheckboxModule, ReactiveFormsModule,
-    MatDatepickerModule, MatNativeDateModule]
+    MatDatepickerModule, MatNativeDateModule, AutoFocusDirective]
 })
 export class SignUpComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
@@ -29,7 +30,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   userRes: LoggedInUser | null | undefined;
   showError: AppUser | undefined;
-  subscription: Subscription | undefined;
+  subscribedSignupUser: Subscription | undefined;
 
   myText: string | null | undefined;
 
@@ -44,7 +45,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();    //zamani ke bekhaym error haro begirim az api az in ravesh mirim
+    this.subscribedSignupUser?.unsubscribe();    //zamani ke bekhaym error haro begirim az api az in ravesh mirim
 
     console.log('Unsubscribe Done');
   }
@@ -107,7 +108,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
         rules: this.RulesCtrl.value,
       }
 
-      this.accountService.registerUser(user).subscribe(
+      this.subscribedSignupUser = this.accountService.registerUser(user).subscribe(
         {
           next: res => {
             this.userRes = res;
@@ -115,7 +116,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
           },
           error: err => {
             this.showError = err.error;
-            alert(this.showError);
+            // alert(this.showError);
           }
         }
       );

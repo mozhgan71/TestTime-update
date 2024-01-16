@@ -5,7 +5,7 @@
     }
     <mat-form-field appearance="outline">
         <mat-label>نام:</mat-label>
-        <input type="text" formControlName="nameCtrl" matInput>
+        <input autoFocusDir type="text" formControlName="nameCtrl" matInput>
         <mat-error>نام حداقل باید شامل 2 کاراکتر باشد</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
@@ -34,12 +34,13 @@
     <!-- </mat-form-field> -->
 
     <!-- Date of Birth -->
-    <mat-form-field>
+    <mat-form-field appearance="outline">
         <mat-label>تاریخ تولد:</mat-label>
-        <input formControlName="dateOfBirthCtrl" [min]="minDate" [max]="maxDate" matInput [matDatepicker]="dp3" placeholder="Enter your date of birth">
-        @if (DateOfBirthCtrl.invalid) { 
-        <mat-hint>Between {{minDate.getFullYear()}} to {{maxDate.getFullYear()}}</mat-hint>
-        } 
+        <input formControlName="dateOfBirthCtrl" [min]="minDate" [max]="maxDate" matInput [matDatepicker]="dp3"
+            placeholder="تاریخ تولد خود را وارد کنید">
+        @if (DateOfBirthCtrl.invalid) {
+        <mat-hint>بین {{minDate.getFullYear()}} تا {{maxDate.getFullYear()}}</mat-hint>
+        }
         <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
         <mat-datepicker #dp3 touchUi disabled="false"></mat-datepicker>
         @if (DateOfBirthCtrl.hasError('required')) {
@@ -67,6 +68,7 @@
             اطلاعات</button>
         <button routerLink="/login" mat-raised-button color="primary">ورود به پروفایل</button>
     </div>
+    <mat-error>{{showError}}</mat-error>
 </form>
 <!-- <div *ngIf="userRes">
     <h1>{{userRes.id}}</h1>

@@ -25,8 +25,8 @@
                 <a routerLink="contact-us">ارتباط با ما</a>
                 <a routerLink="about-us">درباره ما</a>
                 <a routerLink="test-category">دسته بندی آزمون ها</a>
-                <a routerLink="user-profile" >پروفایل من</a>
-                @if (user$ | async) {
+                <a routerLink="user-profile">پروفایل من</a>
+                @if (loggedInUserSig && loggedInUserSig()) {
                 <a> </a>
                 }
                 @else {
@@ -34,14 +34,14 @@
                 }
             </div>
             <div class="left">
-                @if (user$ | async; as user) {
+                @if (loggedInUserSig && loggedInUserSig(); as user) {
                 <span class="email">Your Email:{{user.email | titlecase}}</span>
                 }
                 @else {
                 <button routerLink="login" title="User-LogIn"
                     mat-icon-button><mat-icon>account_circle</mat-icon></button>
                 }
-                @if (user$ | async) {
+                @if (loggedInUserSig && loggedInUserSig()) {
                 <button (click)="logOut()" title="User-LogOut" mat-icon-button><mat-icon>exit_to_app</mat-icon>
                 </button>
                 }

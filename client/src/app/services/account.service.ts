@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { AppUser } from '../models/app-user.model';
 import { Router } from '@angular/router';
@@ -21,6 +21,8 @@ export class AccountService {
   private currentUserSource = new BehaviorSubject<LoggedInUser | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
+  loggedInUserSig = signal<LoggedInUser | null>(null);
+
   registerUser(userInput: AppUserRegister): Observable<LoggedInUser | null> {
     return this.http.post<LoggedInUser>(this.baseApiUrl + 'register', userInput).pipe(
       map(userResponse => {
@@ -41,7 +43,7 @@ export class AccountService {
       .pipe(
         map(user => {
           if (user) {
-            this.currentUserSource.next(user);
+            this.loggedInUserSig.set(user);
 
             this.router.navigateByUrl('/user-profile');
 
@@ -74,7 +76,7 @@ export class AccountService {
     // localStorage.setItem('user', userString)
 
     // this.currentUserSource.next(user);
-    this.currentUserSource.next(loggedInUser);
+    this.loggedInUserSig.set(loggedInUser);
 
     if (isPlatformBrowser(this.platformId)) // we make sure this code is ran on the browser and NOT server
     {
@@ -85,7 +87,7 @@ export class AccountService {
   }
 
   logOut(): void {
-    this.currentUserSource.next(null);
+    this.loggedInUserSig.set(null);
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
     }

@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, Signal, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AppUser } from '../../../models/app-user.model';
 import { AccountService } from '../../../services/account.service';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { MemberService } from '../../../services/member.service';
+import { LoggedInUser } from '../../../models/logged-in-user.model';
 
 @Component({
   standalone: true,
@@ -14,19 +15,27 @@ import { MemberService } from '../../../services/member.service';
   styleUrls: ['./userprofile.component.scss'],
   imports: [CommonModule, RouterModule]
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit{
   private router = inject(Router);
   private accountService = inject(AccountService);
   private memberService = inject(MemberService);
 
   userRes: AppUser | null | undefined;
 
-  constructor() {
-    this.accountService.currentUser$.subscribe(
-      (response: any) => this.userRes = response
-    );
+  // loggedInUserSig: Signal<LoggedInUser | null> | undefined;
 
+  constructor() {
     this.showInfo();
+  }
+
+  ngOnInit(): void {
+    this.accountService.currentUser$.subscribe(
+      (response: any) => {
+        this.userRes = response
+        console.log(this.userRes);
+
+      }
+    );
   }
 
   logOut(): void {       //with service

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Signal, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -26,7 +26,8 @@ export class HeaderComponent {
   private accountService = inject(AccountService);
 
   user: AppUser | null | undefined;
-  user$: Observable<LoggedInUser | null> | undefined;
+  //user$: Observable<LoggedInUser | null> | undefined;
+  loggedInUserSig: Signal<LoggedInUser | null> | undefined;
 
   isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -38,7 +39,8 @@ export class HeaderComponent {
     // this.accountService.currentUser$.subscribe({
     //   next: (response) => this.user = response
 
-    this.user$ = this.accountService.currentUser$;
+    //this.user$ = this.accountService.currentUser$;
+    this.loggedInUserSig = this.accountService.loggedInUserSig;
   }
 
   logOut(): void {       //with service

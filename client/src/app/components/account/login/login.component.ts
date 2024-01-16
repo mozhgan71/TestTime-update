@@ -7,13 +7,15 @@ import { AccountService } from '../../../services/account.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
 
 @Component({
   standalone: true,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule]
+  imports: [RouterModule, MatFormFieldModule, MatInputModule,
+     MatButtonModule, ReactiveFormsModule,AutoFocusDirective]
 })
 export class LogInComponent {
   private fb = inject(FormBuilder);
@@ -56,8 +58,8 @@ export class LogInComponent {
       },
       error: err => {
         this.showError = err.error;
-        alert(this.showError);
-        this.router.navigateByUrl('/sign-up');
+        // alert(this.showError);
+        // this.router.navigateByUrl('/sign-up');
       }
     });
 
@@ -78,5 +80,9 @@ export class LogInComponent {
     //     }
     //   }
     // );
+  }
+
+  getState(): void {
+    console.log(this.PasswordCtrl);
   }
 }

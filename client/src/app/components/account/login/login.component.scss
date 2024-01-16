@@ -1,5 +1,15 @@
 div {
     min-height: calc(100vh - (18.6rem));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+        color: black;
+        padding: 0.5rem;
+        border: solid 0.2rem purple;
+        border-radius: 0.2rem;
+    }
 
     form {
         min-height: calc(100vh - (18.6rem));
@@ -8,22 +18,16 @@ div {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 2rem;
+        gap: 3.5rem;
         color: purple;
 
         .div-button {
             display: flex;
+            flex-direction: row;
             color: purple;
             gap: 1rem;
             min-height: 3rem;
             direction: rtl;
-        }
-
-        h2 {
-            color: black;
-            padding: 0.5rem;
-            border: solid 0.2rem purple;
-            border-radius: 0.2rem;
         }
 
         mat-form-field {
