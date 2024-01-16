@@ -1,9 +1,9 @@
 <div>
+    <h2>ورود کاربر</h2>
     <form [formGroup]="userFg">
-        <h2>ورود کاربر</h2>
         <mat-form-field appearance="outline">
             <mat-label>ایمیل</mat-label>
-            <input type="text" formControlName="emailCtrl" matInput>
+            <input autoFocusDir type="text" formControlName="emailCtrl" matInput>
             @if (userFg.dirty) {
             <mat-error>لطفا یک ایمیل صحیح وارد کنید</mat-error>
             }
@@ -11,13 +11,23 @@
         <mat-form-field appearance="outline">
             <mat-label>رمزعبور</mat-label>
             <input type="text" formControlName="passwordCtrl" matInput>
-            @if (userFg.dirty) {
-            <mat-error>حداقل 8 کاراکتر</mat-error>
+            @if (PasswordCtrl.hasError('required')) {
+            <mat-error>وارد کردن رمز عبور اجباری است.</mat-error>
+            }
+            @else if (PasswordCtrl.errors && PasswordCtrl.hasError('minlength')) {
+            <mat-error>
+                It's too short. Min: {{PasswordCtrl.errors['minlength'].requiredLength}} characters.
+                You've typed {{PasswordCtrl.errors['minlength'].actualLength}}.
+            </mat-error>
+            }
+            @else if(PasswordCtrl.errors && PasswordCtrl.hasError('maxlength')) {
+            <mat-error>It's too long. Max: {{PasswordCtrl.errors['maxlength'].requiredLength}} characters.</mat-error>
             }
         </mat-form-field>
         <div class="div-button">
             <button mat-raised-button (click)="logInUser()" [disabled]="userFg.invalid" color="warn">ورود</button>
             <button routerLink="/sign-up" mat-raised-button color="warn">ثبت نام</button>
         </div>
+        <mat-error>{{showError}}</mat-error>
     </form>
 </div>
