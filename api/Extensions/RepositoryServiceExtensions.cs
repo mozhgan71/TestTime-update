@@ -14,6 +14,7 @@ public static class RepositoryServiceExtensions
         services.AddScoped<IResultRepository, ResultRepository>();
         services.AddScoped<ISuggestionRepository, SuggestionRepository>();
         services.AddScoped<IUserQuestionRepository, UserQuestionRepository>();
+        services.AddScoped<IMemberRepository, MemberRepository>();
 
         #endregion Dependency Injections
 

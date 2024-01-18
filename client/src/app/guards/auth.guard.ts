@@ -18,7 +18,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     snackbar.open('Please login first.', 'Close', {
       verticalPosition: 'bottom', // top
       horizontalPosition: 'center', // start, end
-      duration: 7000
+      duration: 5000
     });
 
     localStorage.setItem('returnUrl', state.url);

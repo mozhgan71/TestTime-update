@@ -59,14 +59,7 @@ export class AccountService {
 
   // get logged-in user when browser is refreshed
   getLoggedInUser(): Observable<LoggedInUser | null> {
-    return this.http.get<LoggedInUser>(this.baseApiUrl).pipe(
-      map((loggedInUserResponse: LoggedInUser | null) => {
-        if (loggedInUserResponse)
-          return loggedInUserResponse
-
-        return null;
-      })
-    );
+    return this.http.get<LoggedInUser>(this.baseApiUrl);
   }
 
   setCurrentUser(loggedInUser: LoggedInUser): void {
@@ -99,8 +92,8 @@ export class AccountService {
     const returnUrl = localStorage.getItem('returnUrl');
     if (returnUrl)
       this.router.navigate([returnUrl]);
-    else
-      this.router.navigate(['user-profile']);
+    // else
+    //   this.router.navigate(['user-profile']);
 
     if (isPlatformBrowser(this.platformId)) // we make sure this code is ran on the browser and NOT server
       localStorage.removeItem('returnUrl');

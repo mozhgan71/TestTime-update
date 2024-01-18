@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authentication;
+
 namespace api.Controllers;
 
+[Authorize]
 public class AccountController(IAccountRepository _accountRepository) : BaseApiController
 {
     /// <summary>
@@ -9,6 +12,7 @@ public class AccountController(IAccountRepository _accountRepository) : BaseApiC
     /// <param name="userInput"></param>
     /// <param name="cancellationToken"></param>
     /// <returns>UserDto</returns>
+    [AllowAnonymous]
     [HttpPost("register")]
     public async Task<ActionResult<LoggedInDto>> Register(RegisterDto userInput, CancellationToken cancellationToken) // parameter
     {
@@ -42,6 +46,33 @@ public class AccountController(IAccountRepository _accountRepository) : BaseApiC
         return loggedInDto;
     }
 
+    /// <summary>
+    /// Get loggedInUser when user refreshes the browser. 
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns>LoggedInDto</returns>
+    [HttpGet]
+    public async Task<ActionResult<LoggedInDto?>> ReloadLoggedInUser(CancellationToken cancellationToken)
+    {
+        // get token value from token
+        string? tokenValue = Response.HttpContext.GetTokenAsync("access_token").Result;
+
+        LoggedInDto? loggedInDto = await _accountRepository.ReloadLoggedInUserAsync(User.GetUserId(), tokenValue, cancellationToken);
+
+        //// BEST/SHORTEST WAY ////
+        return loggedInDto is not null ? loggedInDto : BadRequest("Relogin user failed"); //  Ternary Operator: if/else shortcut
+
+        //// MEDUIM LONG WAY ////
+        // LoggedInDto? myResult =  loggedInDto is not null ? loggedInDto : null; //  Ternary Operator: if/else shortcut
+        // return myResult;
+
+        //// LOGN WAY /////
+        // if (loggedInDto is not null)
+        //     return loggedInDto;
+        // else
+        //     return BadRequest("Reloading LoggedInUser failed");
+    }
+
     // [HttpGet("get-by-email-password/{email}/{password}")]
     // public ActionResult<AppUser>? GetForLogIn(string email, string password)
     // {
@@ -54,4 +85,14 @@ public class AccountController(IAccountRepository _accountRepository) : BaseApiC
 
     //     return user;
     // }
+
+
+    // [AllowAnonymous]
+    // Reset Passsword
+
+    // [Authorize]
+    // Deactivate
+
+    // [Authorize]
+    // Delete
 }

@@ -11,7 +11,7 @@ import { Member } from '../models/member-model';
 export class MemberService {
   private http = inject(HttpClient);
 
-  private readonly baseApiUrl = environment.apiUrl + 'member/'; 
+  private readonly baseApiUrl = environment.apiUrl + 'member/';
 
   getAllMembers(): Observable<Member[] | null> {
     return this.http.get<Member[]>(this.baseApiUrl).pipe(
@@ -25,9 +25,9 @@ export class MemberService {
   }
   getMemberById(id: string | null): Observable<AppUser | null> {
     return this.http.get<AppUser>(this.baseApiUrl + 'get-by-id/' + id).pipe(
-      map((user: AppUser | null) => {
-        if (user)
-          return user;
+      map((member: AppUser | null) => {
+        if (member)
+          return member;
 
         return null;
       })

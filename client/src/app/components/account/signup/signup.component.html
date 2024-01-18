@@ -1,5 +1,4 @@
 <form [formGroup]="userFg" (ngSubmit)="registerUser()">
-    <h2>فرم ثبت نام</h2>
     @if (userFg.invalid) {
     <mat-hint>وارد کردن موارد ستاره دار(*)الزامی می باشد</mat-hint>
     }
@@ -14,24 +13,50 @@
         <mat-error>نام خانوادگی حداقل باید شامل 2 کاراکتر باشد</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
-        <mat-label>ایمیل:</mat-label>
-        <input type="email" formControlName="emailCtrl" matInput>
+        <mat-label>ایمیل</mat-label>
+        <input type="text" formControlName="emailCtrl" matInput>
+        @if (EmailCtrl.hasError('required')) {
+        <mat-error> وارد کردن ایمیل اجباری است</mat-error>
+        }
+        @else if (EmailCtrl.hasError('pattern')) {
         <mat-error>لطفا یک ایمیل صحیح وارد کنید</mat-error>
+        }
     </mat-form-field>
+
+    <!-- Password -->
     <mat-form-field appearance="outline">
-        <mat-label>رمز عبور:</mat-label>
-        <input type="text" formControlName="passwordCtrl" matInput>
-        <mat-error>حداقل 8 کاراکتر</mat-error>
+        <mat-label>رمزعبور</mat-label>
+        <input type="password" formControlName="passwordCtrl" label="Password" placeHolder="Your password" matInput>
+        @if (PasswordCtrl.hasError('required')) {
+        <mat-error>وارد کردن رمز عبور الزامی است</mat-error>
+        }
+        @else if (PasswordCtrl.errors && PasswordCtrl.hasError('minlength')) {
+        <mat-error>حداقل طول رمز عبور می بایست: {{PasswordCtrl.errors['minlength'].requiredLength}} کاراکتر باشد
+            .</mat-error>
+        }
+        @else if(PasswordCtrl.errors && PasswordCtrl.hasError('maxlength')) {
+        <mat-error>حداکثر طول رمز عبور می بایست: {{PasswordCtrl.errors['maxlength'].requiredLength}} کاراکتر
+            باشد</mat-error>
+        }
     </mat-form-field>
+
+    <!-- Confirm Password -->
     <mat-form-field appearance="outline">
-        <mat-label>تکرار رمزعبور:</mat-label>
-        <input type="text" formControlName="confirmPasswordCtrl" matInput>
+        <mat-label> تکرار رمزعبور</mat-label>
+        <input type="password" formControlName="confirmPasswordCtrl" label="Confirm Password"
+            placeHolder="Re-enter password" matInput>
+        @if (ConfirmPasswordCtrl.hasError('required')) {
+        <mat-error>وارد کردن تکرار رمز عبور الزامی است</mat-error>
+        }
+        @else if (ConfirmPasswordCtrl.errors && ConfirmPasswordCtrl.hasError('minlength')) {
+        <mat-error>حداقل طول تکرار رمز عبور می بایست:{{ConfirmPasswordCtrl.errors['minlength'].requiredLength}} کاراکتر
+            باشد</mat-error>
+        }
+        @else if(ConfirmPasswordCtrl.errors && ConfirmPasswordCtrl.hasError('maxlength')) {
+        <mat-error>حداکثر طول تکرار رمز عبور می بایست: {{ConfirmPasswordCtrl.errors['maxlength'].requiredLength}}
+            کاراکتر باشد</mat-error>
+        }
     </mat-form-field>
-    <!-- <mat-form-field appearance="outline">
-        <mat-label>سن:</mat-label>
-        <input type="number" formControlName="dateOfBirthCtrl" matInput> -->
-    <!-- <mat-error>گروه سنی 9 تا 99 سال قابل قبول می باشد</mat-error> -->
-    <!-- </mat-form-field> -->
 
     <!-- Date of Birth -->
     <mat-form-field appearance="outline">
@@ -44,7 +69,7 @@
         <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
         <mat-datepicker #dp3 touchUi disabled="false"></mat-datepicker>
         @if (DateOfBirthCtrl.hasError('required')) {
-        <mat-error>This field is required</mat-error>
+        <mat-error>وارد کردن تاریخ تولد الزامی است</mat-error>
         }
     </mat-form-field>
     <mat-form-field appearance="outline">

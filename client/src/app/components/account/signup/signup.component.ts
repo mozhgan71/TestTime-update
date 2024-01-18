@@ -13,15 +13,18 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { LoggedInUser } from '../../../models/logged-in-user.model';
 import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
+import { RouterModule } from '@angular/router';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
-  imports: [MatFormFieldModule, MatInputModule,
+  imports: [RouterModule,MatFormFieldModule, MatInputModule,
     MatButtonModule, MatCheckboxModule, ReactiveFormsModule,
-    MatDatepickerModule, MatNativeDateModule, AutoFocusDirective]
+    MatDatepickerModule, MatNativeDateModule,MatSnackBarModule,
+    AutoFocusDirective]
 })
 export class SignUpComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
@@ -55,8 +58,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
     nameCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
     familyCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
     emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
-    passwordCtrl: ['', [Validators.required, Validators.minLength(8)]],
-    confirmPasswordCtrl: ['', [Validators.required, Validators.minLength(8)]],
+    passwordCtrl: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+    confirmPasswordCtrl: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
     dateOfBirthCtrl: ['', [Validators.required]],
     educationCtrl: [''],
     rulesCtrl: ['', Validators.required]

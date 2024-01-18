@@ -53,7 +53,7 @@ export class UserProfileComponent implements OnInit{
       {
         next: res => {
           this.userRes = res;
-          console.log(res);
+          // console.log(res);
         },
       }
     );

@@ -8,13 +8,6 @@ form {
     background-color: rgb(253, 253, 253);
     color: purple;
 
-    h2 {
-        background-color: rgb(139, 23, 139);
-        color: black;
-        padding: 0.5rem;
-        margin: 0;
-    }
-
     h3 {
         margin: 0;
         padding: 0;
@@ -23,7 +16,7 @@ form {
     mat-form-field {
         // height: 3rem;
         width: 25%;
-    }  
+    }
 
     mat-error {
         color: red;
@@ -50,13 +43,13 @@ form {
     }
 
     a {
-        color: rgb(250, 248, 248);
+        color: rgb(175, 28, 28);
         font-size: small;
     }
 
     .div-button {
         display: flex;
-        flex-direction: column;
+        flex-direction: row-reverse;
         gap: 0.5rem;
     }
 }

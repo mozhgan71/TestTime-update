@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -15,7 +16,8 @@ import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   imports: [RouterModule, MatFormFieldModule, MatInputModule,
-     MatButtonModule, ReactiveFormsModule,AutoFocusDirective]
+    MatButtonModule, ReactiveFormsModule, MatSnackBarModule,
+    AutoFocusDirective]
 })
 export class LogInComponent {
   private fb = inject(FormBuilder);
@@ -29,7 +31,7 @@ export class LogInComponent {
   //#region Create Form Group/controler (AbstractControl)
   userFg = this.fb.group({ // formGroup
     emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
-    passwordCtrl: ['', [Validators.required, Validators.minLength(8)]],
+    passwordCtrl: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
   });
   //#endregion
 
