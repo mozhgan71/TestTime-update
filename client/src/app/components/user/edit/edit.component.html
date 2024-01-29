@@ -17,8 +17,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>ایمیل:</mat-label>
-            <input type="email" formControlName="emailCtrl" matInput readonly="true">
-            <mat-hint>ایمیل قابل ویرایش نیست</mat-hint>
+            <input type="email" formControlName="emailCtrl" matInput>
         </mat-form-field>
         <!-- <mat-form-field appearance="outline">
             <mat-label>رمز عبور:</mat-label>
@@ -28,6 +27,19 @@
         <mat-form-field appearance="outline">
             <mat-label>تکرار رمزعبور:</mat-label>
             <input type="text" formControlName="confirmPasswordCtrl" matInput>
+        </mat-form-field> -->
+        <!-- <mat-form-field appearance="outline">
+            <mat-label>تاریخ تولد:</mat-label>
+            <input formControlName="ageCtrl" [min]="minDate" [max]="maxDate" matInput [matDatepicker]="dp3"
+                placeholder="تاریخ تولد خود را وارد کنید">
+            @if (AgeCtrl.invalid) {
+            <mat-hint>بین {{minDate.getFullYear()}} تا {{maxDate.getFullYear()}}</mat-hint>
+            }
+            <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3 touchUi disabled="false"></mat-datepicker>
+            @if (AgeCtrl.hasError('required')) {
+            <mat-error>وارد کردن تاریخ تولد الزامی است</mat-error>
+            }
         </mat-form-field> -->
         <mat-form-field appearance="outline">
             <mat-label>سن:</mat-label>

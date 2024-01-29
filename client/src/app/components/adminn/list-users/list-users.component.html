@@ -1,6 +1,6 @@
 @if (users) {
 <div>
-    @for (user of allUsers$ | async; track $index) {
+    @for (user of allMembersSig(); track $index) {
     <ul>
         <hr>
         <li>Name: {{user.name}}</li>

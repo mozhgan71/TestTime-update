@@ -23,7 +23,7 @@ export class MemberService {
       })
     )
   }
-  getMemberById(id: string | null): Observable<AppUser | null> {
+  getMemberById(id: string | null): Observable<AppUser | null | undefined> {
     return this.http.get<AppUser>(this.baseApiUrl + 'get-by-id/' + id).pipe(
       map((member: AppUser | null) => {
         if (member)

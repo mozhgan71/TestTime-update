@@ -49,6 +49,8 @@ export class AccountService {
 
             this.setCurrentUser(user);
 
+            this.navigateToReturnUrl(); // navigate to the url which user tried before log-in
+
             return user;
           }
 
@@ -75,14 +77,13 @@ export class AccountService {
     {
       localStorage.setItem('token', loggedInUser.token);
     }
-
-    this.navigateToReturnUrl(); // navigate to the url which user tried before log-in
   }
 
   logOut(): void {
     this.loggedInUserSig.set(null);
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
+      sessionStorage.clear();
     }
 
     this.router.navigate([''])
@@ -92,8 +93,8 @@ export class AccountService {
     const returnUrl = localStorage.getItem('returnUrl');
     if (returnUrl)
       this.router.navigate([returnUrl]);
-    // else
-    //   this.router.navigate(['user-profile']);
+    else
+      this.router.navigate(['user-profile']);
 
     if (isPlatformBrowser(this.platformId)) // we make sure this code is ran on the browser and NOT server
       localStorage.removeItem('returnUrl');

@@ -116,6 +116,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
           next: res => {
             this.userRes = res;
             this.myText = " .عزیز به گروه کاربران ما خوش آمدید" + this.userRes!.name;
+            if (res) {
+              sessionStorage.setItem('user-id', res.id!); //for edit & show results & suggestion & createquestion & compare
+            }
           },
           error: err => {
             this.showError = err.error;

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, OnDestroy, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -22,7 +22,8 @@ export class ListUsersComponent {
 
   users: Member[] | null | undefined;
   delUser: AppUser | undefined;
-  allUsers$: Observable<Member[] | null> | undefined;
+  //allMembers$: Observable<Member[] | null> | undefined;
+  allMembersSig = signal<Member[] | null>(null);
   // subscription: Subscription | undefined;         //zamani ke bekhaym error haro begirim az api az in ravesh mirim
 
   constructor() {
@@ -43,7 +44,8 @@ export class ListUsersComponent {
       }
     );
 
-    this.allUsers$ = this._memberService.getAllMembers();
+    //this.allMembers$ = this._memberService.getAllMembers();
+    this.allMembersSig.set(this.users!);
   }
 
   deleteUser(id: string): void {

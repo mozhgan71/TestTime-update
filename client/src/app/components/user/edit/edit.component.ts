@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppUserUpdate } from '../../../models/app-user-register.model';
@@ -8,44 +8,75 @@ import { AppUser } from '../../../models/app-user.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { MemberService } from '../../../services/member.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   standalone: true,
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule,
+  imports: [CommonModule, MatFormFieldModule, MatInputModule,
+    MatButtonModule, MatDatepickerModule, MatNativeDateModule,
     ReactiveFormsModule, RouterModule]
 })
-export class EditComponent {
+export class EditComponent implements OnInit{
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
+  private memberService = inject(MemberService);
 
-  userRes: AppUser | undefined;
+  userRes: AppUser | null | undefined;
   showError: AppUser | undefined;
+
+  minDate = new Date(); // yyyy/mm/dd/hh/mm/ss
+  maxDate = new Date();
 
   constructor() {
     this.showInfo();
   }
 
+  ngOnInit(): void {
+    // set datePicker year limitations
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 99, 0, 1); // not older than 99 years
+    this.maxDate = new Date(currentYear - 9, 0, 1); // not earlier than 9 years
+  }
+
   showInfo(): void {
     var userId = sessionStorage.getItem('user-id');
 
-    this.http.get<AppUser>('http://localhost:5000/api/user/get-by-id/' + userId).subscribe(
+    this.memberService.getMemberById(userId).subscribe(
       {
         next: res => {
           this.userRes = res;
-          console.log(res);
-          this.NameCtrl.setValue(this.userRes.name);
-          this.FamilyCtrl.setValue(this.userRes.family);
-          this.EmailCtrl.setValue(this.userRes.email);
-          // this.PasswordCtrl.setValue(this.userRes.password);
-          // this.ConfirmPasswordCtrl.setValue(this.userRes.confirmPassword);
-          this.AgeCtrl.setValue(this.userRes.age);
-          this.EducationCtrl.setValue(this.userRes.education);
+          if (this.userRes) {
+            this.NameCtrl.setValue(this.userRes.name);
+            this.FamilyCtrl.setValue(this.userRes.family);
+            this.EmailCtrl.setValue(this.userRes.email);
+            // this.PasswordCtrl.setValue(this.userRes.password);
+            // this.ConfirmPasswordCtrl.setValue(this.userRes.confirmPassword);
+            this.AgeCtrl.setValue(this.userRes.age);
+            this.EducationCtrl.setValue(this.userRes.education);
+          }
         },
       }
     );
+    // this.http.get<AppUser>('http://localhost:5000/api/user/get-by-id/' + userId).subscribe(
+    //   {
+    //     next: res => {
+    //       this.userRes = res;
+    //       console.log(res);
+    //       this.NameCtrl.setValue(this.userRes.name);
+    //       this.FamilyCtrl.setValue(this.userRes.family);
+    //       this.EmailCtrl.setValue(this.userRes.email);
+    //       // this.PasswordCtrl.setValue(this.userRes.password);
+    //       // this.ConfirmPasswordCtrl.setValue(this.userRes.confirmPassword);
+    //       this.AgeCtrl.setValue(this.userRes.age);
+    //       this.EducationCtrl.setValue(this.userRes.education);
+    //     },
+    //   }
+    // );
   }
 
   //#region Create Form Group/controler (AbstractControl)
