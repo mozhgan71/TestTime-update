@@ -22,8 +22,8 @@ export class ListUsersComponent {
 
   users: Member[] | null | undefined;
   delUser: AppUser | undefined;
-  //allMembers$: Observable<Member[] | null> | undefined;
-  allMembersSig = signal<Member[] | null>(null);
+  allMembers$: Observable<Member[] | null> | undefined;
+  //allMembersSig = signal<Member[] | null>(null);
   // subscription: Subscription | undefined;         //zamani ke bekhaym error haro begirim az api az in ravesh mirim
 
   constructor() {
@@ -44,8 +44,8 @@ export class ListUsersComponent {
       }
     );
 
-    //this.allMembers$ = this._memberService.getAllMembers();
-    this.allMembersSig.set(this.users!);
+    this.allMembers$ = this._memberService.getAllMembers();
+    //this.allMembersSig.set(this.users!);
   }
 
   deleteUser(id: string): void {
