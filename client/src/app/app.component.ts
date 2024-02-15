@@ -3,7 +3,7 @@ import { AccountService } from './services/account.service';
 import { AppUser } from './models/app-user.model';
 import { HeaderComponent } from "./components/header/header.component";
 import { FooterComponent } from "./components/footer/footer.component";
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { MainComponent } from "./components/main/main.component";
 import { LoggedInUser } from './models/logged-in-user.model';
@@ -18,7 +18,7 @@ import { take } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   accountService = inject(AccountService);
-  platformId = inject(PLATFORM_ID); // used to test if we are in the client(browser) or server. We must be on the client to access localStorage!
+  platformId = inject(PLATFORM_ID); // used to test if we are in the client(browser) or server. We must be on the client to access localStorage!router = inject(Router); 
 
   allUsers: AppUser[] | undefined
 

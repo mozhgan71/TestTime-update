@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserProfileComponent } from '../../user/userprofile/userprofile.component';
+import { LoggedInUser } from '../../../models/logged-in-user.model';
 
 @Component({
   standalone: true,
@@ -17,14 +19,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.scss'],
   imports: [RouterModule, MatFormFieldModule, MatInputModule,
     MatButtonModule, ReactiveFormsModule, MatSnackBarModule,
-    AutoFocusDirective]
+    AutoFocusDirective, UserProfileComponent]
 })
 export class LogInComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private accountService = inject(AccountService);
 
-  userLogIn: AppUser | undefined;
+  userLogIn: LoggedInUser | null | undefined;
   showError: AppUser | undefined;
   subscription: Subscription | undefined;
 
@@ -53,6 +55,7 @@ export class LogInComponent {
   logInUser(): void {
     this.accountService.logIn(this.EmailCtrl.value, this.PasswordCtrl.value).subscribe({
       next: response => {
+        // this.userLogIn = response;
         console.log(response);
         if (response) {
           sessionStorage.setItem('user-id', response.id!); //for edit & show results & suggestion & createquestion & compare

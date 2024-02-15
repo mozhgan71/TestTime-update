@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Signal, inject } from '@angular/core';
+import { Component, Input, OnInit, Signal, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AppUser } from '../../../models/app-user.model';
 import { AccountService } from '../../../services/account.service';
@@ -15,12 +15,15 @@ import { LoggedInUser } from '../../../models/logged-in-user.model';
   styleUrls: ['./userprofile.component.scss'],
   imports: [CommonModule, RouterModule]
 })
-export class UserProfileComponent implements OnInit{
+export class UserProfileComponent implements OnInit {
+  // @Input('userInput') user: LoggedInUser | null | undefined;
+
   private router = inject(Router);
   private accountService = inject(AccountService);
   private memberService = inject(MemberService);
 
   userRes: AppUser | null | undefined;
+  // loginUser: LoggedInUser | null | undefined;
 
   // loggedInUserSig: Signal<LoggedInUser | null> | undefined;
 
