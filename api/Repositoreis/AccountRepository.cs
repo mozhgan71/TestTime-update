@@ -28,14 +28,14 @@ public class AccountRepository : IAccountRepository
         using var hmac = new HMACSHA512();
 
         // if user/email does not exist, create a new AppUser. 
-        AppUser appUser = _Mappers.ConvertRegisterDtoToAppUser(userInput);
+        AppUser appUser = Mappers.ConvertRegisterDtoToAppUser(userInput);
 
         if (_collection is not null)
             await _collection.InsertOneAsync(appUser, null, cancellationToken);
 
         if (appUser.Id is not null)
         {
-            LoggedInDto loggedInDto = _Mappers.ConvertAppUserToLoggedInDto(appUser, _tokenService.CreateToken(appUser));
+            LoggedInDto loggedInDto = Mappers.ConvertAppUserToLoggedInDto(appUser, _tokenService.CreateToken(appUser));
 
             return loggedInDto;
         }
@@ -60,13 +60,11 @@ public class AccountRepository : IAccountRepository
         // Check if password is correct and matched with Database PasswordHash.
         if (appUser.PasswordHash is not null && appUser.PasswordHash.SequenceEqual(ComptedHash))
         {
-            UpdateLastActiveInDb(appUser, cancellationToken);
-
             if (appUser.Id is not null)
             {
                 string token = _tokenService.CreateToken(appUser);
 
-                return _Mappers.ConvertAppUserToLoggedInDto(appUser, token);
+                return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
             }
         }
 
@@ -79,18 +77,28 @@ public class AccountRepository : IAccountRepository
 
         if (appUser?.Id is not null && tokenValue is not null)
         {
-            return _Mappers.ConvertAppUserToLoggedInDto(appUser, tokenValue);
+            return Mappers.ConvertAppUserToLoggedInDto(appUser, tokenValue);
         }
 
         return null;
     }
 
-    private async void UpdateLastActiveInDb(AppUser appUser, CancellationToken cancellationToken)
+      public async Task<UpdateResult?> UpdateLastActive(string loggedInUserId, CancellationToken cancellationToken)
     {
-        UpdateDefinition<AppUser> newLastActive = Builders<AppUser>.Update.Set(user =>
-                       user.LastActive, DateTime.UtcNow);
+        UpdateDefinition<AppUser> newLastActive = Builders<AppUser>.Update
+        .Set(appUser =>
+            appUser.LastActive, DateTime.UtcNow);
 
-        await _collection.UpdateOneAsync<AppUser>(user =>
-        user.Id == appUser.Id, newLastActive, null, cancellationToken);
+        return await _collection.UpdateOneAsync<AppUser>(user =>
+        user.Id == loggedInUserId, newLastActive, null, cancellationToken);
     }
+    
+    // private async void UpdateLastActiveInDb(AppUser appUser, CancellationToken cancellationToken)
+    // {
+    //     UpdateDefinition<AppUser> newLastActive = Builders<AppUser>.Update.Set(user =>
+    //                    user.LastActive, DateTime.UtcNow);
+
+    //     await _collection.UpdateOneAsync<AppUser>(user =>
+    //     user.Id == appUser.Id, newLastActive, null, cancellationToken);
+    // }
 }
