@@ -1,8 +1,24 @@
 <div>
     @if (userRes) {
     <div class="div-info">
-        <h4>مشخصات کاربر</h4>
-        <h4>----------------------------------</h4>
+        <section class="top">
+            @if (loggedInUserSig && loggedInUserSig(); as user) {
+            <button class="photo">
+                @if(user.profilePhotoUrl) {
+                <img ngSrc="{{photoUrl + user.profilePhotoUrl}}" fill priority alt="{{user.name[0]}}">
+                <!-- // localhost:5000/storage/photo/sldkfjlsj92374.web -->
+                }
+                @else {
+                {{user.name[0] | titlecase}}
+                }
+            </button>
+            <button routerLink="/user-photo-edit" class="photo" title="ویرایش عکس">
+                <mat-icon>edit</mat-icon>
+            </button>
+            }
+        </section>
+        <!-- <h4>مشخصات کاربر</h4> -->
+        <!-- <h4>----------------------------------</h4> -->
         <h4>نام : {{userRes.name}}</h4>
         <h4>نام خانوادگی : {{userRes.family}}</h4>
         <h4>ایمیل : {{userRes.email}}</h4>
@@ -11,8 +27,8 @@
         @if (userRes.education) {
         <h4> تحصیلات : {{userRes.education}}</h4>
         }
-        <button routerLink="/edit" mat-raised-button color="warn">ویرایش اطلاعات</button>
-        <button (click)="logOut()" mat-raised-button color="warn">خروج</button>
+        <button class="button-down" routerLink="/edit" mat-raised-button color="warn">ویرایش اطلاعات</button>
+        <button class="button-down" (click)="logOut()" mat-raised-button color="warn">خروج</button>
     </div>
     }
     <hr>

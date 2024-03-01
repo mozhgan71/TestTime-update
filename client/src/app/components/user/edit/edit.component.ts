@@ -21,7 +21,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule, MatDatepickerModule, MatNativeDateModule,
     ReactiveFormsModule, RouterModule]
 })
-export class EditComponent implements OnInit{
+export class EditComponent implements OnInit{  
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
   private memberService = inject(MemberService);
@@ -56,7 +56,7 @@ export class EditComponent implements OnInit{
             this.EmailCtrl.setValue(this.userRes.email);
             // this.PasswordCtrl.setValue(this.userRes.password);
             // this.ConfirmPasswordCtrl.setValue(this.userRes.confirmPassword);
-            this.AgeCtrl.setValue(this.userRes.age);
+            // this.AgeCtrl.setValue(this.userRes.age);
             this.EducationCtrl.setValue(this.userRes.education);
           }
         },
@@ -86,7 +86,7 @@ export class EditComponent implements OnInit{
     emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
     // passwordCtrl: ['', [Validators.required, Validators.minLength(8)]],
     // confirmPasswordCtrl: ['', [Validators.required, Validators.minLength(8)]],
-    ageCtrl: ['', [Validators.required, Validators.min(9), Validators.max(99)]],
+    ageCtrl: ['', [Validators.min(9), Validators.max(99)]],
     educationCtrl: [''],
   });
   //#endregion
@@ -117,6 +117,8 @@ export class EditComponent implements OnInit{
 
   //#region Methods
   editUser(): void {
+    // const dobUpdated: string | undefined = this.getDateOnly(this.AgeCtrl.value);
+
     var userId = sessionStorage.getItem('user-id');
 
     console.log(this.userFg.value);
@@ -129,7 +131,7 @@ export class EditComponent implements OnInit{
       email: this.EmailCtrl.value,
       // password: this.PasswordCtrl.value,
       // confirmPassword: this.ConfirmPasswordCtrl.value,
-      age: this.AgeCtrl.value,
+      age: this.getDateOnly(this.AgeCtrl.value),
       education: this.EducationCtrl.value,
     }
 
@@ -152,4 +154,11 @@ export class EditComponent implements OnInit{
 
   // }
   //#endregion
+
+  private getDateOnly(dob: string | null): string | undefined {
+    if (!dob) return undefined;
+
+    let theDob: Date = new Date(dob);
+    return new Date(theDob.setMinutes(theDob.getMinutes() - theDob.getTimezoneOffset())).toISOString().slice(0, 10);
+  }
 }

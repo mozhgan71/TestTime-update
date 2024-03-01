@@ -1,3 +1,5 @@
+import { Photo } from "./photo.model";
+
 export interface Member {
     id: string,
     name: string,
@@ -5,5 +7,6 @@ export interface Member {
     email: string,
     age: string | undefined,
     education: string,
-    lastActive: Date
+    lastActive: Date,
+    photos: Photo[]
 }

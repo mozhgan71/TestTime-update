@@ -59,6 +59,7 @@ import { MemberListComponent } from './components/member-list/member-list.compon
 import { authGuard } from './guards/auth.guard';
 import { authLoggedInGuard } from './guards/auth-logged-in.guard';
 import { NoAccessComponent } from './components/no-access/no-access.component';
+import { UserPhotoEditComponent } from './components/user/user-photo-edit/user-photo-edit.component';
 
 export const routes: Routes = [
     {
@@ -69,7 +70,8 @@ export const routes: Routes = [
             { path: 'members', component: MemberListComponent },
             { path: 'test-category', component: TestCategoryComponent },
             { path: 'user-profile', component: UserProfileComponent },
-            { path: 'no-access', component: NoAccessComponent }
+            { path: 'no-access', component: NoAccessComponent },
+            { path: 'user-photo-edit', component: UserPhotoEditComponent }
         ]
     },
     {

@@ -5,5 +5,6 @@ export interface LoggedInUser {
     email: string,
     age: number,
     education: string,
-    token: string
+    token: string,
+    profilePhotoUrl: string
 }

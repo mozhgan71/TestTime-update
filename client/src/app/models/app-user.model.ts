@@ -5,5 +5,5 @@ export interface AppUser {
     email: string,
     age: string | undefined,
     education: string,
-    token: string
+    token: string,
 }

@@ -19,7 +19,7 @@ div {
         margin: 0.2rem;
         direction: rtl;
 
-        button {
+        .button-down {
             width: 9rem;
             height: 3rem;
             background-color: purple;
@@ -27,11 +27,32 @@ div {
             border: solid 0.2rem pink;
         }
 
-        button:hover {
+        .button-down:hover {
             font-weight: bolder;
-            width: 10rem;
-            height: 4rem;
+            cursor: pointer;
         }
+    }
+
+    .photo {
+        font-size: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        border: none;
+        margin-top: 0.5rem;
+
+        mat-icon {
+            cursor: pointer;
+        }
+    }
+
+    .top {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 0.5rem;
     }
 
     hr {

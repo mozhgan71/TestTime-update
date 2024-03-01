@@ -4,16 +4,19 @@ import { Router, RouterModule } from '@angular/router';
 import { AppUser } from '../../../models/app-user.model';
 import { AccountService } from '../../../services/account.service';
 import { UserService } from '../../../services/user.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule ,NgOptimizedImage} from '@angular/common';
 import { MemberService } from '../../../services/member.service';
 import { LoggedInUser } from '../../../models/logged-in-user.model';
+import { environment } from '../../../../environments/environment.development';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  standalone: true,
+  standalone: true, 
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
   styleUrls: ['./userprofile.component.scss'],
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule,NgOptimizedImage,
+            MatIconModule]
 })
 export class UserProfileComponent implements OnInit {
   // @Input('userInput') user: LoggedInUser | null | undefined;
@@ -22,10 +25,12 @@ export class UserProfileComponent implements OnInit {
   private accountService = inject(AccountService);
   private memberService = inject(MemberService);
 
+  photoUrl: string = environment.apiPhotoUrl;
+
   userRes: AppUser | null | undefined;
   // loginUser: LoggedInUser | null | undefined;
 
-  // loggedInUserSig: Signal<LoggedInUser | null> | undefined;
+  loggedInUserSig: Signal<LoggedInUser | null> | undefined;
 
   constructor() {
     this.showInfo();
@@ -36,9 +41,10 @@ export class UserProfileComponent implements OnInit {
       (response: any) => {
         this.userRes = response
         console.log(this.userRes);
-
       }
     );
+
+    this.loggedInUserSig = this.accountService.loggedInUserSig;
   }
 
   logOut(): void {       //with service
