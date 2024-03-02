@@ -9,11 +9,18 @@ import { Photo } from '../../../models/photo.model';
 import { take } from 'rxjs';
 import { ApiResponse } from '../../../models/helpers/apiResponse.model';
 import { FileUploadModule, FileUploader } from 'ng2-file-upload';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-photo-editor',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, NgOptimizedImage,
+    MatIconModule, MatFormFieldModule, MatCardModule, MatButtonModule,
+    FileUploadModule],
   templateUrl: './photo-editor.component.html',
   styleUrl: './photo-editor.component.scss'
 })

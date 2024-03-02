@@ -3,6 +3,17 @@
     @for (user of users; track $index) {
     <ul>
         <hr>
+        @if (user.photos.length === 0) {
+        <img ngSrc="../assets/images/member.png" width="128" height="128" alt="{{user.name}} photo"
+            mat-card-image>
+        }
+        @else {
+        @for (photo of user.photos; track $index) {
+        @if (photo.isMain) {
+        <img ngSrc="{{apiPhotoUrl + photo.url_165}}" width="128" height="128" alt="{{user.name}}  photo" mat-card-image>
+        }
+        }
+        }
         <li>Name: {{user.name}}</li>
         <li>Family: {{user.family}}</li>
         <li>Email: {{user.email}}</li>

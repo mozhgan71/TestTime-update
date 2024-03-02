@@ -12,53 +12,82 @@ div {
     .div-info {
         display: flex;
         flex-direction: column;
-        border: solid 0.1rem purple;
-        border-radius: 5rem;
+        justify-content: center;
+        // border: solid 0.1rem purple;
         background-color: rgb(216, 103, 201);
         width: 30%;
         margin: 0.2rem;
+        padding: 0.2rem;
         direction: rtl;
+
+        .top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+
+            .my-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 9rem;
+                height: 3rem;
+                background-color: purple;
+                color: black;
+            }
+
+            .my-button:hover {
+                font-weight: bolder;
+                cursor: pointer;
+            }
+
+            .photo {
+                font-size: 2rem;
+                display: flex;
+                justify-content: center;
+                background-color: purple;
+                align-items: center;
+                width: 5.5rem;
+                height: 5.5rem;
+                border-radius: 50%;
+                border: none;
+                // margin-top: 0.5rem;
+
+                mat-icon {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        hr {
+            color: purple;
+            width: 20rem;
+            height: 0.1rem;
+        }
 
         .button-down {
             width: 9rem;
             height: 3rem;
             background-color: purple;
             color: black;
-            border: solid 0.2rem pink;
+            // border: solid 0.2rem pink;
         }
 
         .button-down:hover {
             font-weight: bolder;
             cursor: pointer;
         }
-    }
 
-    .photo {
-        font-size: 2rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 4rem;
-        height: 4rem;
-        border-radius: 50%;
-        border: none;
-        margin-top: 0.5rem;
-
-        mat-icon {
-            cursor: pointer;
+        button {
+            margin: 0;
+            padding: 0;
         }
-    }
 
-    .top {
-        display: flex;
-        flex-direction: row-reverse;
-        gap: 0.5rem;
-    }
+        .top-avatar {
+            border-radius: 50%;
+        }
 
-    hr {
-        color: purple;
-        width: 0.1rem;
-        height: 20rem;
     }
 
     .div-button {

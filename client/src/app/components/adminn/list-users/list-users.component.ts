@@ -2,19 +2,20 @@ import { Component, OnDestroy, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { AppUser } from '../../../models/app-user.model';
 import { UserService } from '../../../services/user.service';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MemberService } from '../../../services/member.service';
 import { Member } from '../../../models/member-model';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   standalone: true,
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
   styleUrls: ['./list-users.component.scss'],
-  imports: [CommonModule, MatIconModule]
+  imports: [CommonModule, MatIconModule, NgOptimizedImage]
 })
 export class ListUsersComponent {
   private http = inject(HttpClient);
@@ -25,6 +26,8 @@ export class ListUsersComponent {
   allMembers$: Observable<Member[] | null> | undefined;
   //allMembersSig = signal<Member[] | null>(null);
   // subscription: Subscription | undefined;         //zamani ke bekhaym error haro begirim az api az in ravesh mirim
+
+  apiPhotoUrl = environment.apiPhotoUrl;
 
   constructor() {
     this.showUsers();
