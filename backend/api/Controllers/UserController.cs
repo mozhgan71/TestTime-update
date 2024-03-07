@@ -2,10 +2,10 @@ using api.Extensions.Validations;
 
 namespace api.Controllers;
 
+[Authorize]
 public class UserController(IUserRepository _userRepository) : BaseApiController
 {
     #region user anagemant
-    [Authorize]
     [HttpGet("get-by-id")]
     public async Task<ActionResult<AppUser>?> GetById(CancellationToken cancellationToken)
     {
@@ -19,10 +19,14 @@ public class UserController(IUserRepository _userRepository) : BaseApiController
         return appUser;
     }
 
-    [HttpPut("update/{userId}")]
-    public async Task<ActionResult<UpdateResult?>> Update(string userId, UpdateDto userInput, CancellationToken cancellationToken)
+    [HttpPut]
+    public async Task<ActionResult<UpdateResult?>> Update(UpdateDto userInput, CancellationToken cancellationToken)
     {
-        return await _userRepository.UpdateByIdAsync(userId, userInput, cancellationToken);
+        UpdateResult? updateResult = await _userRepository.UpdateByIdAsync(userInput, User.GetUserId(), cancellationToken);
+
+        return updateResult is null || updateResult.ModifiedCount == 0
+            ? BadRequest(".تغییرات با خطا مواجه شد")
+            : Ok(new { message = ".تغییرات با موفقیت ثبت شد" });
     }
 
     [HttpDelete("delete/{userId}")]
@@ -32,8 +36,8 @@ public class UserController(IUserRepository _userRepository) : BaseApiController
     }
     #endregion
 
-#region  photomanagement
-// only jpeg, jpg, png. Between 250KB(500x500) and 4MB(2000x2000)
+    #region  photomanagement
+    // only jpeg, jpg, png. Between 250KB(500x500) and 4MB(2000x2000)
     [HttpPost("add-photo")]
     public async Task<ActionResult<Photo>> AddPhoto(
             [AllowedFileExtensions, FileSize(500 * 500, 2000 * 2000)]
@@ -70,7 +74,7 @@ public class UserController(IUserRepository _userRepository) : BaseApiController
             ? BadRequest("Photo deletion failed. Try again in a few moments. If the issue persists contact the admin.")
             : Ok(new { message = "Photo deleted successfully." });
     }
-#endregion
+    #endregion
 
     #region old code
     // [HttpGet("get-by-user-id/{userId}")]

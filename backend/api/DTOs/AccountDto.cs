@@ -18,8 +18,7 @@ public record UpdateDto(
     [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$", ErrorMessage = "Bad Email Format.")] string Email,
     DateOnly DateOfBirth,
     //[Range(9, 99)] int Age,
-    string? Education,
-    bool Rules
+    string? Education
 );
 
 public record LoginDto(

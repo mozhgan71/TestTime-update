@@ -20,15 +20,21 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>متن :</mat-label>
-            <textarea type="text" formControlName="textCtrl" matInput></textarea>
-            @if (suggestionFg.dirty) {
+            <textarea cdkTextareaAutosize type="text" formControlName="textCtrl" matInput></textarea>
+            <mat-hint>{{TextCtrl.value?.length}} of 500</mat-hint>
+            @if (TextCtrl.hasError('minlength')) {
             <mat-error>متن حداقل باید شامل 5 کاراکتر باشد</mat-error>
             }
+            @if (TextCtrl.hasError('maxlength')) {
+            <mat-error>
+                متن حداکثر باید شامل 500 کاراکتر باشد
+            </mat-error>
+            }
         </mat-form-field>
-        <div class="div-button">
+        <section class="div-button">
             <button (click)="addSuggestion()" [disabled]="suggestionFg.invalid" mat-raised-button color="primary">ثبت
             </button>
             <button routerLink="/user-profile" mat-raised-button color="primary">بازگشت به پروفایل</button>
-        </div>
+        </section>
     </form>
 </div>

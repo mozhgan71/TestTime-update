@@ -10,7 +10,7 @@ public class UserRepository : IUserRepository
 
     private readonly IPhotoService _photoService;
 
-    public UserRepository(IMongoClient client, IMongoDbSettings dbSettings,IPhotoService photoService, ILogger<UserRepository> logger)
+    public UserRepository(IMongoClient client, IMongoDbSettings dbSettings, IPhotoService photoService, ILogger<UserRepository> logger)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<AppUser>(_collectionName);
@@ -35,18 +35,18 @@ public class UserRepository : IUserRepository
         return null;
     }
 
-    public async Task<UpdateResult?> UpdateByIdAsync(string userId, UpdateDto userInput, CancellationToken cancellationToken)
+    public async Task<UpdateResult?> UpdateByIdAsync(UpdateDto userInput,string? userId, CancellationToken cancellationToken)
     {
-        var updatedDoc = Builders<AppUser>.Update
-        .Set(doc => doc.Name, userInput.Name)
-        .Set(doc => doc.Family, userInput.Family)
-        .Set(doc => doc.Email, userInput.Email)
+        UpdateDefinition<AppUser> updatedDoc = Builders<AppUser>.Update
+        .Set(doc => doc.Name, userInput.Name.Trim())
+        .Set(doc => doc.Family, userInput.Family.Trim())
+        .Set(doc => doc.Email, userInput.Email.Trim())
         //.Set(doc => doc.Password, userInput.Password)
         //.Set(doc => doc.ConfirmPassword, userInput.ConfirmPassword)
         .Set(doc => doc.DateOfBirth, userInput.DateOfBirth)
         .Set(doc => doc.Education, userInput.Education);
 
-        return await _collection.UpdateOneAsync<AppUser>(doc => doc.Id == userId, updatedDoc);
+        return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id == userId, updatedDoc);
     }
 
     public async Task<DeleteResult?> DeleteAsync(string userId, CancellationToken cancellationToken)

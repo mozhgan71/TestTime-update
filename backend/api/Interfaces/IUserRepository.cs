@@ -4,7 +4,7 @@ public interface IUserRepository
 {
     public Task<AppUser?> GetByIdAsync(string? userId, CancellationToken cancellationToken);
 
-    public Task<UpdateResult?> UpdateByIdAsync(string userId, UpdateDto userInput, CancellationToken cancellationToken);
+    public Task<UpdateResult?> UpdateByIdAsync(UpdateDto userInput, string? userId, CancellationToken cancellationToken);
 
     public Task<DeleteResult?> DeleteAsync(string userId, CancellationToken cancellationToken);
 

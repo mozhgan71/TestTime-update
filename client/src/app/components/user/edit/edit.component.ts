@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AppUserUpdate } from '../../../models/app-user-register.model';
 import { AppUser } from '../../../models/app-user.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +10,11 @@ import { RouterModule } from '@angular/router';
 import { MemberService } from '../../../services/member.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { UserService } from '../../../services/user.service';
+import { UserUpdate } from '../../../models/user-update.model';
+import { take } from 'rxjs';
+import { ApiResponse } from '../../../models/helpers/apiResponse.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -21,10 +25,12 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule, MatDatepickerModule, MatNativeDateModule,
     ReactiveFormsModule, RouterModule]
 })
-export class EditComponent implements OnInit{  
+export class EditComponent implements OnInit {
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
   private memberService = inject(MemberService);
+  private userService = inject(UserService);
+  private matSnak = inject(MatSnackBar);
 
   userRes: AppUser | null | undefined;
   showError: AppUser | undefined;
@@ -125,29 +131,27 @@ export class EditComponent implements OnInit{
 
     // if (this.PasswordCtrl.value == this.ConfirmPasswordCtrl.value) {
 
-    let user: AppUserUpdate = {
+    let updatedUser: UserUpdate = {
       name: this.NameCtrl.value,
       family: this.FamilyCtrl.value,
       email: this.EmailCtrl.value,
       // password: this.PasswordCtrl.value,
       // confirmPassword: this.ConfirmPasswordCtrl.value,
-      age: this.getDateOnly(this.AgeCtrl.value),
+      age: this.AgeCtrl.value,
       education: this.EducationCtrl.value,
     }
 
-    this.http.put<AppUser>('http://localhost:5000/api/user/update/' + userId, user).subscribe(
-      {
-        next: res => {
-          this.userRes = res;
-          alert("تغییرات با موفقیت اعمال شد.");
-        },
-        error: err => {
-          this.showError = err.error;
-          alert(this.showError);
+    this.userService.updateUser(updatedUser)
+      .pipe(take(1))
+      .subscribe({
+        next: (response: ApiResponse) => {
+          if (response.message) {
+            this.matSnak.open(response.message, "Close", { horizontalPosition: 'center', verticalPosition: 'bottom', duration: 6000 });
+          }
         }
-      }
-    );
-    this.userFg.reset();
+      });
+
+    this.userFg.markAsPristine();
   }
   //   else {
   //     alert("تغییرات اعمال نشد؛ تکرار رمز عبور مشابه رمز عبور نمی باشد.");
