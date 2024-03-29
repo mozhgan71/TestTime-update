@@ -39,10 +39,12 @@ export class EditComponent implements OnInit {
   maxDate = new Date();
 
   constructor() {
-    this.showInfo();
+    // this.showInfo();
   }
 
   ngOnInit(): void {
+    this.showInfo();
+
     // set datePicker year limitations
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 99, 0, 1); // not older than 99 years

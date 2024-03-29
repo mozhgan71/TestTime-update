@@ -1,56 +1,31 @@
-<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" [ngClass]="{hidden: (isHandset | async) === false}" fixedInViewport="false"
-        [attr.role]="(isHandset | async) ? 'dialog' : 'navigation'" [mode]="(isHandset | async) ? 'over' : 'side'"
-        [opened]="(isHandset | async) === false">
-        <mat-nav-list>
-            <p> منو اصلی</p>
-            <ul>
-                <li><a routerLink="home" mat-list-item href="#">خانه</a></li>
-                <li><a routerLink="contact-us" mat-list-item href="#">ارتباط با ما</a></li>
-                <li><a routerLink="about-us" mat-list-item href="#">درباره ما</a></li>
-                <li><a routerLink="test-category" mat-list-item href="#">دسته بندی آزمون ها</a></li>
-                <li><a routerLink="user-profile" mat-list-item href="#">پروفایل من</a></li>
-                <li><a *ngIf="!user" routerLink="sign-up" mat-list-item href="#">ثبت نام</a></li>
-            </ul>
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <mat-toolbar color="primary" class="toolbar">
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-                *ngIf="isHandset | async">
-                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-            </button>
-            <div>
-                <a routerLink="home" href="#">خانه</a>
-                <a routerLink="contact-us">ارتباط با ما</a>
-                <a routerLink="about-us">درباره ما</a>
-                <a routerLink="test-category">دسته بندی آزمون ها</a>
-                <a routerLink="user-profile">پروفایل من</a>
-                @if (loggedInUserSig && loggedInUserSig()) {
-                <a> </a>
-                }
-                @else {
-                <a routerLink="sign-up"> ثبت نام </a>
-                }
-            </div>
-            <div class="left">
-                @if (loggedInUserSig && loggedInUserSig(); as user) {
-                <span class="email">Your Email:{{user.email | titlecase}}</span>
-                }
-                @else {
-                <button routerLink="login" title="User-LogIn"
-                    mat-icon-button><mat-icon>account_circle</mat-icon></button>
-                }
-                @if (loggedInUserSig && loggedInUserSig()) {
-                <button (click)="logOut()" title="User-LogOut" mat-icon-button><mat-icon>exit_to_app</mat-icon>
-                </button>
-                }
-                <button (click)="checkAdminLogIn()" title="Admin-LogIn"
-                    mat-icon-button><mat-icon>brightness_auto</mat-icon></button>
-            </div>
-        </mat-toolbar>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+<div>
+    <div class="left">
+        @if (loggedInUserSig && loggedInUserSig(); as user) {
+        <span class="email">ایمیل شما:{{user.email | titlecase}}</span>
+        }
+        @else {
+        <button routerLink="login" title="User-LogIn" mat-icon-button><mat-icon>account_circle</mat-icon></button>
+        }
+        @if (loggedInUserSig && loggedInUserSig()) {
+        <button (click)="logOut()" title="User-LogOut" mat-icon-button><mat-icon>exit_to_app</mat-icon>
+        </button>
+        }
+        <button (click)="checkAdminLogIn()" title="Admin-LogIn"
+            mat-icon-button><mat-icon>brightness_auto</mat-icon></button>
+    </div>
+    <nav class="nav-class" mat-tab-nav-bar [color]="'warn'" [tabPanel]="tabPanel">
+        @if (loggedInUserSig && loggedInUserSig()) {
+        <a> </a>
+        }
+        @else {
+        <a mat-tab-link routerLink="sign-up" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"> ثبت نام </a>
+        }
+        <a mat-tab-link routerLink="user-profile" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">پروفایل من</a>
+        <a mat-tab-link routerLink="test-category" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">دسته بندی آزمون ها</a>
+        <a mat-tab-link routerLink="home" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">خانه</a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+</div>
 <div class="div-image">
     <img src="assets/images/logo.jpeg" class="img">
 </div>

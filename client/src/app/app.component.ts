@@ -8,13 +8,15 @@ import { isPlatformBrowser } from '@angular/common';
 import { MainComponent } from "./components/main/main.component";
 import { LoggedInUser } from './models/logged-in-user.model';
 import { take } from 'rxjs';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @Component({
   standalone: true,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterModule, HeaderComponent, FooterComponent, MainComponent]
+  imports: [RouterModule, HeaderComponent, FooterComponent,
+            MainComponent,NgxSpinnerModule]
 })
 export class AppComponent implements OnInit {
   accountService = inject(AccountService);

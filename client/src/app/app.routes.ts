@@ -29,7 +29,7 @@ import { VuejsQuestionsComponent } from './components/category/vuejs-questions/v
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { IntroduceToFriendsComponent } from './components/introduce-to-friends/introduce-to-friends.component';
 import { MainComponent } from './components/main/main.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NotFoundComponent } from './components/errors/not-found/not-found.component';
 import { OldQuestionsComponent } from './components/old-questions/old-questions.component';
 import { ReferencesComponent } from './components/references/references.component';
 import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
@@ -54,11 +54,11 @@ import { EditComponent } from './components/user/edit/edit.component';
 import { ResultsComponent } from './components/user/results/results.component';
 import { SuggestionComponent } from './components/user/suggestion/suggestion.component';
 import { UserProfileComponent } from './components/user/userprofile/userprofile.component';
-import { ServerErrorComponent } from './components/server-error/server-error.component';
+import { ServerErrorComponent } from './components/errors/server-error/server-error.component';
 import { MemberListComponent } from './components/member-list/member-list.component';
 import { authGuard } from './guards/auth.guard';
 import { authLoggedInGuard } from './guards/auth-logged-in.guard';
-import { NoAccessComponent } from './components/no-access/no-access.component';
+import { NoAccessComponent } from './components/errors/no-access/no-access.component';
 import { UserPhotoEditComponent } from './components/user/user-photo-edit/user-photo-edit.component';
 
 export const routes: Routes = [

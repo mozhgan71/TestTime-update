@@ -59,7 +59,7 @@
             </select>
         </mat-form-field>
         <div class="div-button">
-            <button (click)="editUser()" mat-raised-button color="primary">ثبت
+            <button (click)="editUser()" [disabled]="userFg.invalid || userFg.pristine" mat-raised-button color="primary">ثبت
                 تغییرات</button>
             <button routerLink="/user-profile" mat-raised-button color="primary">بازگشت به پروفایل</button>
         </div>

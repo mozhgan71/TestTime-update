@@ -1,4 +1,4 @@
-import { Component, Signal, inject } from '@angular/core';
+import { Component, OnInit, Signal, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { LoggedInUser } from '../../models/logged-in-user.model';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   standalone: true,
@@ -18,9 +19,10 @@ import { LoggedInUser } from '../../models/logged-in-user.model';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   imports: [RouterModule, CommonModule, MatSidenavModule,
-    MatToolbarModule, MatIconModule, MatListModule]
+    MatToolbarModule, MatIconModule, MatListModule,
+    MatTabsModule]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   private breakpointObserver = inject(BreakpointObserver);
   private router = inject(Router);
   private accountService = inject(AccountService);
@@ -28,6 +30,8 @@ export class HeaderComponent {
   user: AppUser | null | undefined;
   //user$: Observable<LoggedInUser | null> | undefined;
   loggedInUserSig: Signal<LoggedInUser | null> | undefined;
+
+  // links: string[] = ['خانه', 'ارتباط با ما ', 'درباره ما', 'دسته بندی آزمون ها','پروفایل من','ثبت نام'];
 
   isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(

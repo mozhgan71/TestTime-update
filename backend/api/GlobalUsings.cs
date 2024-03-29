@@ -20,6 +20,7 @@ global using image_processing.Interfaces;
 global using image_processing.Services;
 global using image_processing.Helpers;
 global using api.Helpers;
+global using api.Middleware;
 
 global using api.Repositoreis;
 //global using Microsoft.Extensions.Options;
