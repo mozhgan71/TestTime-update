@@ -9,13 +9,14 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MemberService } from '../../../services/member.service';
 import { Member } from '../../../models/member-model';
 import { environment } from '../../../../environments/environment.development';
+import { MemberCardComponent } from '../member-card/member-card.component';
 
 @Component({
   standalone: true,
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
   styleUrls: ['./list-users.component.scss'],
-  imports: [CommonModule, MatIconModule, NgOptimizedImage]
+  imports: [CommonModule, MatIconModule, NgOptimizedImage,MemberCardComponent]
 })
 export class ListUsersComponent {
   private http = inject(HttpClient);

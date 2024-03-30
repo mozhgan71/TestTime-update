@@ -1,5 +1,6 @@
 namespace api.Controllers;
 
+[Authorize]
 public class ResultController(IResultRepository _resultRepository) : BaseApiController
 {
     [HttpPost("add-result")]

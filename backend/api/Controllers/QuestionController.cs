@@ -61,7 +61,7 @@ public class QuestionController(IQuestionRepository _questionRepository) : BaseA
     }
 }
 
-
+#region  OldCode
 
 // [HttpGet("get-by-feild-name/{userInput}")]
 // public ActionResult<List<Question>> GetByFeild(string userInput)
@@ -123,3 +123,4 @@ public class QuestionController(IQuestionRepository _questionRepository) : BaseA
 // {
 //     return _collection.DeleteOne<Question>(doc => doc.Id == questionId);
 // }
+#endregion OldCode

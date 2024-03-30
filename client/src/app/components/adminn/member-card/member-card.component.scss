@@ -1,0 +1,44 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: space-between;
+    width: 100%;
+    background-color: rgb(8, 8, 8);
+    min-height: calc(100vh - (18.6rem));
+    color: rgb(187, 11, 158);
+    // gap: 1rem;
+
+    .button {
+        color: black;
+        background-color: purple;
+    }
+
+    .button:hover {
+        background-color: rgb(211, 7, 109);
+    }
+
+    hr {
+        width: 100%;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+
+        >:last-child {
+            align-self: flex-end;
+        }
+    }
+}
+
+@media only screen and (min-width:30rem) {
+    div {
+        min-height: calc(100vh - (15.6rem));
+    }
+
+    ul {
+        list-style-type: none;
+    }
+}

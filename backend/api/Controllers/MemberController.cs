@@ -1,8 +1,5 @@
 namespace api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-
 [Authorize]
 public class MemberController(IMemberRepository _memberRepository) : BaseApiController
 {
@@ -18,7 +15,7 @@ public class MemberController(IMemberRepository _memberRepository) : BaseApiCont
         return memberDtos;
     }
 
-     [HttpGet("get-by-id/{memberId}")]
+    [HttpGet("get-by-id/{memberId}")]
     public async Task<ActionResult<MemberDto>> GetById(string memberId, CancellationToken cancellationToken)
     {
         MemberDto? memberDto = await _memberRepository.GetByIdAsync(memberId, cancellationToken);
@@ -29,7 +26,7 @@ public class MemberController(IMemberRepository _memberRepository) : BaseApiCont
         return memberDto;
     }
 
-       [HttpGet("get-by-email/{memberEmail}")]
+    [HttpGet("get-by-email/{memberEmail}")]
     public async Task<ActionResult<MemberDto>> GetByEmail(string memberEmail, CancellationToken cancellationToken)
     {
         MemberDto? memberDto = await _memberRepository.GetByEmailAsync(memberEmail, cancellationToken);

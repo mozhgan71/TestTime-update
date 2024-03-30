@@ -46,6 +46,7 @@ public class AdminController(IAdminRepository _adminRepository) : BaseApiControl
         return await _adminRepository.DeleteAsync(userId, cancellationToken);
     }
 
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<ActionResult<AdminResponseDto>> Login(AdminLoginDto userInput, CancellationToken cancellationToken)
     {

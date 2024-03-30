@@ -2,7 +2,6 @@ using api.Extensions.Validations;
 
 namespace api.Controllers;
 
-[Authorize]
 public class UserController(IUserRepository _userRepository) : BaseApiController
 {
     #region user anagemant
