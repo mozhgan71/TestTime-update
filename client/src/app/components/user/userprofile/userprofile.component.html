@@ -4,15 +4,15 @@
         <section class="top">
             @if (loggedInUserSig && loggedInUserSig(); as user) {
             <button class="photo">
-            <!-- <span>{{user.knownAs[0] | titlecase}}</span> Use span to not have padding/margin -->
-            @if(user.profilePhotoUrl) {
-            <img class="top-avatar" ngSrc="{{photoUrl + user.profilePhotoUrl}}" width="90" height="90"
-                alt="{{user.name[0]}}">
-            <!-- // localhost:5000/storage/photo/sldkfjlsj92374.web -->
-            }
-            @else {
-            {{user.name[0] | titlecase}}
-            }
+                <!-- <span>{{user.knownAs[0] | titlecase}}</span> Use span to not have padding/margin -->
+                @if(user.profilePhotoUrl) {
+                <img class="top-avatar" ngSrc="{{photoUrl + user.profilePhotoUrl}}" width="90" height="90"
+                    alt="{{user.name[0]}}">
+                <!-- // localhost:5000/storage/photo/sldkfjlsj92374.web -->
+                }
+                @else {
+                {{user.name[0] | titlecase}}
+                }
             </button>
             <button class="my-button" routerLink="/user-photo-edit" title="ویرایش عکس">
                 <mat-icon>edit</mat-icon>ویرایش عکس
@@ -30,8 +30,10 @@
         @if (userRes.education) {
         <h4> تحصیلات : {{userRes.education}}</h4>
         }
-        <button class="button-down" routerLink="/edit" mat-raised-button color="warn">ویرایش اطلاعات</button>
-        <button class="button-down" (click)="logOut()" mat-raised-button color="warn">خروج</button>
+        <section class="button-down">
+            <button  routerLink="/edit" mat-raised-button color="warn">ویرایش اطلاعات</button>
+            <button  (click)="logOut()" mat-raised-button color="warn">خروج</button>
+        </section>
     </div>
     }
     <button routerLink="/test-category" mat-raised-button color="warn" class="div-button">شروع</button>

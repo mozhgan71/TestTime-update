@@ -4,13 +4,14 @@ import { Component, inject } from '@angular/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone:true,
   selector: 'app-sqlserver-questions',
   templateUrl: './sqlserver-questions.component.html',
   styleUrls: ['./sqlserver-questions.component.scss'],
-  imports:[CommonModule,MatRadioModule]
+  imports:[RouterModule,CommonModule,MatRadioModule]
 })
 export class SqlServerQuestionsComponent {
   private http = inject(HttpClient); 

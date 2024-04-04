@@ -1,4 +1,6 @@
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
@@ -6,7 +8,7 @@ import { Router, RouterModule } from '@angular/router';
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
-  imports: [RouterModule]
+  imports: [RouterModule,CommonModule,NgOptimizedImage, MatButtonModule,]
 })
 export class MainComponent {
   private router = inject(Router);

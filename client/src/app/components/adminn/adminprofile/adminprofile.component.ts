@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
@@ -6,7 +7,7 @@ import { Router, RouterModule } from '@angular/router';
   selector: 'app-adminprofile',
   templateUrl: './adminprofile.component.html',
   styleUrls: ['./adminprofile.component.scss'],
-  imports: [RouterModule]
+  imports: [RouterModule,MatButtonModule]
 })
 export class AdminProfileComponent {
   private router = inject(Router);

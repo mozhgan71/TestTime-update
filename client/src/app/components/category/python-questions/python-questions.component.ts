@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';import { MatRadioModule } from '@angular/material/radio';
 import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
+import { RouterModule } from '@angular/router';
 ;
 
 @Component({
@@ -10,7 +11,7 @@ import { Result } from '../../../models/result.model';
   selector: 'app-python-questions',
   templateUrl: './python-questions.component.html',
   styleUrls: ['./python-questions.component.scss'],
-  imports:[CommonModule,MatRadioModule]
+  imports:[RouterModule,CommonModule,MatRadioModule]
 })
 export class PythonQuestionsComponent {
   private http = inject(HttpClient);

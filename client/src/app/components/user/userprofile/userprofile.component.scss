@@ -3,7 +3,7 @@ div {
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
-    background-color: rgb(240, 155, 252);
+    background-color: rgb(243, 206, 243);
     color: purple;
     width: 100%;
     gap: 1rem;
@@ -14,7 +14,7 @@ div {
         flex-direction: column;
         justify-content: center;
         // border: solid 0.1rem purple;
-        background-color: rgb(216, 103, 201);
+        background-color: rgb(243, 206, 243);
         width: 30%;
         margin: 0.2rem;
         padding: 0.2rem;
@@ -31,9 +31,9 @@ div {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                width: 9rem;
-                height: 3rem;
-                background-color: purple;
+                width: 8rem;
+                height: 2.5rem;
+                background-color: rgb(245, 191, 245);
                 color: black;
             }
 
@@ -67,11 +67,17 @@ div {
         }
 
         .button-down {
-            width: 9rem;
-            height: 3rem;
-            background-color: purple;
+            display: flex;
+            background-color: rgb(243, 206, 243);
             color: black;
-            // border: solid 0.2rem pink;
+            gap: 1rem;
+            // width: 20rem;
+
+            button {
+                width: 8rem;
+                height: 2.5rem;
+                background-color: rgb(245, 191, 245)
+            }
         }
 
         .button-down:hover {
@@ -94,7 +100,7 @@ div {
         margin-top: 0.5rem;
         width: 7rem;
         height: 7rem;
-        background-color: purple;
+        background-color: rgb(221, 97, 221);
         color: black;
         border: solid 0.2rem pink;
         border-radius: 100%;

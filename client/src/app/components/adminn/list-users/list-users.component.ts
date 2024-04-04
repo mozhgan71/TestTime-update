@@ -16,7 +16,7 @@ import { MemberCardComponent } from '../member-card/member-card.component';
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
   styleUrls: ['./list-users.component.scss'],
-  imports: [CommonModule, MatIconModule, NgOptimizedImage,MemberCardComponent]
+  imports: [CommonModule, MatIconModule, NgOptimizedImage, MemberCardComponent]
 })
 export class ListUsersComponent {
   private http = inject(HttpClient);
@@ -25,7 +25,7 @@ export class ListUsersComponent {
   users: Member[] | null | undefined;
   delUser: AppUser | undefined;
   allMembers$: Observable<Member[] | null> | undefined;
-  //allMembersSig = signal<Member[] | null>(null);
+  allMembersSig = signal<Member[] | null>(null);
   // subscription: Subscription | undefined;         //zamani ke bekhaym error haro begirim az api az in ravesh mirim
 
   apiPhotoUrl = environment.apiPhotoUrl;
@@ -49,7 +49,7 @@ export class ListUsersComponent {
     );
 
     this.allMembers$ = this._memberService.getAllMembers();
-    //this.allMembersSig.set(this.users!);
+    this.allMembersSig.set(this.users!);
   }
 
   deleteUser(id: string): void {
@@ -58,6 +58,7 @@ export class ListUsersComponent {
         next: response => {
           this.delUser = response
           console.log(response);
+          this.showUsers();
           alert("عملیات حذف کاربر با موفقیت انجام شد.");
         }
       }

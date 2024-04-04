@@ -4,17 +4,18 @@ import { Component, inject } from '@angular/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-oracle-questions',
   templateUrl: './oracle-questions.component.html',
   styleUrls: ['./oracle-questions.component.scss'],
-  imports:[CommonModule,MatRadioModule]
+  imports: [RouterModule, CommonModule, MatRadioModule]
 })
 export class OracleQuestionsComponent {
   private http = inject(HttpClient);
-  
+
   oracleQuestions: Question[] | undefined;
 
   resultRes: Result | undefined;

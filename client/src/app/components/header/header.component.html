@@ -1,27 +1,30 @@
 <div>
     <div class="left">
-        @if (loggedInUserSig && loggedInUserSig(); as user) {
-        <span class="email">ایمیل شما:{{user.email | titlecase}}</span>
-        }
-        @else {
-        <button routerLink="login" title="User-LogIn" mat-icon-button><mat-icon>account_circle</mat-icon></button>
-        }
         @if (loggedInUserSig && loggedInUserSig()) {
         <button (click)="logOut()" title="User-LogOut" mat-icon-button><mat-icon>exit_to_app</mat-icon>
         </button>
         }
         <button (click)="checkAdminLogIn()" title="Admin-LogIn"
             mat-icon-button><mat-icon>brightness_auto</mat-icon></button>
+        @if (loggedInUserSig && loggedInUserSig(); as user) {
+        <span class="email">ایمیل شما:{{user.email | titlecase}}</span>
+        }
+        @else {
+        <button routerLink="login" title="User-LogIn" mat-icon-button><mat-icon>account_circle</mat-icon></button>
+        }
     </div>
     <nav class="nav-class" mat-tab-nav-bar [color]="'warn'" [tabPanel]="tabPanel">
         @if (loggedInUserSig && loggedInUserSig()) {
         <a> </a>
         }
         @else {
-        <a mat-tab-link routerLink="sign-up" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"> ثبت نام </a>
+        <a mat-tab-link routerLink="sign-up" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"> ثبت نام
+        </a>
         }
-        <a mat-tab-link routerLink="user-profile" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">پروفایل من</a>
-        <a mat-tab-link routerLink="test-category" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">دسته بندی آزمون ها</a>
+        <a mat-tab-link routerLink="user-profile" routerLinkActive #rla="routerLinkActive"
+            [active]="rla.isActive">پروفایل من</a>
+        <a mat-tab-link routerLink="test-category" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">دسته
+            بندی آزمون ها</a>
         <a mat-tab-link routerLink="home" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">خانه</a>
     </nav>
     <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>

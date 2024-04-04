@@ -4,13 +4,14 @@ import { Component, inject } from '@angular/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-vuejs-questions',
   templateUrl: './vuejs-questions.component.html',
   styleUrls: ['./vuejs-questions.component.scss'],
-  imports: [CommonModule, MatRadioModule]
+  imports: [RouterModule, CommonModule, MatRadioModule]
 })
 export class VuejsQuestionsComponent {
   private http = inject(HttpClient);
