@@ -6,6 +6,7 @@ import { Suggestion } from '../../../models/suggestion.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   standalone: true,
@@ -16,6 +17,8 @@ import { RouterModule } from '@angular/router';
      RouterModule]
 })
 export class SuggestionComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+  
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
 
@@ -55,7 +58,7 @@ export class SuggestionComponent {
       text: this.TextCtrl.value
     }
 
-    this.http.post<Suggestion>('http://localhost:5000/api/suggestion/add-suggestion', seggestion).subscribe(
+    this.http.post<Suggestion>(this.baseApiUrl + 'suggestion/add-suggestion', seggestion).subscribe(
       {
         next: res => {
           this.suggestionRes = res;

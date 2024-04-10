@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { Question } from '../../../models/question.model';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   standalone: true,
@@ -11,6 +12,8 @@ import { Question } from '../../../models/question.model';
   imports: [CommonModule]
 })
 export class ListUserQuestionsComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+  
   private http = inject(HttpClient);
 
   userquestions: Question[] | undefined;
@@ -20,7 +23,7 @@ export class ListUserQuestionsComponent {
   }
 
   showUserQuestion(): void {
-    this.http.get<Question[]>('http://localhost:5000/api/userquestion/').subscribe(
+    this.http.get<Question[]>(this.baseApiUrl + 'userquestion/').subscribe(
       { next: response => this.userquestions = response }
     );
   }

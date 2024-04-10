@@ -4,6 +4,7 @@ import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { Question } from '../../../models/question.model';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   standalone: true,
@@ -13,6 +14,8 @@ import { Question } from '../../../models/question.model';
   imports: [CommonModule, MatIconModule]
 })
 export class ListQuestionsComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+  
   private http = inject(HttpClient);
 
   questions: Question[] | undefined;
@@ -23,13 +26,13 @@ export class ListQuestionsComponent {
   }
 
   showQuestion(): void {
-    this.http.get<Question[]>('http://localhost:5000/api/question/').subscribe(
+    this.http.get<Question[]>(this.baseApiUrl + 'question/').subscribe(
       { next: response => this.questions = response }
     );
   }
 
   deleteQuestion(id: string): void {
-    this.http.delete<Question>('http://localhost:5000/api/question/delete/' + id).subscribe(
+    this.http.delete<Question>(this.baseApiUrl + 'question/delete/' + id).subscribe(
       {
         next: response => {
           this.delQuestion = response

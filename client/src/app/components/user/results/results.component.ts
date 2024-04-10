@@ -5,6 +5,7 @@ import { FormBuilder } from '@angular/forms';
 import { Result } from '../../../models/result.model';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   standalone: true,
@@ -14,6 +15,8 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, MatIconModule, RouterModule]
 })
 export class ResultsComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+  
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
 
@@ -29,7 +32,7 @@ export class ResultsComponent {
   showResult() {
     var userId = sessionStorage.getItem('user-id');
 
-    this.http.get<Result[]>('http://localhost:5000/api/result/get-by-user-id/' + userId).subscribe(
+    this.http.get<Result[]>(this.baseApiUrl + 'result/get-by-user-id/' + userId).subscribe(
       {
         next: res => {
           this.resultRes = res;
@@ -40,7 +43,7 @@ export class ResultsComponent {
   }
 
   deleteResult(id: string): void {
-    this.http.delete<Result>('http://localhost:5000/api/result/delete/' + id).subscribe(
+    this.http.delete<Result>(this.baseApiUrl + 'result/delete/' + id).subscribe(
       {
         next: response => {
           this.delResult = response

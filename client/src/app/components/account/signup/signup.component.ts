@@ -62,7 +62,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     confirmPasswordCtrl: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
     dateOfBirthCtrl: ['', [Validators.required]],
     educationCtrl: [''],
-    rulesCtrl: ['', Validators.required]
+    rulesCtrl: ['', [Validators.required]]
   });
   //#endregion
 

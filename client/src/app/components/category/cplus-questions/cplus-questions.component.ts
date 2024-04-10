@@ -5,6 +5,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   standalone: true,
@@ -14,6 +15,8 @@ import { RouterModule } from '@angular/router';
   imports: [RouterModule,CommonModule, MatRadioModule,]
 })
 export class CplusQuestionsComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+  
   private http = inject(HttpClient);
 
   cplusQuestions: Question[] | undefined;
@@ -34,7 +37,7 @@ export class CplusQuestionsComponent {
   description: string | undefined;
 
   showCplusQuestion(): void {
-    this.http.get<Question[]>('http://localhost:5000/api/question/get-by-feild-name/c++').subscribe(
+    this.http.get<Question[]>(this.baseApiUrl + 'question/get-by-feild-name/c++').subscribe(
       { next: response => this.cplusQuestions = response }
     );
 
@@ -240,7 +243,7 @@ export class CplusQuestionsComponent {
       description: this.description
     }
 
-    this.http.post<Result>('http://localhost:5000/api/result/add-result', result).subscribe(
+    this.http.post<Result>(this.baseApiUrl + 'result/add-result', result).subscribe(
       {
         next: res => {
           this.resultRes = res;

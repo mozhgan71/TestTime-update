@@ -20,6 +20,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './member-card.component.scss'
 })
 export class MemberCardComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+
   private http = inject(HttpClient);
 
   @Input('memberInput') member: Member | undefined;
@@ -38,7 +40,7 @@ export class MemberCardComponent {
   }
 
   deleteUser(id: string): void {
-    this.http.delete<AppUser>('http://localhost:5000/api/user/delete/' + id).subscribe(
+    this.http.delete<AppUser>(this.baseApiUrl + 'user/delete/' + id).subscribe(
       {
         next: response => {
           this.delUser = response

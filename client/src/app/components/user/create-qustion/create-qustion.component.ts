@@ -7,6 +7,7 @@ import { QuestionDto } from '../../../models/questionDto.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   standalone: true,
@@ -16,6 +17,8 @@ import { RouterModule } from '@angular/router';
   imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule, RouterModule]
 })
 export class CreateQustionComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+  
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
 
@@ -71,7 +74,7 @@ export class CreateQustionComponent {
       correctAnswer: this.CorrectCtrl.value
     }
 
-    this.http.post<Question>('http://localhost:5000/api/userquestion/add-question', question).subscribe(
+    this.http.post<Question>(this.baseApiUrl + 'userquestion/add-question', question).subscribe(
       {
         next: res => {
           this.questionRes = res;

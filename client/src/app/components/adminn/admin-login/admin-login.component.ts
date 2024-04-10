@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Admin } from '../../../models/admin-login.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   standalone: true,
@@ -15,6 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule]
 })
 export class AdminLogInComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
   private router = inject(Router);
@@ -44,7 +47,7 @@ export class AdminLogInComponent {
       password: this.PasswordCtrl.value,
     }
 
-    this.http.post<Admin>('http://localhost:5000/api/admin/login', admin).subscribe(
+    this.http.post<Admin>(this.baseApiUrl + 'admin/login', admin).subscribe(
       {
         next: res => {
           this.mainAdmin = res

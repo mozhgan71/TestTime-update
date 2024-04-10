@@ -19,6 +19,8 @@ import { MemberCardComponent } from '../member-card/member-card.component';
   imports: [CommonModule, MatIconModule, NgOptimizedImage, MemberCardComponent]
 })
 export class ListUsersComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+
   private http = inject(HttpClient);
   private _memberService = inject(MemberService);
 
@@ -53,7 +55,7 @@ export class ListUsersComponent {
   }
 
   deleteUser(id: string): void {
-    this.http.delete<AppUser>('http://localhost:5000/api/user/delete/' + id).subscribe(
+    this.http.delete<AppUser>(this.baseApiUrl + 'user/delete/' + id).subscribe(
       {
         next: response => {
           this.delUser = response

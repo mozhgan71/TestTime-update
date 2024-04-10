@@ -7,7 +7,7 @@
         <button (click)="checkAdminLogIn()" title="Admin-LogIn"
             mat-icon-button><mat-icon>brightness_auto</mat-icon></button>
         @if (loggedInUserSig && loggedInUserSig(); as user) {
-        <span class="email">ایمیل شما:{{user.email | titlecase}}</span>
+        <span class="email">ایمیل شما : {{user.email}}</span>
         }
         @else {
         <button routerLink="login" title="User-LogIn" mat-icon-button><mat-icon>account_circle</mat-icon></button>

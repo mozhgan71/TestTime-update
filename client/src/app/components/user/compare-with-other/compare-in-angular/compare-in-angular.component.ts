@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { Result } from '../../../../models/result.model';
 import { Chart } from 'chart.js/auto';
+import { environment } from '../../../../../environments/environment.development';
 
 @Component({
   standalone: true,
@@ -10,6 +11,8 @@ import { Chart } from 'chart.js/auto';
   styleUrls: ['./compare-in-angular.component.scss']
 })
 export class CompareInAngularComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+  
   private http = inject(HttpClient);
 
   angularResults: Result[] = [];
@@ -27,7 +30,7 @@ export class CompareInAngularComponent {
   showAngularResult(): void {
     var userId = sessionStorage.getItem('user-id');
 
-    this.http.get<Result[]>('http://localhost:5000/api/result/get-by-test-name/ANGULAR').subscribe(
+    this.http.get<Result[]>(this.baseApiUrl + 'result/get-by-test-name/ANGULAR').subscribe(
       {
         next: response => {
           this.angularResults = response

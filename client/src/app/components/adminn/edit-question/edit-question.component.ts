@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Question } from '../../../models/question.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   standalone: true,
@@ -14,6 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule]
 })
 export class EditQuestionComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+  
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
 
@@ -27,7 +30,7 @@ export class EditQuestionComponent {
   showQuestion(): void {
     var id = sessionStorage.getItem('id-question');
 
-    this.http.get<Question>('http://localhost:5000/api/question/get-by-id/' + id).subscribe(
+    this.http.get<Question>(this.baseApiUrl + 'question/get-by-id/' + id).subscribe(
       {
         next: res => {
           this.questionRes = res;
@@ -102,7 +105,7 @@ export class EditQuestionComponent {
       correctAnswer: this.CorrectCtrl.value
     }
 
-    this.http.put<Question>('http://localhost:5000/api/question/update/' + id!, putQuestion).subscribe(
+    this.http.put<Question>(this.baseApiUrl + 'question/update/' + id!, putQuestion).subscribe(
       {
         next: res => {
           this.questionRes = res;

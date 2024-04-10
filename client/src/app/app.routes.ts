@@ -91,8 +91,8 @@ export const routes: Routes = [
     { path: 'introduce-to-friends', component: IntroduceToFriendsComponent },
     { path: 'references', component: ReferencesComponent },
     { path: 'admin-profile', component: AdminProfileComponent },
-    { path: 'list-users', component: ListUsersComponent },  //canActivate: [authGuard]
-    { path: 'list-questions', component: ListQuestionsComponent },
+    { path: 'adminn/list-users', component: ListUsersComponent },  //canActivate: [authGuard]
+    { path: 'adminn/list-questions', component: ListQuestionsComponent },
     { path: 'admin-login', component: AdminLogInComponent },
     { path: 'edit', component: EditComponent },
     { path: 'result', component: ResultsComponent },
@@ -100,8 +100,8 @@ export const routes: Routes = [
     { path: 'create-question', component: CreateQustionComponent },
     { path: 'correct-answer', component: CorrectAnswersComponent },
     { path: 'compare', component: CompareComponent },
-    { path: 'list-suggestions', component: ListSuggestionsComponent },
-    { path: 'list-userquestions', component: ListUserQuestionsComponent },
+    { path: 'adminn/list-suggestions', component: ListSuggestionsComponent },
+    { path: 'adminn/list-userquestions', component: ListUserQuestionsComponent },
     { path: 'angular-question', component: AngularQuestionsComponent },
     { path: 'csharp-question', component: CsharpQuestionsComponent },
     { path: 'cplus-question', component: CplusQuestionsComponent },

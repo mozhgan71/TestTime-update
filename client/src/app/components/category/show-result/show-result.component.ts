@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { Result } from '../../../models/result.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   standalone: true,
@@ -12,6 +13,8 @@ import { RouterModule } from '@angular/router';
   imports: [RouterModule, CommonModule, RouterModule]
 })
 export class ShowResultComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+  
   private http = inject(HttpClient);
 
   resultRes: Result | undefined;
@@ -23,7 +26,7 @@ export class ShowResultComponent {
   showResult(): void {
     var resultId = sessionStorage.getItem('result-id');
 
-    this.http.get<Result>('http://localhost:5000/api/result/get-by-id/' + resultId).subscribe(
+    this.http.get<Result>(this.baseApiUrl + 'result/get-by-id/' + resultId).subscribe(
       {
         next: response => {
           this.resultRes = response

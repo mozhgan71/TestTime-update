@@ -5,15 +5,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Question } from '../../../models/question.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   standalone: true,
   selector: 'app-add-question',
   templateUrl: './add-question.component.html',
   styleUrls: ['./add-question.component.scss'],
-  imports: [MatFormFieldModule,MatInputModule, MatButtonModule, ReactiveFormsModule]
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule]
 })
 export class AddQuestionComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
 
@@ -74,7 +77,7 @@ export class AddQuestionComponent {
       correctAnswer: this.CorrectCtrl.value
     }
 
-    this.http.post<Question>('http://localhost:5000/api/userquestion/add-question', question).subscribe(
+    this.http.post<Question>(this.baseApiUrl + 'userquestion/add-question', question).subscribe(
       {
         next: res => {
           this.questionRes = res;

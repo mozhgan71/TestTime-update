@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { Suggestion } from '../../../models/suggestion.model';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   standalone: true,
@@ -11,6 +12,8 @@ import { Suggestion } from '../../../models/suggestion.model';
   imports: [CommonModule]
 })
 export class ListSuggestionsComponent {
+  private readonly baseApiUrl = environment.apiUrl;
+  
   private http = inject(HttpClient);
 
   suggestions: Suggestion[] | undefined;
@@ -20,7 +23,7 @@ export class ListSuggestionsComponent {
   }
 
   showSuggestion(): void {
-    this.http.get<Suggestion[]>('http://localhost:5000/api/suggestion/').subscribe(
+    this.http.get<Suggestion[]>(this.baseApiUrl + 'suggestion/').subscribe(
       { next: response => this.suggestions = response }
     );
   }
