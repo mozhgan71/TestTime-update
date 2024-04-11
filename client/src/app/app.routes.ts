@@ -60,6 +60,7 @@ import { authGuard } from './guards/auth.guard';
 import { authLoggedInGuard } from './guards/auth-logged-in.guard';
 import { NoAccessComponent } from './components/errors/no-access/no-access.component';
 import { UserPhotoEditComponent } from './components/user/user-photo-edit/user-photo-edit.component';
+import { ListApiexceptionsComponent } from './components/adminn/list-apiexceptions/list-apiexceptions.component';
 
 export const routes: Routes = [
     {
@@ -135,5 +136,6 @@ export const routes: Routes = [
     { path: 'show-result', component: ShowResultComponent },
     { path: 'old-question', component: OldQuestionsComponent },
     { path: 'server-error', component: ServerErrorComponent },
+    { path: 'adminn/list-apiexceptions', component: ListApiexceptionsComponent },
     { path: '**', component: NotFoundComponent, pathMatch: 'full' },
 ];

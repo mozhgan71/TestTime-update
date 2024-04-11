@@ -13,7 +13,7 @@
         <button routerLink="login" title="User-LogIn" mat-icon-button><mat-icon>account_circle</mat-icon></button>
         }
     </div>
-    <nav class="nav-class" mat-tab-nav-bar [color]="'warn'" [tabPanel]="tabPanel">
+    <nav class="nav-class" mat-tab-nav-bar [color]="'warn'" [tabPanel]="tabPanel"> 
         @if (loggedInUserSig && loggedInUserSig()) {
         <a> </a>
         }
@@ -25,7 +25,7 @@
             [active]="rla.isActive">پروفایل من</a>
         <a mat-tab-link routerLink="test-category" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">دسته
             بندی آزمون ها</a>
-        <a mat-tab-link routerLink="home" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">خانه</a>
+        <a mat-tab-link routerLink="home" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">خانه</a> 
     </nav>
     <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 </div>

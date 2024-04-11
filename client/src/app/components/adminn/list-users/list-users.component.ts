@@ -1,11 +1,11 @@
-import { Component, OnDestroy, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { AppUser } from '../../../models/app-user.model';
 import { UserService } from '../../../services/user.service';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MemberService } from '../../../services/member.service';
 import { Member } from '../../../models/member-model';
 import { environment } from '../../../../environments/environment.development';
@@ -18,7 +18,7 @@ import { MemberCardComponent } from '../member-card/member-card.component';
   styleUrls: ['./list-users.component.scss'],
   imports: [CommonModule, MatIconModule, NgOptimizedImage, MemberCardComponent]
 })
-export class ListUsersComponent {
+export class ListUsersComponent implements OnInit{
   private readonly baseApiUrl = environment.apiUrl;
 
   private http = inject(HttpClient);
@@ -32,7 +32,7 @@ export class ListUsersComponent {
 
   apiPhotoUrl = environment.apiPhotoUrl;
 
-  constructor() {
+  ngOnInit(): void {
     this.showUsers();
   }
 
@@ -51,7 +51,7 @@ export class ListUsersComponent {
     );
 
     this.allMembers$ = this._memberService.getAllMembers();
-    this.allMembersSig.set(this.users!);
+    // this.allMembersSig.set(this.users!);
   }
 
   deleteUser(id: string): void {

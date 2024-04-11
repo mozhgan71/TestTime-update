@@ -77,4 +77,14 @@ public class Mappers
                     IsMain: isMain
                 );  
     }
+
+     public static ApiExceptionDto ConvertApiExceptionToApiExceptionDto(ApiException apiException)
+    {
+        return new ApiExceptionDto(
+            StatusCode: apiException.StatusCode,
+            Message: apiException.Message,
+            Details: apiException.Details,
+            Time: apiException.Time
+        );
+    }
 }
