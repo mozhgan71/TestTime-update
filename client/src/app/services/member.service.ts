@@ -1,9 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { AppUser } from '../models/app-user.model';
 import { Member } from '../models/member-model';
+import { MemberParams } from '../models/helpers/member-params';
+import { PaginatedResult } from '../models/helpers/paginatedResult';
+import { PaginationHandler } from '../extensions/paginationHandler';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +15,45 @@ export class MemberService {
   private http = inject(HttpClient);
 
   private readonly baseApiUrl = environment.apiUrl + 'member/';
+  private paginationHandler = new PaginationHandler();
 
-  getAllMembers(): Observable<Member[] | null> {
-    return this.http.get<Member[]>(this.baseApiUrl).pipe(
-      map((members: Member[]) => {
-        if (members)
-          return members;
+  getAllMembers(memberParams: MemberParams): Observable<PaginatedResult<Member[]>> {
+    let params = new HttpParams();
 
-        return null;
+    if (memberParams) {
+      params = params.append('pageNumber', memberParams.pageNumber);
+      params = params.append('pageSize', memberParams.pageSize);
+    }
+
+    const paginatedResult: PaginatedResult<Member[]> = new PaginatedResult<Member[]>;
+
+    this.http.get<Member[]>(this.baseApiUrl, { observe: 'response', params }).pipe(
+      map(response => {
+        const pagination: string | null = response.headers.get('Pagination');
+        if (pagination)
+          paginatedResult.pagination = JSON.parse(pagination); // api's response pagination values
+
+        if (response.body)
+          paginatedResult.body = response.body // api's response body
+
+        return paginatedResult;
       })
-    )
+    );
+
+    // TODO Use this generic method and make reusable for all components. 
+    return this.paginationHandler.getPaginatedResult<Member[]>(this.baseApiUrl, params);
   }
+
+  // getAllMembers(): Observable<Member[] | null> {
+  //   return this.http.get<Member[]>(this.baseApiUrl).pipe(
+  //     map((members: Member[]) => {
+  //       if (members)
+  //         return members;
+
+  //       return null;
+  //     })
+  //   )
+  // }
   getMemberById(id: string | null): Observable<AppUser | null | undefined> {
     return this.http.get<AppUser>(this.baseApiUrl + 'get-by-id/' + id).pipe(
       map((member: AppUser | null) => {

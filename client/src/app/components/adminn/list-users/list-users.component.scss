@@ -33,7 +33,7 @@
 .members {
     display: flex;
     flex-direction: column;
-    background-color: #080808;
+    background-color: #e9d8d8;
 
     .top {
         --offset: 50px;
@@ -58,6 +58,12 @@
         border-top: 5px solid #080808;
         border-right: 5px solid #080808;
     }
+}
+
+.paginator {
+    display: flex;
+    justify-content: center;
+    background-color: #807676;
 }
 
 // }
