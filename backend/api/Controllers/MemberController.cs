@@ -1,3 +1,5 @@
+using api.Models.Helpers;
+
 namespace api.Controllers;
 
 [Authorize]
@@ -5,16 +7,50 @@ public class MemberController(IMemberRepository _memberRepository) : BaseApiCont
 {
     [AllowAnonymous]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<MemberDto>>> GetAll(CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<MemberDto>>> GetAll([FromQuery] PaginationParams paginationParams, CancellationToken cancellationToken)
     {
-        List<MemberDto> memberDtos = await _memberRepository.GetAllAsync(cancellationToken);
+        PagedList<AppUser> pagedAppUsers = await _memberRepository.GetAllAsync(paginationParams, cancellationToken);
 
-        if (memberDtos.Count == 0) // []
+        if (pagedAppUsers.Count == 0) // []
             return NoContent();
+
+        /*  1- Response only exists in Contoller. So we have to set PaginationHeader here before converting AppUser to UserDto.
+        If we convert AppUser before here, we'll lose PagedList's pagination values, e.g. CurrentPage, PageSize, etc.
+        */
+        PaginationHeader paginationHeader = new(
+            CurrentPage: pagedAppUsers.CurrentPage,
+            ItemsPerPage: pagedAppUsers.PageSize,
+            TotalItems: pagedAppUsers.TotalItems,
+            TotalPages: pagedAppUsers.TotalPages
+        );
+
+        Response.AddPaginationHeader(paginationHeader);
+
+        /*  2- PagedList<T> has to be AppUser first to retrieve data from DB and set pagination values. 
+                After that step we can convert AppUser to MemberDto in here (NOT in the UserRepository) */
+
+        List<MemberDto> memberDtos = [];
+
+        foreach (AppUser appUser in pagedAppUsers)
+        {
+            memberDtos.Add(Mappers.ConvertAppUserToMemberDto(appUser));
+        }
 
         return memberDtos;
     }
 
+    #region oldgetall
+    // public async Task<ActionResult<IEnumerable<MemberDto>>> GetAll(CancellationToken cancellationToken)
+    // {
+    //     List<MemberDto> memberDtos = await _memberRepository.GetAllAsync(cancellationToken);
+
+    //     if (memberDtos.Count == 0) // []
+    //         return NoContent();
+
+    //     return memberDtos;
+    // }
+    #endregion
+    
     [HttpGet("get-by-id/{memberId}")]
     public async Task<ActionResult<MemberDto>> GetById(string memberId, CancellationToken cancellationToken)
     {

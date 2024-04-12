@@ -13,26 +13,35 @@ public class MemberRepository : IMemberRepository
 
         // // _tokenService = tokenService;
     }
-    public async Task<List<MemberDto>> GetAllAsync(CancellationToken cancellationToken)
+    
+       public async Task<PagedList<AppUser>> GetAllAsync(PaginationParams paginationParams, CancellationToken cancellationToken)
     {
-        List<AppUser> appUsers = await _collection.Find<AppUser>(new BsonDocument()).ToListAsync(cancellationToken);
+        IMongoQueryable<AppUser> query = _collection.AsQueryable();
 
-        List<MemberDto> memberDtos = [];
-
-        if (appUsers.Count != 0)
-        {
-            foreach (AppUser appUser in appUsers)
-            {
-                MemberDto memberDto = Mappers.ConvertAppUserToMemberDto(appUser);
-
-                memberDtos.Add(memberDto);
-            }
-
-            return memberDtos;
-        }
-
-        return memberDtos ; // []
+        return await PagedList<AppUser>.CreatePagedListAsync(query, paginationParams.PageNumber, paginationParams.PageSize, cancellationToken);
     }
+
+    // public async Task<List<MemberDto>> GetAllAsync(CancellationToken cancellationToken)
+    // {
+    //     List<AppUser> appUsers = await _collection.Find<AppUser>(new BsonDocument()).ToListAsync(cancellationToken);
+
+    //     List<MemberDto> memberDtos = [];
+
+    //     if (appUsers.Count != 0)
+    //     {
+    //         foreach (AppUser appUser in appUsers)
+    //         {
+    //             MemberDto memberDto = Mappers.ConvertAppUserToMemberDto(appUser);
+
+    //             memberDtos.Add(memberDto);
+    //         }
+
+    //         return memberDtos;
+    //     }
+
+    //     return memberDtos ; // []
+    // }
+
      public async Task<MemberDto?> GetByIdAsync(string? memberId, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(appUser => appUser.Id == memberId).FirstOrDefaultAsync(cancellationToken);
