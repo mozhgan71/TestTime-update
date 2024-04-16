@@ -25,22 +25,6 @@ export class MemberService {
       params = params.append('pageSize', memberParams.pageSize);
     }
 
-    const paginatedResult: PaginatedResult<Member[]> = new PaginatedResult<Member[]>;
-
-    this.http.get<Member[]>(this.baseApiUrl, { observe: 'response', params }).pipe(
-      map(response => {
-        const pagination: string | null = response.headers.get('Pagination');
-        if (pagination)
-          paginatedResult.pagination = JSON.parse(pagination); // api's response pagination values
-
-        if (response.body)
-          paginatedResult.body = response.body // api's response body
-
-        return paginatedResult;
-      })
-    );
-
-    // TODO Use this generic method and make reusable for all components. 
     return this.paginationHandler.getPaginatedResult<Member[]>(this.baseApiUrl, params);
   }
 

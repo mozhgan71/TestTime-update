@@ -13,16 +13,16 @@ export class PaginationHandler {
      * @returns Observable<PaginatedResult<T>>
      */
     getPaginatedResult<T>(url: string, params: HttpParams): Observable<PaginatedResult<T>> {
-        const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>;
+        const paginatedResult = new PaginatedResult<T>;
 
         return this.http.get<T>(url, { observe: 'response', params }).pipe(
             map(response => {
-                if (response.body)
-                    paginatedResult.body = response.body // api's response body
-
-                const pagination = response.headers.get('Pagination');
+                const pagination: string | null = response.headers.get('Pagination');
                 if (pagination)
                     paginatedResult.pagination = JSON.parse(pagination); // api's response pagination values
+
+                if (response.body)
+                    paginatedResult.body = response.body // api's response body
 
                 return paginatedResult;
             })
