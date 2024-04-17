@@ -26,36 +26,51 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('PlatformId in OnInit:', this.platformId);
-    this.getLocalStorageCurrentValues();
+    // this.getLocalStorageCurrentValues();
+    this.initUserOnPageRefresh();
   }
 
-  getLocalStorageCurrentValues(): void {
-    let userString: string | null = null;
+  initUserOnPageRefresh(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const loggedInUserStr = localStorage.getItem('loggedInUser');
 
-    // if (isPlatformServer(this.platformId))
-    if (isPlatformBrowser(this.platformId)) { // this code is ran on the browser now
-      const tokenValue = localStorage.getItem('token');
+      if (loggedInUserStr) {
+        // First, check if user's token is not expired.
+        this.accountService.authorizeLoggedInUser();
 
-      if (tokenValue) { // do NOT call api if no token is in the localStorage!! Performance!
-        this.accountService.getLoggedInUser().pipe(take(1)).subscribe(
-          {
-            next: (loggedInUser: LoggedInUser | null) => {
-              if (loggedInUser)
-                this.accountService.setCurrentUser(loggedInUser);
-            },
-            error: () => this.accountService.logOut()
-            // error: (err) => {
-            //   console.log(err.error);
-            //   this.accountService.logoutUser()
-            // } //if token is expired and api call is unauthorized.
-          });
+        // Then, set the authorized logged-in user
+        this.accountService.setCurrentUser(JSON.parse(loggedInUserStr))
       }
     }
-
-    if (userString) {
-      const user: LoggedInUser = JSON.parse(userString); // convert string to JSON before sending to method
-
-      this.accountService.setCurrentUser(user);
-    }
   }
+
+  // getLocalStorageCurrentValues(): void {
+  //   let userString: string | null = null;
+
+  //   // if (isPlatformServer(this.platformId))
+  //   if (isPlatformBrowser(this.platformId)) { // this code is ran on the browser now
+  //     const tokenValue = localStorage.getItem('token');
+
+  //     if (tokenValue) { // do NOT call api if no token is in the localStorage!! Performance!
+  //       this.accountService.getLoggedInUser().pipe(take(1)).subscribe(
+  //         {
+  //           next: (loggedInUser: LoggedInUser | null) => {
+  //             if (loggedInUser)
+  //               this.accountService.setCurrentUser(loggedInUser);
+  //           },
+  //           error: () => this.accountService.logOut()
+  //           // error: (err) => {
+  //           //   console.log(err.error);
+  //           //   this.accountService.logoutUser()
+  //           // } //if token is expired and api call is unauthorized.
+  //         });
+  //     }
+  //   }
+
+  //   if (userString) {
+  //     const user: LoggedInUser = JSON.parse(userString); // convert string to JSON before sending to method
+
+  //     this.accountService.setCurrentUser(user);
+  //   }
+  // }
 }

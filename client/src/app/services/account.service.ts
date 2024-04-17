@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, take } from 'rxjs';
 import { AppUser } from '../models/app-user.model';
 import { Router } from '@angular/router';
 import { AppUserRegister } from '../models/app-user-register.model';
 import { environment } from '../../environments/environment.development';
 import { LoggedInUser } from '../models/logged-in-user.model';
 import { isPlatformBrowser } from '@angular/common';
+import { ApiResponse } from '../models/helpers/apiResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -60,23 +61,29 @@ export class AccountService {
   }
 
   // get logged-in user when browser is refreshed
-  getLoggedInUser(): Observable<LoggedInUser | null> {
-    return this.http.get<LoggedInUser>(this.baseApiUrl);
+  // getLoggedInUser(): Observable<LoggedInUser | null> {
+  //   return this.http.get<LoggedInUser>(this.baseApiUrl);
+  // }
+
+  authorizeLoggedInUser(): void {
+    this.http.get<ApiResponse>(this.baseApiUrl)
+      .pipe(
+        take(1))
+      .subscribe({
+        next: res => console.log(res.message),
+        error: err => {
+          console.log(err.error);
+          this.logOut()
+        }
+      });
   }
 
   setCurrentUser(loggedInUser: LoggedInUser): void {
-    // const userString = JSON.stringify(user);
-
-    // this.currentUserSource.next(user);
-    // localStorage.setItem('user', userString)
-
-    // this.currentUserSource.next(user);
     this.loggedInUserSig.set(loggedInUser);
 
     if (isPlatformBrowser(this.platformId)) // we make sure this code is ran on the browser and NOT server
-    {
-      localStorage.setItem('token', loggedInUser.token);
-    }
+      // localStorage.setItem('token', loggedInUser.token);
+      localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
   }
 
   logOut(): void {

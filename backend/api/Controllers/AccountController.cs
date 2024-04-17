@@ -46,21 +46,21 @@ public class AccountController(IAccountRepository _accountRepository) : BaseApiC
         return loggedInDto;
     }
 
-    /// <summary>
-    /// Get loggedInUser when user refreshes the browser. 
-    /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns>LoggedInDto</returns>
-    [HttpGet]
-    public async Task<ActionResult<LoggedInDto?>> ReloadLoggedInUser(CancellationToken cancellationToken)
-    {
-        // get token value from token
-        string? tokenValue = Response.HttpContext.GetTokenAsync("access_token").Result;
+    // / <summary>
+    // / Get loggedInUser when user refreshes the browser. 
+    // / </summary>
+    // / <param name="cancellationToken"></param>
+    // / <returns>LoggedInDto</returns>
+    // [HttpGet]
+    // public async Task<ActionResult<LoggedInDto?>> ReloadLoggedInUser(CancellationToken cancellationToken)
+    // {
+    //     // get token value from token
+    //     string? tokenValue = Response.HttpContext.GetTokenAsync("access_token").Result;
 
-        LoggedInDto? loggedInDto = await _accountRepository.ReloadLoggedInUserAsync(User.GetUserId(), tokenValue, cancellationToken);
+    //     LoggedInDto? loggedInDto = await _accountRepository.ReloadLoggedInUserAsync(User.GetUserId(), tokenValue, cancellationToken);
 
-        //// BEST/SHORTEST WAY ////
-        return loggedInDto is not null ? loggedInDto : BadRequest("Relogin user failed"); //  Ternary Operator: if/else shortcut
+    //     //// BEST/SHORTEST WAY ////
+    //     return loggedInDto is not null ? loggedInDto : BadRequest("Relogin user failed"); //  Ternary Operator: if/else shortcut
 
         //// MEDUIM LONG WAY ////
         // LoggedInDto? myResult =  loggedInDto is not null ? loggedInDto : null; //  Ternary Operator: if/else shortcut
@@ -71,7 +71,17 @@ public class AccountController(IAccountRepository _accountRepository) : BaseApiC
         //     return loggedInDto;
         // else
         //     return BadRequest("Reloading LoggedInUser failed");
-    }
+    
+
+    /// <summary>
+    /// Authorize the token
+    /// </summary>
+    /// <param></param>
+    /// <returns>ActionResult</returns>
+    [Authorize]
+    [HttpGet]
+    public ActionResult AuthorizeLoggedInUser() =>
+        Ok(new { message = "token is still valid and user is authorized" });
 
     // [HttpGet("get-by-email-password/{email}/{password}")]
     // public ActionResult<AppUser>? GetForLogIn(string email, string password)

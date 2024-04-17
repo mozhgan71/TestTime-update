@@ -39,7 +39,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
   members: Member[] | undefined;
   memberParams: MemberParams | undefined;
 
-  readonly pageSizeOptions = [5, 10, 15, 20, 25];
+  pageSizeOptions = [5, 10, 15, 20, 25];
   pageEvent: PageEvent | undefined;
 
   apiPhotoUrl = environment.apiPhotoUrl;
@@ -53,12 +53,6 @@ export class ListUsersComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscribed?.unsubscribe();
   }
-
-  // ngOnDestroy(): void {                       //zamani ke bekhaym error haro begirim az api az in ravesh mirim
-  //   this.subscription?.unsubscribe();
-
-  //   console.log('Unsubscribe Done');
-  // }
 
   showUsers(): void {
     if (this.memberParams)
