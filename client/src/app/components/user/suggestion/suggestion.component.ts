@@ -7,14 +7,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
+import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
 
 @Component({
   standalone: true,
   selector: 'app-suggestion',
   templateUrl: './suggestion.component.html',
   styleUrls: ['./suggestion.component.scss'],
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule,
-     RouterModule]
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule,
+     ReactiveFormsModule,RouterModule,AutoFocusDirective]
 })
 export class SuggestionComponent {
   private readonly baseApiUrl = environment.apiUrl;

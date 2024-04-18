@@ -27,12 +27,10 @@ import { TestCategoryComponent } from './components/category/test-category/test-
 import { TypeScriptQuestionsComponent } from './components/category/typescript-questions/typescript-questions.component';
 import { VuejsQuestionsComponent } from './components/category/vuejs-questions/vuejs-questions.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
-import { IntroduceToFriendsComponent } from './components/introduce-to-friends/introduce-to-friends.component';
 import { MainComponent } from './components/main/main.component';
 import { NotFoundComponent } from './components/errors/not-found/not-found.component';
 import { OldQuestionsComponent } from './components/old-questions/old-questions.component';
 import { ReferencesComponent } from './components/references/references.component';
-import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
 import { CompareInAngularComponent } from './components/user/compare-with-other/compare-in-angular/compare-in-angular.component';
 import { CompareInCplusComponent } from './components/user/compare-with-other/compare-in-cplus/compare-in-cplus.component';
 import { CompareInCsharpComponent } from './components/user/compare-with-other/compare-in-csharp/compare-in-csharp.component';
@@ -88,8 +86,6 @@ export const routes: Routes = [
     { path: 'home', component: MainComponent },
     { path: 'about-us', component: AboutUsComponent },
     { path: 'contact-us', component: ContactUsComponent },
-    { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
-    { path: 'introduce-to-friends', component: IntroduceToFriendsComponent },
     { path: 'references', component: ReferencesComponent },
     { path: 'admin-profile', component: AdminProfileComponent },
     { path: 'adminn/list-users', component: ListUsersComponent },  //canActivate: [authGuard]

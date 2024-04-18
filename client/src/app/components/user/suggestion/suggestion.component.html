@@ -5,7 +5,7 @@
         }
         <mat-form-field appearance="outline">
             <mat-label>نام و نام خانوادگی:</mat-label>
-            <input type="text" formControlName="fullNameCtrl" matInput>
+            <input autoFocusDir type="text" formControlName="fullNameCtrl" matInput>
             @if (suggestionFg.dirty) {
             <mat-error>نام و نام خانوادگی حداقل باید شامل 5 کاراکتر باشد</mat-error>
             }

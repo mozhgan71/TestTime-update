@@ -7,13 +7,15 @@ import { Admin } from '../../../models/admin-login.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { environment } from '../../../../environments/environment.development';
+import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
 
 @Component({
   standalone: true,
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
   styleUrls: ['./admin-login.component.scss'],
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule]
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule,
+     ReactiveFormsModule,AutoFocusDirective]
 })
 export class AdminLogInComponent {
   private readonly baseApiUrl = environment.apiUrl;

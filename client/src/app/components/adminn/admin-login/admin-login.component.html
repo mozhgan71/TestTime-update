@@ -1,9 +1,9 @@
 <div>
     <form [formGroup]="adminFg">
-        <h2>ورود مدیر</h2>
+        <h2>Admin Login </h2>
         <mat-form-field appearance="outline">
             <mat-label>ایمیل</mat-label>
-            <input type="text" formControlName="emailCtrl" matInput>
+            <input autoFocusDir type="text" formControlName="emailCtrl" matInput>
             @if (adminFg.dirty) {
             <mat-error>لطفا یک ایمیل صحیح وارد کنید</mat-error>
             }

@@ -67,7 +67,7 @@ export class CsharpQuestionsComponent {
     var question2 = document.getElementsByName("2") as NodeListOf<HTMLInputElement>;
     for (var i = 0; i < question2.length; i++) {
       if (question2[i].checked == true) {
-        if ((parseInt(question2[i].value)) == 2) {
+        if ((parseInt(question2[i].value)) == 3) {
           this.correctAnswers++;
           break;
         }
@@ -80,7 +80,7 @@ export class CsharpQuestionsComponent {
     var question3 = document.getElementsByName("3") as NodeListOf<HTMLInputElement>;
     for (var i = 0; i < question3.length; i++) {
       if (question3[i].checked == true) {
-        if ((parseInt(question3[i].value)) == 1) {
+        if ((parseInt(question3[i].value)) == 4) {
           this.correctAnswers++;
           break;
         }
@@ -171,7 +171,7 @@ export class CsharpQuestionsComponent {
     var question10 = document.getElementsByName("10") as NodeListOf<HTMLInputElement>;
     for (var i = 0; i < question10.length; i++) {
       if (question10[i].checked == true) {
-        if ((parseInt(question10[i].value)) == 4) {
+        if ((parseInt(question10[i].value)) == 2) {
           this.correctAnswers++;
           break;
         }
