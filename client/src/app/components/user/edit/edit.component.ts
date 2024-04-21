@@ -58,13 +58,14 @@ export class EditComponent implements OnInit {
       {
         next: res => {
           this.userRes = res;
+          console.log(this.userRes);
           if (this.userRes) {
             this.NameCtrl.setValue(this.userRes.name);
             this.FamilyCtrl.setValue(this.userRes.family);
             this.EmailCtrl.setValue(this.userRes.email);
             // this.PasswordCtrl.setValue(this.userRes.password);
             // this.ConfirmPasswordCtrl.setValue(this.userRes.confirmPassword);
-            // this.AgeCtrl.setValue(this.userRes.age);
+            this.AgeCtrl.setValue(this.userRes.age);
             this.EducationCtrl.setValue(this.userRes.education);
           }
         },
@@ -152,8 +153,6 @@ export class EditComponent implements OnInit {
           }
         }
       });
-
-    this.userFg.markAsPristine();
   }
   //   else {
   //     alert("تغییرات اعمال نشد؛ تکرار رمز عبور مشابه رمز عبور نمی باشد.");

@@ -29,8 +29,8 @@
             }
         </mat-form-field>
         <div class="div-button">
-            <button mat-raised-button (click)="logInUser()" [disabled]="userFg.invalid" color="warn">ورود</button>
-            <button routerLink="/sign-up" mat-raised-button color="warn">ثبت نام</button>
+            <button mat-raised-button (click)="logInUser()" [disabled]="userFg.invalid" color="primary">ورود</button>
+            <button routerLink="/sign-up" mat-raised-button color="primary">ثبت نام</button>
         </div>
     </form>
     <mat-error>{{showError}}</mat-error>

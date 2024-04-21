@@ -6,8 +6,6 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { Router, RouterModule } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { MainComponent } from "./components/main/main.component";
-import { LoggedInUser } from './models/logged-in-user.model';
-import { take } from 'rxjs';
 import { NgxSpinnerModule } from "ngx-spinner";
 
 @Component({
@@ -16,13 +14,15 @@ import { NgxSpinnerModule } from "ngx-spinner";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   imports: [RouterModule, HeaderComponent, FooterComponent,
-            MainComponent,NgxSpinnerModule]
+    MainComponent, NgxSpinnerModule]
 })
 export class AppComponent implements OnInit {
   accountService = inject(AccountService);
   platformId = inject(PLATFORM_ID); // used to test if we are in the client(browser) or server. We must be on the client to access localStorage!router = inject(Router); 
 
-  allUsers: AppUser[] | undefined
+  router = inject(Router);
+
+  // allUsers: AppUser[] | undefined
 
   ngOnInit(): void {
     console.log('PlatformId in OnInit:', this.platformId);

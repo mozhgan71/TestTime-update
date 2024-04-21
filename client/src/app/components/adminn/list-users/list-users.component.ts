@@ -21,7 +21,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   imports: [CommonModule, MatIconModule, NgOptimizedImage,
     MemberCardComponent, MatPaginatorModule]
 })
-export class ListUsersComponent implements OnInit, OnDestroy {
+export class ListUsersComponent implements OnInit {
   private readonly baseApiUrl = environment.apiUrl;
 
   private http = inject(HttpClient);
@@ -50,9 +50,9 @@ export class ListUsersComponent implements OnInit, OnDestroy {
     this.showUsers();
   }
 
-  ngOnDestroy(): void {
-    this.subscribed?.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.subscribed?.unsubscribe();
+  // }
 
   showUsers(): void {
     if (this.memberParams)

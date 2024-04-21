@@ -14,7 +14,7 @@
                 <div class="buttons">
                     <button (click)="setMainPhotoComp(photo.url_165)" mat-stroked-button color="primary"
                         [disabled]="photo.isMain">Set profile</button>
-                    <button (click)="deletePhotoComp(photo.url_165, $index)" mat-mini-fab color="warn"
+                    <button (click)="deletePhotoComp(photo.url_165, $index)" mat-mini-fab color="primary"
                         [disabled]="photo.isMain"><mat-icon>delete</mat-icon></button>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                     [disabled]="!uploader.isUploading">
                     <mat-icon>cancel</mat-icon> Cancel all
                 </button>
-                <button mat-raised-button color="warn" type="button" (click)="uploader.clearQueue()"
+                <button mat-raised-button color="primary" type="button" (click)="uploader.clearQueue()"
                     [disabled]="!uploader.queue.length">
                     <mat-icon>delete</mat-icon> Remove all
                 </button>

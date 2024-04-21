@@ -31,8 +31,6 @@ export class HeaderComponent implements OnInit {
   //user$: Observable<LoggedInUser | null> | undefined;
   loggedInUserSig: Signal<LoggedInUser | null> | undefined;
 
-  // links: string[] = ['خانه', 'ارتباط با ما ', 'درباره ما', 'دسته بندی آزمون ها','پروفایل من','ثبت نام'];
-
   isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),

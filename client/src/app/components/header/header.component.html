@@ -7,13 +7,13 @@
         </button>
         }
         @if (loggedInUserSig && loggedInUserSig(); as user) {
-        <span class="email">ایمیل شما : {{user.email}}</span>
+        <span class="email">ایمیل  : {{user.email}}</span>
         }
         @else {
         <button routerLink="login" title="User-LogIn" mat-icon-button><mat-icon>account_circle</mat-icon></button>
         }
     </div>
-    <nav class="nav-class" mat-tab-nav-bar [color]="'warn'" [tabPanel]="tabPanel"> 
+    <nav class="nav-class" mat-tab-nav-bar [color]="'primary'" [tabPanel]="tabPanel"> 
         @if (loggedInUserSig && loggedInUserSig()) {
         <a> </a>
         }
