@@ -12,13 +12,13 @@ public class ExceptionController : BaseApiController
         return result;
     }
 
-    [HttpPost("get-length")]
-    public ActionResult GetLength()
-    {
-        string name = null;
+    // [HttpPost("get-length")]
+    // public ActionResult GetLength()
+    // {
+    //     string name = null;
 
-        int length = name.Length; //toLower()
+    //     int length = name.Length; //toLower()
 
-        return Ok("DONE");
-    }
+    //     return Ok("DONE");
+    // }
 }
