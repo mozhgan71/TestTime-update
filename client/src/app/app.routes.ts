@@ -61,6 +61,8 @@ import { UserPhotoEditComponent } from './components/user/user-photo-edit/user-p
 import { ListApiexceptionsComponent } from './components/adminn/list-apiexceptions/list-apiexceptions.component';
 
 export const routes: Routes = [
+    { path: '', component: MainComponent },
+    { path: 'home', component: MainComponent },
     {
         path: '',
         runGuardsAndResolvers: 'always',
@@ -82,8 +84,6 @@ export const routes: Routes = [
             { path: 'login', component: LogInComponent },
         ]
     },
-    { path: '', component: MainComponent },
-    { path: 'home', component: MainComponent },
     { path: 'about-us', component: AboutUsComponent },
     { path: 'contact-us', component: ContactUsComponent },
     { path: 'references', component: ReferencesComponent },
@@ -127,8 +127,8 @@ export const routes: Routes = [
     { path: 'compare-react', component: CompareInReactComponent },
     { path: 'compare-typescript', component: CompareInTypescriptComponent },
     { path: 'compare-vuejs', component: CompareInVuejsComponent },
-    { path: 'add-question', component: AddQuestionComponent },
-    { path: 'edit-question', component: EditQuestionComponent },
+    { path: 'adminn/add-question', component: AddQuestionComponent },
+    { path: 'adminn/edit-question', component: EditQuestionComponent },
     { path: 'show-result', component: ShowResultComponent },
     { path: 'old-question', component: OldQuestionsComponent },
     { path: 'server-error', component: ServerErrorComponent },

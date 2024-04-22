@@ -6,8 +6,10 @@
 
 <section>
     <div class="members">
-        @for (member of members; track $index) {
+        @for (member of members; track members;let i=$index){
         <app-member-card [memberInput]="member"></app-member-card>
+        <button (click)="deleteUser(i,member.id!)" class="button" mat-fab
+            title="حذف کاربر"><mat-icon>delete</mat-icon></button>
         }
     </div>
     @if (pagination && memberParams) {

@@ -6,13 +6,15 @@ import { Question } from '../../../models/question.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { environment } from '../../../../environments/environment.development';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-add-question',
   templateUrl: './add-question.component.html',
   styleUrls: ['./add-question.component.scss'],
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule]
+  imports: [RouterModule,MatFormFieldModule, MatInputModule,
+    MatButtonModule, ReactiveFormsModule]
 })
 export class AddQuestionComponent {
   private readonly baseApiUrl = environment.apiUrl;

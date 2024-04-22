@@ -1,14 +1,14 @@
 div {
     min-height: calc(100vh - (18.6rem));
-    background-color: rgb(148, 91, 145);
+    background-color: rgb(238, 232, 238);
     color: aliceblue;
 
     form {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 2rem;
-        background-color: rgb(173, 115, 169);
+        gap: 1rem;
+        background-color: rgb(252, 250, 252);
         color: purple;
 
         .my-button {
@@ -21,21 +21,22 @@ div {
 
         .button {
             color: black;
-            // background-color: purple;
             margin-bottom: 0.5rem;
             width: 20rem;
             font-weight: bold;
         }
 
         h2 {
-            background-color: rgb(139, 23, 139);
             color: black;
             padding: 0.5rem;
+            border: 1px solid black;
+            border-radius: 30%;
         }
 
         mat-form-field {
             height: 3rem;
             width: 25%;
+            margin-bottom: 1.5rem;
         }
 
         mat-error {

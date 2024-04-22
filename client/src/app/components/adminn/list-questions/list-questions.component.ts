@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Question } from '../../../models/question.model';
 import { environment } from '../../../../environments/environment.development';
 
@@ -11,11 +11,11 @@ import { environment } from '../../../../environments/environment.development';
   selector: 'app-list-questions',
   templateUrl: './list-questions.component.html',
   styleUrls: ['./list-questions.component.scss'],
-  imports: [CommonModule, MatIconModule]
+  imports: [CommonModule, RouterModule, MatIconModule]
 })
 export class ListQuestionsComponent {
   private readonly baseApiUrl = environment.apiUrl;
-  
+
   private http = inject(HttpClient);
 
   questions: Question[] | undefined;
@@ -31,13 +31,14 @@ export class ListQuestionsComponent {
     );
   }
 
-  deleteQuestion(id: string): void {
+  deleteQuestion(i: number, id: string): void {
     this.http.delete<Question>(this.baseApiUrl + 'question/delete/' + id).subscribe(
       {
         next: response => {
           this.delQuestion = response
           console.log(response);
           alert("عملیات حذف سوال با موفقیت انجام شد.");
+          this.questions!.splice(i, 1);
         }
       }
     );

@@ -1,28 +1,28 @@
 @if (member) {
 <mat-card class="card">
     <!-- <div> -->
-        <ul>
-            <hr>
-            @if (member.photos.length === 0) {
-            <img ngSrc="../assets/images/member.png" width="128" height="128" alt="{{member.name}} photo" mat-card-image>
-            }
-            @else {
-            @for (photo of member.photos; track $index) {
-            @if (photo.isMain) {
-            <img ngSrc="{{apiPhotoUrl + photo.url_165}}" width="128" height="128" alt="{{member.name}}  photo"
-                mat-card-image>
-            }
-            }
-            }
-            <li>Name: {{member.name}}</li>
-            <li>Family: {{member.family}}</li>
-            <li>Email: {{member.email}}</li>
-            <li>Age: {{member.age}}</li>
-            <li *ngIf="member.education">Education: {{member.education}}</li>
-            <button (click)="deleteUser(member.id!)" class="button" mat-fab
-                title="حذف کاربر"><mat-icon>delete</mat-icon></button>
-            <!-- <hr> -->
-        </ul>
+    <ul>
+        <hr>
+        @if (member.photos.length === 0) {
+        <img ngSrc="../assets/images/member.png" width="128" height="128" alt="{{member.name}} photo" mat-card-image>
+        }
+        @else {
+        @for (photo of member.photos; track $index) {
+        @if (photo.isMain) {
+        <img ngSrc="{{apiPhotoUrl + photo.url_165}}" width="128" height="128" alt="{{member.name}}  photo"
+            mat-card-image>
+        }
+        }
+        }
+        <li>Name: {{member.name}}</li>
+        <li>Family: {{member.family}}</li>
+        <li>Email: {{member.email}}</li>
+        <li>Age: {{member.age}}</li>
+        <li *ngIf="member.education">Education: {{member.education}}</li>
+        <!-- <button (click)="deleteUser(member.id!)" class="button" mat-fab
+            title="حذف کاربر"><mat-icon>delete</mat-icon></button> -->
+        <!-- <hr> -->
+    </ul>
     <!-- </div> -->
 </mat-card>
 }

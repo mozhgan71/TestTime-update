@@ -21,7 +21,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   imports: [CommonModule, MatIconModule, NgOptimizedImage,
     MemberCardComponent, MatPaginatorModule]
 })
-export class ListUsersComponent implements OnInit {
+export class ListUsersComponent implements OnInit, OnDestroy {
   private readonly baseApiUrl = environment.apiUrl;
 
   private http = inject(HttpClient);
@@ -50,9 +50,9 @@ export class ListUsersComponent implements OnInit {
     this.showUsers();
   }
 
-  // ngOnDestroy(): void {
-  //   this.subscribed?.unsubscribe();
-  // }
+  ngOnDestroy(): void {
+    this.subscribed?.unsubscribe();
+  }
 
   showUsers(): void {
     if (this.memberParams)
@@ -84,14 +84,14 @@ export class ListUsersComponent implements OnInit {
     }
   }
 
-  deleteUser(id: string): void {
+  deleteUser(i: number, id: string): void {
     this.http.delete<AppUser>(this.baseApiUrl + 'user/delete/' + id).subscribe(
       {
         next: response => {
           this.delUser = response
           console.log(response);
-          this.showUsers();
-          alert("عملیات حذف کاربر با موفقیت انجام شد.");
+          // alert("عملیات حذف کاربر با موفقیت انجام شد.");
+          this.members!.splice(i, 1);
         }
       }
     );

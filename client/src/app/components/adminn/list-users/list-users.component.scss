@@ -35,6 +35,22 @@
     flex-direction: column;
     background-color: #030303;
 
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+        align-content: center;
+        color: #030303;
+        background-color: purple;
+        cursor: pointer;
+        width: 20%;
+    }
+
+    .button:hover {
+        background-color: rgb(211, 7, 109);
+    }
+
     .top {
         --offset: 50px;
         position: sticky;
