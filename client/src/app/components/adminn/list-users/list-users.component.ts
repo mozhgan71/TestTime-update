@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
@@ -47,21 +47,23 @@ export class ListUsersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.memberParams = new MemberParams();
 
-    this.showUsers();
+    this.getAll();
   }
 
   ngOnDestroy(): void {
     this.subscribed?.unsubscribe();
   }
 
-  showUsers(): void {
+  getAll(): void {
     if (this.memberParams)
       this.subscribed = this.memberService.getAllMembers(this.memberParams).subscribe(
         {
           next: (response: PaginatedResult<Member[]>) => {
             if (response.body && response.pagination) {
               this.members = response.body;
+              console.log("MEMBERS:",this.members);
               this.pagination = response.pagination;
+              console.log("PAGINATION:",this.pagination);
             }
           }
         }
@@ -80,7 +82,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
       this.memberParams.pageSize = e.pageSize;
       this.memberParams.pageNumber = e.pageIndex + 1;
 
-      this.showUsers();
+      this.getAll();
     }
   }
 

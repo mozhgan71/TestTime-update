@@ -51,6 +51,4 @@ export class MemberService {
   getMemberByEmail(emailInput: string): Observable<Member | null> {
     return this.http.get<Member>(this.baseApiUrl + 'get-by-email/' + emailInput); //localhost:5000/api/member/get-by-email/a2@a.com
   }
-
-  constructor() { }
 }

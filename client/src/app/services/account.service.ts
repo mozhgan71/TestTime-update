@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
 import { BehaviorSubject, Observable, map, take } from 'rxjs';
-import { AppUser } from '../models/app-user.model';
 import { Router } from '@angular/router';
 import { AppUserRegister } from '../models/app-user-register.model';
 import { environment } from '../../environments/environment.development';
