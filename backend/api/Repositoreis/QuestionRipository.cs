@@ -85,16 +85,20 @@ public class QuestionRipository : IQuestionRepository
         return null;
     }
 
-    public async Task<List<Question>?> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<PagedList<Question>?> GetAllAsync(PaginationParams paginationParams,CancellationToken cancellationToken)
     {
-        List<Question> questions = await _collection.Find<Question>(new BsonDocument()).ToListAsync(cancellationToken);
+         IMongoQueryable<Question> query = _collection.AsQueryable();
 
-        if (questions.Count != 0)
-        {
-            return questions;
-        }
+        return await PagedList<Question>.CreatePagedListAsync(query, paginationParams.PageNumber, paginationParams.PageSize, cancellationToken);
+        
+        // List<Question> questions = await _collection.Find<Question>(new BsonDocument()).ToListAsync(cancellationToken);
 
-        return null; // []
+        // if (questions.Count != 0)
+        // {
+        //     return questions;
+        // }
+
+        // return null; // []
     }
 
     public async Task<UpdateResult?> UpdateByIdAsync(string questionId, QuestionDto userInput, CancellationToken cancellationToken)

@@ -38,7 +38,7 @@ public class ExceptionMiddleware
 
             ApiException response = new()
             {
-                Id = null,
+                Id = ObjectId.Empty,
                 StatusCode = context.Response.StatusCode,
                 Message = ex.Message,
                 Details = ex.StackTrace?.ToString(),

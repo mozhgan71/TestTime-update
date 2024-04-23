@@ -1,0 +1,22 @@
+div {
+    min-height: calc(100vh - (15.6rem));
+
+    .div-image {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .img {
+            height: 20rem;
+            width: 40rem;
+        }
+    }
+
+    button {
+        color: rgb(2, 2, 2);
+        background-color: aquamarine;
+        font-weight: bolder;
+    }
+}

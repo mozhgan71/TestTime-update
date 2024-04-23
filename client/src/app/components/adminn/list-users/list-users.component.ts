@@ -11,7 +11,8 @@ import { MemberCardComponent } from '../member-card/member-card.component';
 import { MemberParams } from '../../../models/helpers/member-params';
 import { PaginatedResult } from '../../../models/helpers/paginatedResult';
 import { Pagination } from '../../../models/helpers/pagination';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+
 
 @Component({
   standalone: true,
@@ -61,9 +62,9 @@ export class ListUsersComponent implements OnInit, OnDestroy {
           next: (response: PaginatedResult<Member[]>) => {
             if (response.body && response.pagination) {
               this.members = response.body;
-              console.log("MEMBERS:",this.members);
+              console.log("MEMBERS:", this.members);
               this.pagination = response.pagination;
-              console.log("PAGINATION:",this.pagination);
+              console.log("PAGINATION:", this.pagination);
             }
           }
         }

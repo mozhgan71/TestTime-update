@@ -1,24 +1,34 @@
-<div>
-    @for (question of questions; track questions; let i = $index) {
-    <ul>
-        <li>FieldName: {{question.feildName}}</li>
-        <li>NumberQuestion: {{question.numberQuestion}}</li>
-        <li>DescriptionQuestion: {{question.descriptionQuestion}}</li>
-        <li>Option1: {{question.option1}}</li>
-        <li>Option2: {{question.option2}}</li>
-        <li>Option3: {{question.option3}}</li>
-        <li>Option4: {{question.option4}}</li>
-        <li>CorrectAnswer: {{question.correctAnswer}}</li>
-        <div class="div-button">
-            <button (click)="deleteQuestion(i,question.id!)" class="button" mat-fab
-                title="حذف سوال"><mat-icon>delete</mat-icon></button>
-            <button routerLink="/adminn/edit-question" (click)="getQuestionId(question.id!)" class="button" mat-fab
-                title="ویرایش سوال"><mat-icon>edit</mat-icon></button>
-            <button routerLink="/adminn/add-question" class="button" mat-fab
-                title=" افزودن سوال جدید"><mat-icon>add</mat-icon></button>
-        </div>
-        <hr>
-    </ul>
-    }
-    <button id="gotop" (click)="goTop()" class="top"></button>
-</div>
+<section>
+    <div>
+        @for (question of questions; track questions; let i = $index) {
+        <ul>
+            <li>FieldName: {{question.feildName}}</li>
+            <li>NumberQuestion: {{question.numberQuestion}}</li>
+            <li>DescriptionQuestion: {{question.descriptionQuestion}}</li>
+            <li>Option1: {{question.option1}}</li>
+            <li>Option2: {{question.option2}}</li>
+            <li>Option3: {{question.option3}}</li>
+            <li>Option4: {{question.option4}}</li>
+            <li>CorrectAnswer: {{question.correctAnswer}}</li>
+            <div class="div-button">
+                <button (click)="deleteQuestion(i,question.id!)" class="button" mat-fab
+                    title="حذف سوال"><mat-icon>delete</mat-icon></button>
+                <button routerLink="/adminn/edit-question" (click)="getQuestionId(question.id!)" class="button" mat-fab
+                    title="ویرایش سوال"><mat-icon>edit</mat-icon></button>
+                <button routerLink="/adminn/add-question" class="button" mat-fab
+                    title=" افزودن سوال جدید"><mat-icon>add</mat-icon></button>
+            </div>
+            <hr>
+        </ul>
+        }
+        <button id="gotop" (click)="goTop()" class="top"></button>
+    </div>
+        @if (pagination && memberParams) {
+        <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="pagination.totalItems"
+            [pageSize]="memberParams.pageSize" [disabled]="false" [showFirstLastButtons]="true"
+            [pageSizeOptions]="true ? pageSizeOptions : []" [hidePageSize]="false"
+            [pageIndex]="memberParams.pageNumber - 1" aria-label="Select page" class="paginator">
+            <!-- pageIndex must start from 0 -->
+        </mat-paginator>
+        }
+</section>

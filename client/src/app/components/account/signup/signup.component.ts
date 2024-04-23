@@ -118,6 +118,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
             this.myText = " .عزیز به گروه کاربران ما خوش آمدید" + this.userRes!.name;
             if (res) {
               sessionStorage.setItem('user-id', res.id!); //for edit & show results & suggestion & createquestion & compare
+              this.userFg.reset();
             }
           },
           error: err => {
@@ -126,7 +127,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
           }
         }
       );
-      this.userFg.reset();
     }
     else {
       alert("تکرار رمز عبور مشابه رمز عبور نمی باشد.");

@@ -8,7 +8,7 @@ public interface IQuestionRepository
 
     public Task<Question?> GetByIdAsync(string questionId, CancellationToken cancellationToken);
 
-    public Task<List<Question>?> GetAllAsync(CancellationToken cancellationToken);
+    public Task<PagedList<Question>?> GetAllAsync(PaginationParams paginationParams, CancellationToken cancellationToken);
 
     public Task<UpdateResult?> UpdateByIdAsync(string questionId, QuestionDto userInput, CancellationToken cancellationToken);
 

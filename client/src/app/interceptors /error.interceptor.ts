@@ -35,6 +35,9 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
             router.navigate(['/login'])
             break;
+          case 403: // Forbiden
+            router.navigate(['/no-access']);
+            break;
           case 404: // NotFound
             router.navigate(['/not-found']);
             break;

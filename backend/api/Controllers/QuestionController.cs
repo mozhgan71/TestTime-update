@@ -38,15 +38,46 @@ public class QuestionController(IQuestionRepository _questionRepository) : BaseA
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Question>>> GetAll(CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<Question>>> GetAll([FromQuery] PaginationParams paginationParams, CancellationToken cancellationToken)
     {
-        List<Question>? questions = await _questionRepository.GetAllAsync(cancellationToken);
+        PagedList<Question>? pagedQuestion = await _questionRepository.GetAllAsync(paginationParams, cancellationToken);
 
-        if (questions is null) // []
+        if (pagedQuestion!.Count == 0) // []
             return NoContent();
+
+        /*  1- Response only exists in Contoller. So we have to set PaginationHeader here before converting AppUser to UserDto.
+        If we convert AppUser before here, we'll lose PagedList's pagination values, e.g. CurrentPage, PageSize, etc.
+        */
+        PaginationHeader paginationHeader = new(
+            CurrentPage: pagedQuestion.CurrentPage,
+            ItemsPerPage: pagedQuestion.PageSize,
+            TotalItems: pagedQuestion.TotalItems,
+            TotalPages: pagedQuestion.TotalPages
+        );
+
+        Response.AddPaginationHeader(paginationHeader);
+
+        /*  2- PagedList<T> has to be AppUser first to retrieve data from DB and set pagination values. 
+                After that step we can convert AppUser to MemberDto in here (NOT in the UserRepository) */
+
+        List<Question> questions = [];
+
+        foreach (Question question in pagedQuestion)
+        {
+            questions.Add(question);
+        }
 
         return questions;
     }
+    // public async Task<ActionResult<IEnumerable<Question>>> GetAll(CancellationToken cancellationToken)
+    // {
+    //     List<Question>? questions = await _questionRepository.GetAllAsync(cancellationToken);
+
+    //     if (questions is null) // []
+    //         return NoContent();
+
+    //     return questions;
+    // }
 
     [HttpPut("update/{questionId}")]
     public async Task<ActionResult<UpdateResult?>> Update(string questionId, QuestionDto userInput, CancellationToken cancellationToken)
