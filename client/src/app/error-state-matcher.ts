@@ -1,15 +1,12 @@
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
-export class FormGroupErrorStateMatcher implements ErrorStateMatcher {
-  errors: string[];
+export class CustomErrorStateMatcher implements ErrorStateMatcher {
 
-  constructor(errors: string[]) {
-    this.errors = errors;
-  }
-
-  isErrorState(control: FormControl | null, formDirective: FormGroupDirective | NgForm | null): boolean {
-    const formGroupHasError = this.errors.reduce((total, error) => total || formDirective!.form.hasError(error), false);
-    return control!.touched && (control!.invalid || formGroupHasError);
+  isErrorState(
+    control: FormControl | null, 
+    form: FormGroupDirective | NgForm | null): boolean {
+      console.log(control,form);
+    return control?.dirty && control.errors?.['required'];
   }
 }

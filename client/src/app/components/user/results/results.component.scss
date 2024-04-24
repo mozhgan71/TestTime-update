@@ -1,11 +1,11 @@
 div {
-    min-height: calc(100vh - (18.6rem));
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     align-self: center;
     background-color: rgb(219, 157, 216);
+    min-height: calc(100vh - (18.6rem));
 
     .button:hover {
         background-color: rgb(103, 13, 121);

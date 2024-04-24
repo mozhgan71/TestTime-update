@@ -30,9 +30,9 @@ export class MainComponent {
   }
 
   checkLogIn(): void { //for test category
-    const token = localStorage.getItem('token');
+    const loggedInUser = localStorage.getItem('loggedInUser');
 
-    if (token) {
+    if (loggedInUser) {
       this.router.navigateByUrl('/test-category');
     }
     else {

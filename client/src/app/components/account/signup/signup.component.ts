@@ -15,21 +15,24 @@ import { LoggedInUser } from '../../../models/logged-in-user.model';
 import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
 import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CustomErrorStateMatcher } from '../../../error-state-matcher';
 
 @Component({
   standalone: true,
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
-  imports: [RouterModule,MatFormFieldModule, MatInputModule,
+  imports: [RouterModule, MatFormFieldModule, MatInputModule,
     MatButtonModule, MatCheckboxModule, ReactiveFormsModule,
-    MatDatepickerModule, MatNativeDateModule,MatSnackBarModule,
+    MatDatepickerModule, MatNativeDateModule, MatSnackBarModule,
     AutoFocusDirective]
 })
 export class SignUpComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
   private accountService = inject(AccountService);
+
+  customErrorStateMatcher = new CustomErrorStateMatcher();
 
   userRes: LoggedInUser | null | undefined;
   showError: AppUser | undefined;
@@ -115,7 +118,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
         {
           next: res => {
             this.userRes = res;
-            this.myText = " .عزیز به گروه کاربران ما خوش آمدید" + this.userRes!.name;
+            this.myText = this.userRes!.name + " عزیز به گروه کاربران ما خوش آمدید";
             if (res) {
               sessionStorage.setItem('user-id', res.id!); //for edit & show results & suggestion & createquestion & compare
               this.userFg.reset();

@@ -4,21 +4,21 @@
     }
     <mat-form-field appearance="outline">
         <mat-label>نام:</mat-label>
-        <input autoFocusDir type="text" formControlName="nameCtrl" matInput>
+        <input [errorStateMatcher]="customErrorStateMatcher" autoFocusDir type="text" formControlName="nameCtrl" matInput>
         @if (NameCtrl.dirty) {
         <mat-error>نام حداقل باید شامل 2 کاراکتر باشد</mat-error>
         }
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>نام خانوادگی:</mat-label>
-        <input type="text" formControlName="familyCtrl" matInput>
+        <input [errorStateMatcher]="customErrorStateMatcher" type="text" formControlName="familyCtrl" matInput>
         @if (FamilyCtrl.dirty) {
         <mat-error>نام خانوادگی حداقل باید شامل 2 کاراکتر باشد</mat-error>
         }
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>ایمیل</mat-label>
-        <input type="text" formControlName="emailCtrl" matInput>
+        <input [errorStateMatcher]="customErrorStateMatcher" type="text" formControlName="emailCtrl" matInput>
         @if (EmailCtrl.hasError('required')) {
         <mat-error> وارد کردن ایمیل اجباری است</mat-error>
         }
@@ -96,6 +96,6 @@
     <div class="div-button">
         <button type="submit" [disabled]="userFg.invalid" mat-raised-button color="primary">ثبت
             اطلاعات</button>
-        <button routerLink="/login" mat-raised-button color="primary">ورود به پروفایل</button>
+        <button routerLink="/user-profile" mat-raised-button color="primary">ورود به پروفایل</button>
     </div>
 </form>

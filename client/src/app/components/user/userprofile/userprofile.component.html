@@ -28,11 +28,12 @@
         <h4>سن : {{userRes.age}}</h4>
         @if (userRes.education) {
         <h4> تحصیلات : {{userRes.education}}</h4>
-        <h4>آخرین فعالیت:{{userRes.lastActive}}</h4>
         }
+        <h4>آخرین فعالیت:{{userRes.lastActive}}</h4>
+
         <section class="button-down">
-            <button  routerLink="/edit" mat-raised-button color="warn">ویرایش اطلاعات</button>
-            <button  (click)="logOut()" mat-raised-button color="warn">خروج</button>
+            <button routerLink="/edit" mat-raised-button color="warn">ویرایش اطلاعات</button>
+            <button (click)="logOut()" mat-raised-button color="warn">خروج</button>
         </section>
     </div>
     }
