@@ -5,7 +5,7 @@
 </section>
 
 <section>
-    <div class="members">
+    <div>
         @for (member of members; track members;let i=$index){
         <app-member-card [memberInput]="member"></app-member-card>
         <button (click)="deleteUser(i,member.id!)" class="button" mat-fab
@@ -13,16 +13,10 @@
         }
     </div>
     @if (pagination && memberParams) {
-    <mat-paginator #paginator (page)="handlePageEvent($event)" 
-        [length]="pagination.totalItems"
-        [pageSize]="memberParams.pageSize" 
-        [disabled]="false" 
-        [showFirstLastButtons]="true"
-        [pageSizeOptions]="true ? pageSizeOptions : []" 
-        [hidePageSize]="false" 
-        [pageIndex]="memberParams.pageNumber - 1"
-        aria-label="Select page" 
-        class="paginator">
+    <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="pagination.totalItems"
+        [pageSize]="memberParams.pageSize" [disabled]="false" [showFirstLastButtons]="true"
+        [pageSizeOptions]="true ? pageSizeOptions : []" [hidePageSize]="false" [pageIndex]="memberParams.pageNumber - 1"
+        aria-label="Select page" class="paginator">
         <!-- pageIndex must start from 0 -->
     </mat-paginator>
     }

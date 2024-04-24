@@ -12,7 +12,7 @@ div {
         bottom: 20px;
         margin-right: 10px;
         place-self: end;
-        margin-top: calc((100vh + var(--offset)) - 8rem);
+        // margin-top: calc((100vh + var(--offset)) - 8rem);
 
         /* visual styling */
         width: 45px;
@@ -29,6 +29,12 @@ div {
         border-top: 5px solid #080808;
         border-right: 5px solid #080808;
     }
+}
+
+.paginator {
+    display: flex;
+    justify-content: center;
+    background-color: #807676;
 }
 
 @media only screen and (min-width:30rem) {

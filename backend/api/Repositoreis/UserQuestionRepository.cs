@@ -30,15 +30,22 @@ public class UserQuestionRepository :IUserQuestionRepository
         return question;
     }
 
-     public async Task<List<Question>?> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<PagedList<Question>?> GetAllAsync(PaginationParams paginationParams,CancellationToken cancellationToken)
     {
-        List<Question> questions = await _collection.Find<Question>(new BsonDocument()).ToListAsync(cancellationToken);
+         IMongoQueryable<Question> query = _collection.AsQueryable();
 
-        if (questions.Count != 0)
-        {
-            return questions;
-        }
-
-        return null;
+        return await PagedList<Question>.CreatePagedListAsync(query, paginationParams.PageNumber, paginationParams.PageSize, cancellationToken);
     }
+
+    //  public async Task<List<Question>?> GetAllAsync(CancellationToken cancellationToken)
+    // {
+    //     List<Question> questions = await _collection.Find<Question>(new BsonDocument()).ToListAsync(cancellationToken);
+
+    //     if (questions.Count != 0)
+    //     {
+    //         return questions;
+    //     }
+
+    //     return null;
+    // }
 }

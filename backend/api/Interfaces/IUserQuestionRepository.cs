@@ -4,5 +4,5 @@ public interface IUserQuestionRepository
 {
     public Task<Question> CreateAsync(QuestionDto userInput, CancellationToken cancellationToken);
 
-    public Task<List<Question>?> GetAllAsync(CancellationToken cancellationToken);
+    public Task<PagedList<Question>?> GetAllAsync(PaginationParams paginationParams, CancellationToken cancellationToken);
 }

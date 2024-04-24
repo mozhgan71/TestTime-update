@@ -14,6 +14,8 @@ import { Suggestion } from '../models/suggestion.model';
 export class AdminService {
   private readonly baseApiUrlQuestion = environment.apiUrl + 'question/';
   private readonly baseApiUrlSuggestion = environment.apiUrl + 'suggestion/';
+  private readonly baseApiUrlUserQuestion = environment.apiUrl + 'userquestion/';
+
   private paginationHandler = new PaginationHandler();
 
   getAllQuestions(memberParams: MemberParams): Observable<PaginatedResult<Question[]>> {
@@ -36,5 +38,16 @@ export class AdminService {
     }
 
     return this.paginationHandler.getPaginatedResult<Suggestion[]>(this.baseApiUrlSuggestion, params);
+  }
+
+  getAllUserQuestion(memberParams: MemberParams): Observable<PaginatedResult<Question[]>> {
+    let params = new HttpParams();
+
+    if (memberParams) {
+      params = params.append('pageNumber', memberParams.pageNumber);
+      params = params.append('pageSize', memberParams.pageSize);
+    }
+
+    return this.paginationHandler.getPaginatedResult<Question[]>(this.baseApiUrlUserQuestion, params);
   }
 }

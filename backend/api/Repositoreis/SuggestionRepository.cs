@@ -28,9 +28,9 @@ public class SuggestionRepository : ISuggestionRepository
         return suggestion;
     }
 
-      public async Task<PagedList<Suggestion>?> GetAllAsync(PaginationParams paginationParams,CancellationToken cancellationToken)
+    public async Task<PagedList<Suggestion>?> GetAllAsync(PaginationParams paginationParams, CancellationToken cancellationToken)
     {
-         IMongoQueryable<Suggestion> query = _collection.AsQueryable();
+        IMongoQueryable<Suggestion> query = _collection.AsQueryable();
 
         return await PagedList<Suggestion>.CreatePagedListAsync(query, paginationParams.PageNumber, paginationParams.PageSize, cancellationToken);
     }

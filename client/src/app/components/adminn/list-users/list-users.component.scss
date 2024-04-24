@@ -1,39 +1,10 @@
-// div {
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     justify-content: space-between;
-//     width: 100%;
-//     background-color: rgb(8, 8, 8);
-//     min-height: calc(100vh - (18.6rem));
-//     color: rgb(187, 11, 158);
-
-//     .button {
-//         color: black;
-//         background-color: purple;
-//     }
-
-//     .button:hover {
-//         background-color: rgb(211, 7, 109);
-//     }
-
-//     hr {
-//         width: 100%;
-//     }
-
-//     ul {
-//         display: flex;
-//         flex-direction: column;
-//         width: 50%;
-
-//         >:last-child {
-//             align-self: flex-end;
-//         }
-//     }
-.members {
+div {
     display: flex;
     flex-direction: column;
-    background-color: #030303;
+    width: auto;
+    background-color: black;
+    color: rgb(187, 11, 158);
+    min-height: calc(100vh - (15.6rem));
 
     .button {
         display: flex;
@@ -41,7 +12,7 @@
         align-items: center;
         align-self: center;
         align-content: center;
-        color: #030303;
+        color: black;
         background-color: purple;
         cursor: pointer;
         width: 20%;
@@ -75,6 +46,7 @@
         border-right: 5px solid #080808;
     }
 }
+
 
 .paginator {
     display: flex;
