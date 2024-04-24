@@ -2,5 +2,5 @@ namespace api.Interfaces;
 
 public interface IApiExceptionRepository
 {
-    public Task<List<ApiException>?> GetAllAsync(CancellationToken cancellationToken);
+    public Task<PagedList<ApiException>?> GetAllAsync(PaginationParams paginationParams, CancellationToken cancellationToken);
 }
