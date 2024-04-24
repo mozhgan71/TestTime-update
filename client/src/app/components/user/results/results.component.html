@@ -1,6 +1,6 @@
 @if (resultRes) {
 <div>
-    @for (result of resultRes; track $index) {
+    @for (result of resultRes; track resultRes;let i = $index) {
     <ul>
         <li>نام آزمون : {{result.testName}}</li>
         <li>تاریخ انجام آزمون: {{result.myDate}}</li>
@@ -10,11 +10,19 @@
         <li>تعداد سوال های بی پاسخ: {{ result.numberOfNoAnswer}}</li>
         <li>توضیحات : {{result.description}}</li>
         <div class="div-button">
-            <button (click)="deleteResult(result.id!)" class="button" mat-fab
+            <button (click)="deleteResult(i,result.id!)" class="button" mat-fab
                 title="حذف کارنامه"><mat-icon>delete</mat-icon></button>
         </div>
     </ul>
     }
     <button id="gotop" (click)="goTop()" class="top"></button>
 </div>
+@if (pagination && memberParams) {
+<mat-paginator #paginator (page)="handlePageEvent($event)" [length]="pagination.totalItems"
+    [pageSize]="memberParams.pageSize" [disabled]="false" [showFirstLastButtons]="true"
+    [pageSizeOptions]="true ? pageSizeOptions : []" [hidePageSize]="false" [pageIndex]="memberParams.pageNumber - 1"
+    aria-label="Select page" class="paginator">
+    <!-- pageIndex must start from 0 -->
+</mat-paginator>
+}
 }

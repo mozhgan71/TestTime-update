@@ -1,3 +1,5 @@
+using api.Controllers;
+
 namespace api.Repositoreis;
 
 public class ResultRepository : IResultRepository
@@ -33,15 +35,22 @@ public class ResultRepository : IResultRepository
         return result;
     }
 
-    public async Task<List<Result>?> GetByUserIdAsync(string userId, CancellationToken cancellationToken)
+    public async Task<PagedList<Result>?> GetByUserIdAsync(string userId, PaginationParams paginationParams, CancellationToken cancellationToken)
     {
-        List<Result> results = await _collection.Find<Result>(result => result.UserId == userId).ToListAsync(cancellationToken);
+        IMongoQueryable<Result> query = _collection.AsQueryable().Where(query => query.UserId == userId);
 
-        if (results is null)
-            return null;
-
-        return results;
+        return await PagedList<Result>.CreatePagedListAsync(query, paginationParams.PageNumber, paginationParams.PageSize, cancellationToken);
     }
+
+    // public async Task<List<Result>?> GetByUserIdAsync(string userId, CancellationToken cancellationToken)
+    // {
+    //     List<Result> results = await _collection.Find<Result>(result => result.UserId == userId).ToListAsync(cancellationToken);
+
+    //     if (results is null)
+    //         return null;
+
+    //     return results;
+    // }
 
     public async Task<Result?> GetByIdAsync(string resultId, CancellationToken cancellationToken)
     {

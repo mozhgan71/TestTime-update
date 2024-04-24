@@ -29,7 +29,7 @@ export class ListQuestionsComponent implements OnInit, OnDestroy {
   delQuestion: Question | undefined;
 
   subscribed: Subscription | undefined;
-  pageSizeOptions = [5, 10, 15, 20];
+  readonly pageSizeOptions = [5, 10, 15, 20];
   pageEvent: PageEvent | undefined;
   pagination: Pagination | undefined;
   memberParams: MemberParams | undefined;

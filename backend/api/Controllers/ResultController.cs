@@ -15,17 +15,48 @@ public class ResultController(IResultRepository _resultRepository) : BaseApiCont
     }
 
     [HttpGet("get-by-user-id/{userId}")]
-    public async Task<ActionResult<IEnumerable<Result>>> GetByUserId(string userId, CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<Result>>> GetByUserId(string userId, [FromQuery] PaginationParams paginationParams, CancellationToken cancellationToken)
     {
-        List<Result>? results = await _resultRepository.GetByUserIdAsync(userId, cancellationToken);
+        PagedList<Result>? pagedResult= await _resultRepository.GetByUserIdAsync(userId, paginationParams, cancellationToken);
 
-        if (results is null)
+        if (pagedResult!.Count == 0) // []
+            return NoContent();
+
+        /*  1- Response only exists in Contoller. So we have to set PaginationHeader here before converting AppUser to UserDto.
+        If we convert AppUser before here, we'll lose PagedList's pagination values, e.g. CurrentPage, PageSize, etc.
+        */
+        PaginationHeader paginationHeader = new(
+            CurrentPage: pagedResult.CurrentPage,
+            ItemsPerPage: pagedResult.PageSize,
+            TotalItems: pagedResult.TotalItems,
+            TotalPages: pagedResult.TotalPages
+        );
+
+        Response.AddPaginationHeader(paginationHeader);
+
+        /*  2- PagedList<T> has to be AppUser first to retrieve data from DB and set pagination values. 
+                After that step we can convert AppUser to MemberDto in here (NOT in the UserRepository) */
+
+        List<Result> results = [];
+
+        foreach (Result result in pagedResult)
         {
-            return NotFound("No result with this user id was found.");
+            results.Add(result);
         }
 
         return results;
     }
+    // public async Task<ActionResult<IEnumerable<Result>>> GetByUserId(string userId, CancellationToken cancellationToken)
+    // {
+    //     List<Result>? results = await _resultRepository.GetByUserIdAsync(userId, cancellationToken);
+
+    //     if (results is null)
+    //     {
+    //         return NotFound("No result with this user id was found.");
+    //     }
+
+    //     return results;
+    // }
 
     [HttpGet("get-by-id/{resultId}")]
     public async Task<ActionResult<Result>> GetById(string resultId, CancellationToken cancellationToken)

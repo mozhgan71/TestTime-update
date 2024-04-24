@@ -61,6 +61,12 @@ div {
     }
 }
 
+.paginator {
+    display: flex;
+    justify-content: center;
+    background-color: #807676;
+}
+
 @media only screen and (min-width:30rem) {
     div {
         min-height: calc(100vh - (15.6rem));

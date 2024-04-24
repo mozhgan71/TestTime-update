@@ -4,7 +4,8 @@ public interface IResultRepository
 {
     public Task<Result?> CreateAsync(ResultInputDto userInput, CancellationToken cancellationToken);
 
-    public Task<List<Result>?> GetByUserIdAsync(string userId, CancellationToken cancellationToken);
+    public Task<PagedList<Result>?> GetByUserIdAsync(string userId, PaginationParams paginationParams, CancellationToken cancellationToken);
+
 
     public Task<Result?> GetByIdAsync(string resultId, CancellationToken cancellationToken);
 
