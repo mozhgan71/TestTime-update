@@ -17,7 +17,7 @@ import { PaginatedResult } from '../../../models/helpers/paginatedResult';
   selector: 'app-list-questions',
   templateUrl: './list-questions.component.html',
   styleUrls: ['./list-questions.component.scss'],
-  imports: [CommonModule, RouterModule, MatIconModule,MatPaginatorModule]
+  imports: [CommonModule, RouterModule, MatIconModule, MatPaginatorModule]
 })
 export class ListQuestionsComponent implements OnInit, OnDestroy {
   adminService = inject(AdminService);
@@ -29,7 +29,7 @@ export class ListQuestionsComponent implements OnInit, OnDestroy {
   delQuestion: Question | undefined;
 
   subscribed: Subscription | undefined;
-  pageSizeOptions = [5, 10, 25];
+  pageSizeOptions = [5, 10, 15, 20];
   pageEvent: PageEvent | undefined;
   pagination: Pagination | undefined;
   memberParams: MemberParams | undefined;
@@ -51,7 +51,7 @@ export class ListQuestionsComponent implements OnInit, OnDestroy {
         next: (response: PaginatedResult<Question[]>) => {
           if (response.body && response.pagination) {
             this.questions = response.body;
-            console.log("MEMBERS:", this.questions);
+            console.log("QUESTIONS:", this.questions);
             this.pagination = response.pagination;
             console.log("PAGINATION:", this.pagination);
           }

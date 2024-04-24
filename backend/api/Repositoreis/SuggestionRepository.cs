@@ -28,17 +28,24 @@ public class SuggestionRepository : ISuggestionRepository
         return suggestion;
     }
 
-    public async Task<List<Suggestion>?> GetAllAsync(CancellationToken cancellationToken)
+      public async Task<PagedList<Suggestion>?> GetAllAsync(PaginationParams paginationParams,CancellationToken cancellationToken)
     {
-        List<Suggestion> suggestions = await _collection.Find<Suggestion>(new BsonDocument()).ToListAsync(cancellationToken);
+         IMongoQueryable<Suggestion> query = _collection.AsQueryable();
 
-        if (suggestions.Count != 0)
-        {
-            return suggestions;
-        }
-
-        return null;
+        return await PagedList<Suggestion>.CreatePagedListAsync(query, paginationParams.PageNumber, paginationParams.PageSize, cancellationToken);
     }
+
+    // public async Task<List<Suggestion>?> GetAllAsync(CancellationToken cancellationToken)
+    // {
+    //     List<Suggestion> suggestions = await _collection.Find<Suggestion>(new BsonDocument()).ToListAsync(cancellationToken);
+
+    //     if (suggestions.Count != 0)
+    //     {
+    //         return suggestions;
+    //     }
+
+    //     return null;
+    // }
 
     public async Task<List<Suggestion>?> GetByUserIdAsync(string userId, CancellationToken cancellationToken)
     {
