@@ -17,6 +17,9 @@
         <mat-form-field appearance="outline">
             <mat-label>ایمیل:</mat-label>
             <input type="email" formControlName="emailCtrl" matInput>
+            @if (userFg.dirty) {
+                <mat-error>ایمیل وارد شده صحیح نیست</mat-error>
+                }
         </mat-form-field>
         <!-- <mat-form-field appearance="outline">
             <mat-label>رمز عبور:</mat-label>
@@ -58,7 +61,7 @@
             </select>
         </mat-form-field>
         <div class="div-button">
-            <button (click)="editUser()" [disabled]="userFg.invalid || userFg.pristine" mat-raised-button color="primary">ثبت
+            <button (click)="editUser()" mat-raised-button color="primary">ثبت
                 تغییرات</button>
             <button routerLink="/user-profile" mat-raised-button color="primary">بازگشت به پروفایل</button>
         </div>

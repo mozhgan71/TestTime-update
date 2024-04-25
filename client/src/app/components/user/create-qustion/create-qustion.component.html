@@ -24,28 +24,28 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>صورت سوال:</mat-label>
-            <textarea cdkTextareaAutosize type="text" formControlName="descriptionCtrl" matInput></textarea>
+            <textarea [errorStateMatcher]="customErrorStateMatcher" cdkTextareaAutosize type="text" formControlName="descriptionCtrl" matInput></textarea>
             <mat-error>حد اقل شامل 10 کاراکتر باشد</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>گزینه 1:</mat-label>
-            <input type="text" formControlName="option1Ctrl" matInput>
+            <input [errorStateMatcher]="customErrorStateMatcher" type="text" formControlName="option1Ctrl" matInput>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>گزینه 2:</mat-label>
-            <input type="text" formControlName="option2Ctrl" matInput>
+            <input [errorStateMatcher]="customErrorStateMatcher" type="text" formControlName="option2Ctrl" matInput>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>گزینه 3:</mat-label>
-            <input type="text" formControlName="option3Ctrl" matInput>
+            <input [errorStateMatcher]="customErrorStateMatcher" type="text" formControlName="option3Ctrl" matInput>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>گزینه 4:</mat-label>
-            <input type="text" formControlName="option4Ctrl" matInput>
+            <input  [errorStateMatcher]="customErrorStateMatcher" type="text" formControlName="option4Ctrl" matInput>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label> گزینه درست:</mat-label>
-            <input type="number" formControlName="correctCtrl" matInput>
+            <input [errorStateMatcher]="customErrorStateMatcher" type="number" formControlName="correctCtrl" matInput>
             <mat-error>فقط عدد گزینه درست را وارد کنید</mat-error>
         </mat-form-field>
         <button (click)="addQuestion()" [disabled]="questionFg.invalid" mat-raised-button>ثبت سوال

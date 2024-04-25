@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
+import { CustomErrorStateMatcher } from '../../../error-state-matcher';
 
 @Component({
   standalone: true,
@@ -18,6 +19,8 @@ import { environment } from '../../../../environments/environment.development';
 })
 export class CreateQustionComponent {
   private readonly baseApiUrl = environment.apiUrl;
+
+  customErrorStateMatcher = new CustomErrorStateMatcher();
   
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);

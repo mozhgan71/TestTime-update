@@ -5,32 +5,32 @@
     <mat-form-field appearance="outline">
         <mat-label>نام:</mat-label>
         <input [errorStateMatcher]="customErrorStateMatcher" autoFocusDir type="text" formControlName="nameCtrl" matInput>
-        @if (NameCtrl.dirty) {
+        <!-- @if (NameCtrl.dirty) { -->
         <mat-error>نام حداقل باید شامل 2 کاراکتر باشد</mat-error>
-        }
+        <!-- } -->
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>نام خانوادگی:</mat-label>
         <input [errorStateMatcher]="customErrorStateMatcher" type="text" formControlName="familyCtrl" matInput>
-        @if (FamilyCtrl.dirty) {
+        <!-- @if (FamilyCtrl.dirty) { -->
         <mat-error>نام خانوادگی حداقل باید شامل 2 کاراکتر باشد</mat-error>
-        }
+        <!-- } -->
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>ایمیل</mat-label>
         <input [errorStateMatcher]="customErrorStateMatcher" type="text" formControlName="emailCtrl" matInput>
-        @if (EmailCtrl.hasError('required')) {
+        <!-- @if (EmailCtrl.hasError('required')) { -->
         <mat-error> وارد کردن ایمیل اجباری است</mat-error>
-        }
-        @else if (EmailCtrl.hasError('pattern')) {
+        <!-- } -->
+        <!-- @else if (EmailCtrl.hasError('pattern')) { -->
         <mat-error>لطفا یک ایمیل صحیح وارد کنید</mat-error>
-        }
+        <!-- } -->
     </mat-form-field>
 
     <!-- Password -->
     <mat-form-field appearance="outline">
         <mat-label>رمزعبور</mat-label>
-        <input type="password" formControlName="passwordCtrl" label="Password" placeHolder="Your password" matInput>
+        <input [errorStateMatcher]="customErrorStateMatcher" type="password" formControlName="passwordCtrl" label="Password" placeHolder="Your password" matInput>
         @if (PasswordCtrl.hasError('required')) {
         <mat-error>وارد کردن رمز عبور الزامی است</mat-error>
         }
@@ -47,7 +47,7 @@
     <!-- Confirm Password -->
     <mat-form-field appearance="outline">
         <mat-label> تکرار رمزعبور</mat-label>
-        <input type="password" formControlName="confirmPasswordCtrl" label="Confirm Password"
+        <input [errorStateMatcher]="customErrorStateMatcher" type="password" formControlName="confirmPasswordCtrl" label="Confirm Password"
             placeHolder="Re-enter password" matInput>
         @if (ConfirmPasswordCtrl.hasError('required')) {
         <mat-error>وارد کردن تکرار رمز عبور الزامی است</mat-error>
@@ -66,7 +66,7 @@
     <!-- Date of Birth -->
     <mat-form-field appearance="outline">
         <mat-label>تاریخ تولد:</mat-label>
-        <input formControlName="dateOfBirthCtrl" [min]="minDate" [max]="maxDate" matInput [matDatepicker]="dp3"
+        <input [errorStateMatcher]="customErrorStateMatcher" formControlName="dateOfBirthCtrl" [min]="minDate" [max]="maxDate" matInput [matDatepicker]="dp3"
             placeholder="تاریخ تولد خود را وارد کنید">
         @if (DateOfBirthCtrl.invalid) {
         <mat-hint>بین {{minDate.getFullYear()}} تا {{maxDate.getFullYear()}}</mat-hint>

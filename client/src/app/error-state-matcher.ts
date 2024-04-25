@@ -4,9 +4,10 @@ import { ErrorStateMatcher } from '@angular/material/core';
 export class CustomErrorStateMatcher implements ErrorStateMatcher {
 
   isErrorState(
-    control: FormControl | null, 
+    control: FormControl | null,
     form: FormGroupDirective | NgForm | null): boolean {
-      console.log(control,form);
-    return control?.dirty && control.errors?.['required'];
+    console.log(control, form);
+    return (control?.dirty && control.errors?.['required']) || (control?.dirty && control.errors?.['pattern'])
+      || (control?.dirty && control.errors?.['minlength'])
   }
 }

@@ -18,7 +18,9 @@ export class UserService {
 
   userId = sessionStorage.getItem('user-id');
 
-  private readonly apiUrl = environment.apiUrl + 'result/get-by-user-id/' + this.userId;
+  private readonly apiUrlReult = environment.apiUrl + 'result/get-by-user-id/' + this.userId;
+
+  private readonly apiUrl = environment.apiUrl + 'user/';
 
   private paginationHandler = new PaginationHandler();
 
@@ -47,6 +49,6 @@ export class UserService {
       params = params.append('pageSize', memberParams.pageSize);
     }
 
-    return this.paginationHandler.getPaginatedResult<Result[]>(this.apiUrl, params);
+    return this.paginationHandler.getPaginatedResult<Result[]>(this.apiUrlReult, params);
   }
 }

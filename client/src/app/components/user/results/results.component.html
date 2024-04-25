@@ -17,8 +17,9 @@
             </div>
         </ul>
         }
-        <button id="gotop" (click)="goTop()" class="top"></button>
+        
     </div>
+    <button id="gotop" (click)="goTop()" class="top"></button>
     @if (pagination && memberParams) {
     <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="pagination.totalItems"
         [pageSize]="memberParams.pageSize" [disabled]="false" [showFirstLastButtons]="true"

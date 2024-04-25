@@ -5,21 +5,21 @@
         }
         <mat-form-field appearance="outline">
             <mat-label>نام و نام خانوادگی:</mat-label>
-            <input autoFocusDir type="text" formControlName="fullNameCtrl" matInput>
+            <input [errorStateMatcher]="customErrorStateMatcher" autoFocusDir type="text" formControlName="fullNameCtrl" matInput>
             @if (suggestionFg.dirty) {
             <mat-error>نام و نام خانوادگی حداقل باید شامل 5 کاراکتر باشد</mat-error>
             }
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>ایمیل:</mat-label>
-            <input type="email" formControlName="emailCtrl" matInput>
+            <input [errorStateMatcher]="customErrorStateMatcher" type="email" formControlName="emailCtrl" matInput>
             @if (suggestionFg.dirty) {
             <mat-error>ایمیل وارد شده صحیح نیست</mat-error>
             }
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>متن :</mat-label>
-            <textarea cdkTextareaAutosize type="text" formControlName="textCtrl" matInput></textarea>
+            <textarea [errorStateMatcher]="customErrorStateMatcher" cdkTextareaAutosize type="text" formControlName="textCtrl" matInput></textarea>
             <mat-hint>{{TextCtrl.value?.length}} of 500</mat-hint>
             @if (TextCtrl.hasError('minlength')) {
             <mat-error>متن حداقل باید شامل 5 کاراکتر باشد</mat-error>

@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
 import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
+import { CustomErrorStateMatcher } from '../../../error-state-matcher';
 
 @Component({
   standalone: true,
@@ -24,6 +25,8 @@ export class SuggestionComponent {
   private fb = inject(FormBuilder);
 
   suggestionRes: Suggestion | undefined;
+
+  customErrorStateMatcher = new CustomErrorStateMatcher();
 
   //#region Create Form Group/controler (AbstractControl)
   suggestionFg = this.fb.group({ // formGroup
