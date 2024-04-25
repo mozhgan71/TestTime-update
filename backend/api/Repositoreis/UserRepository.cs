@@ -41,9 +41,7 @@ public class UserRepository : IUserRepository
         .Set(doc => doc.Name, userInput.Name.Trim())
         .Set(doc => doc.Family, userInput.Family.Trim())
         .Set(doc => doc.Email, userInput.Email.Trim())
-        //.Set(doc => doc.Password, userInput.Password)
-        //.Set(doc => doc.ConfirmPassword, userInput.ConfirmPassword)
-        .Set(doc => doc.DateOfBirth, userInput.DateOfBirth)
+        // .Set(doc => doc.DateOfBirth, userInput.DateOfBirth)
         .Set(doc => doc.Education, userInput.Education);
 
         return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id == userId, updatedDoc);

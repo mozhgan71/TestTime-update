@@ -33,7 +33,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             if (isPlatformBrowser(platformId)) // check platform only for SSR
               localStorage.clear();
 
-            router.navigate(['/login'])
+            // router.navigate(['/login'])
             break;
           case 403: // Forbiden
             router.navigate(['/no-access']);

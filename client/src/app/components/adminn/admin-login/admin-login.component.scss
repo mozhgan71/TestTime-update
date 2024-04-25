@@ -1,24 +1,36 @@
 div {
     min-height: calc(100vh - (18.6rem));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+        color: black;
+        padding: 0.5rem;
+    }
 
     form {
+        min-height: calc(100vh - (18.6rem));
         margin-top: 1rem;
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 2rem;
-        background-color: rgb(253, 253, 253);
+        // gap: rem;
         color: purple;
 
-        h2 {
-            background-color: rgb(165, 172, 172);
-            color: black;
-            padding: 0.5rem;
+        .div-button {
+            display: flex;
+            flex-direction: row;
+            color: purple;
+            gap: 1rem;
+            min-height: 3rem;
+            direction: rtl;
         }
 
         mat-form-field {
-            height: 2.5rem;
+            height: 3rem;
+            margin-bottom: 3rem;
         }
 
         mat-error {
@@ -26,10 +38,10 @@ div {
         }
 
         input {
-            height: 2rem;
-            width: 100%;
+            height: 2.5rem;
             color: purple;
             font-size: larger;
+
         }
 
         mat-label {
