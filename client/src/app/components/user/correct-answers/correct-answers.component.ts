@@ -9,6 +9,7 @@ import { MemberParams } from '../../../models/helpers/member-params';
 import { Subscription } from 'rxjs';
 import { Pagination } from '../../../models/helpers/pagination';
 import { PaginatedResult } from '../../../models/helpers/paginatedResult';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   standalone: true,
@@ -18,7 +19,9 @@ import { PaginatedResult } from '../../../models/helpers/paginatedResult';
   imports: [CommonModule, MatPaginatorModule]
 })
 export class CorrectAnswersComponent implements OnInit, OnDestroy {
-  adminService = inject(AdminService);
+  // adminService = inject(AdminService);
+  userService = inject(UserService);
+  
   private readonly baseApiUrl = environment.apiUrl;
 
   private http = inject(HttpClient);
@@ -43,16 +46,16 @@ export class CorrectAnswersComponent implements OnInit, OnDestroy {
 
   showAnswerQuestion(): void {
     if (this.memberParams)
-    this.subscribed = this.adminService.getAllQuestions(this.memberParams).subscribe({
-      next: (response: PaginatedResult<Question[]>) => {
-        if (response.body && response.pagination) {
-          this.questions = response.body;
-          console.log("QUESTIONS:", this.questions);
-          this.pagination = response.pagination;
-          console.log("PAGINATION:", this.pagination);
+      this.subscribed = this.userService.getAllQuestions(this.memberParams).subscribe({
+        next: (response: PaginatedResult<Question[]>) => {
+          if (response.body && response.pagination) {
+            this.questions = response.body;
+            console.log("QUESTIONS:", this.questions);
+            this.pagination = response.pagination;
+            console.log("PAGINATION:", this.pagination);
+          }
         }
-      }
-    });
+      });
   }
 
   // showAnswerQuestion(): void {

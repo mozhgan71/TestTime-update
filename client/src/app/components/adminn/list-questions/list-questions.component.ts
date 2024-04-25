@@ -11,6 +11,7 @@ import { MemberParams } from '../../../models/helpers/member-params';
 import { Subscription } from 'rxjs';
 import { AdminService } from '../../../services/admin.service';
 import { PaginatedResult } from '../../../models/helpers/paginatedResult';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   standalone: true,
@@ -20,7 +21,9 @@ import { PaginatedResult } from '../../../models/helpers/paginatedResult';
   imports: [CommonModule, RouterModule, MatIconModule, MatPaginatorModule]
 })
 export class ListQuestionsComponent implements OnInit, OnDestroy {
-  adminService = inject(AdminService);
+  // adminService = inject(AdminService);
+  userService = inject(UserService);
+  
   private readonly baseApiUrl = environment.apiUrl;
 
   private http = inject(HttpClient);
@@ -47,7 +50,7 @@ export class ListQuestionsComponent implements OnInit, OnDestroy {
 
   getAll(): void {
     if (this.memberParams)
-      this.subscribed = this.adminService.getAllQuestions(this.memberParams).subscribe({
+      this.subscribed = this.userService.getAllQuestions(this.memberParams).subscribe({
         next: (response: PaginatedResult<Question[]>) => {
           if (response.body && response.pagination) {
             this.questions = response.body;

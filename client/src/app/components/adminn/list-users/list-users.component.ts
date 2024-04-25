@@ -12,6 +12,7 @@ import { MemberParams } from '../../../models/helpers/member-params';
 import { PaginatedResult } from '../../../models/helpers/paginatedResult';
 import { Pagination } from '../../../models/helpers/pagination';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+import { UserService } from '../../../services/user.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class ListUsersComponent implements OnInit, OnDestroy {
   private readonly baseApiUrl = environment.apiUrl;
 
   private http = inject(HttpClient);
-  memberService = inject(MemberService);
+  // memberService = inject(MemberService);
+  userService = inject(UserService);
 
   subscribed: Subscription | undefined;
 
@@ -57,7 +59,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
 
   getAll(): void {
     if (this.memberParams)
-      this.subscribed = this.memberService.getAllMembers(this.memberParams).subscribe(
+      this.subscribed = this.userService.getAllMembers(this.memberParams).subscribe(
         {
           next: (response: PaginatedResult<Member[]>) => {
             if (response.body && response.pagination) {
