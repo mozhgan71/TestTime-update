@@ -22,11 +22,11 @@ import { PaginatedResult } from '../../../models/helpers/paginatedResult';
 export class ResultsComponent implements OnInit, OnDestroy {
   userService = inject(UserService);
 
-  userId = sessionStorage.getItem('user-id');
+  userId = sessionStorage.getItem('user-id')
 
   private readonly baseApiUrl = environment.apiUrl;
 
-  private readonly apiUrl = environment.apiUrl + 'result/get-by-user-id/' + this.userId;
+  // private readonly apiUrl = environment.apiUrl + 'result/get-by-user-id/' + this.userId;
 
   private http = inject(HttpClient);
 
@@ -37,7 +37,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   readonly pageSizeOptions = [1, 2, 3, 4, 5];
   pageEvent: PageEvent | undefined;
   pagination: Pagination | undefined;
-  memberParams: MemberParams | undefined
+  memberParams: MemberParams | undefined;
 
   ngOnInit(): void {
     this.memberParams = new MemberParams();
@@ -51,7 +51,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   showResultByUserId() {
     if (this.memberParams)
-      this.subscribed = this.userService.getMyResults(this.apiUrl, this.memberParams).subscribe({
+      this.subscribed = this.userService.getMyResults(this.memberParams).subscribe({
         next: (response: PaginatedResult<Result[]>) => {
           if (response.body && response.pagination) {
             this.resultRes = response.body;

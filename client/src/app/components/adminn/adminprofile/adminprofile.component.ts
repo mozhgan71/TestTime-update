@@ -7,7 +7,7 @@ import { Router, RouterModule } from '@angular/router';
   selector: 'app-adminprofile',
   templateUrl: './adminprofile.component.html',
   styleUrls: ['./adminprofile.component.scss'],
-  imports: [RouterModule,MatButtonModule]
+  imports: [RouterModule, MatButtonModule]
 })
 export class AdminProfileComponent {
   private router = inject(Router);

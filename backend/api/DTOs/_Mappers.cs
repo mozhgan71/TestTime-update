@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-
 namespace api.DTOs;
 
 public class Mappers
@@ -68,21 +66,21 @@ public class Mappers
         );
     }
 
-       public static Photo ConvertPhotoUrlsToPhoto(string[] photoUrls, bool isMain)
+    public static Photo ConvertPhotoUrlsToPhoto(string[] photoUrls, bool isMain)
     {
         return new Photo(
                     Url_165: photoUrls[0],
                     Url_256: photoUrls[1],
                     Url_enlarged: photoUrls[2],
                     IsMain: isMain
-                );  
+                );
     }
 
-     public static ApiExceptionDto ConvertApiExceptionToApiExceptionDto(ApiException apiException)
+    public static ApiExceptionDto ConvertApiExceptionToApiExceptionDto(ApiException apiException)
     {
         return new ApiExceptionDto(
             StatusCode: apiException.StatusCode,
-            Message: apiException.Message,
+            Message: apiException.Message!,
             Details: apiException.Details,
             Time: apiException.Time
         );

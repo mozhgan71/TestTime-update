@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Authentication;
-
 namespace api.Controllers;
 
 [Authorize]
@@ -46,6 +44,16 @@ public class AccountController(IAccountRepository _accountRepository) : BaseApiC
         return loggedInDto;
     }
 
+    /// <summary>
+    /// Authorize the token
+    /// </summary>
+    /// <param></param>
+    /// <returns>ActionResult</returns>
+    [Authorize]
+    [HttpGet]
+    public ActionResult AuthorizeLoggedInUser() =>
+        Ok(new { message = "token is still valid and user is authorized" });
+
     // / <summary>
     // / Get loggedInUser when user refreshes the browser. 
     // / </summary>
@@ -62,26 +70,15 @@ public class AccountController(IAccountRepository _accountRepository) : BaseApiC
     //     //// BEST/SHORTEST WAY ////
     //     return loggedInDto is not null ? loggedInDto : BadRequest("Relogin user failed"); //  Ternary Operator: if/else shortcut
 
-        //// MEDUIM LONG WAY ////
-        // LoggedInDto? myResult =  loggedInDto is not null ? loggedInDto : null; //  Ternary Operator: if/else shortcut
-        // return myResult;
+    //// MEDUIM LONG WAY ////
+    // LoggedInDto? myResult =  loggedInDto is not null ? loggedInDto : null; //  Ternary Operator: if/else shortcut
+    // return myResult;
 
-        //// LOGN WAY /////
-        // if (loggedInDto is not null)
-        //     return loggedInDto;
-        // else
-        //     return BadRequest("Reloading LoggedInUser failed");
-    
-
-    /// <summary>
-    /// Authorize the token
-    /// </summary>
-    /// <param></param>
-    /// <returns>ActionResult</returns>
-    [Authorize]
-    [HttpGet]
-    public ActionResult AuthorizeLoggedInUser() =>
-        Ok(new { message = "token is still valid and user is authorized" });
+    //// LOGN WAY /////
+    // if (loggedInDto is not null)
+    //     return loggedInDto;
+    // else
+    //     return BadRequest("Reloading LoggedInUser failed");
 
     // [HttpGet("get-by-email-password/{email}/{password}")]
     // public ActionResult<AppUser>? GetForLogIn(string email, string password)

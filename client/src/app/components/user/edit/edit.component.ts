@@ -44,11 +44,6 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     this.showInfo();
-
-    // set datePicker year limitations
-    const currentYear = new Date().getFullYear();
-    this.minDate = new Date(currentYear - 99, 0, 1); // not older than 99 years
-    this.maxDate = new Date(currentYear - 9, 0, 1); // not earlier than 9 years
   }
 
   showInfo(): void {
@@ -63,14 +58,13 @@ export class EditComponent implements OnInit {
             this.NameCtrl.setValue(this.userRes.name);
             this.FamilyCtrl.setValue(this.userRes.family);
             this.EmailCtrl.setValue(this.userRes.email);
-            // this.PasswordCtrl.setValue(this.userRes.password);
-            // this.ConfirmPasswordCtrl.setValue(this.userRes.confirmPassword);
-            this.AgeCtrl.setValue(this.userRes.age);
+            // this.AgeCtrl.setValue(this.userRes.age);
             this.EducationCtrl.setValue(this.userRes.education);
           }
         },
       }
     );
+
     // this.http.get<AppUser>('http://localhost:5000/api/user/get-by-id/' + userId).subscribe(
     //   {
     //     next: res => {
@@ -93,8 +87,6 @@ export class EditComponent implements OnInit {
     nameCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
     familyCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
     emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
-    // passwordCtrl: ['', [Validators.required, Validators.minLength(8)]],
-    // confirmPasswordCtrl: ['', [Validators.required, Validators.minLength(8)]],
     ageCtrl: ['', [Validators.min(9), Validators.max(99)]],
     educationCtrl: [''],
   });
@@ -110,15 +102,9 @@ export class EditComponent implements OnInit {
   get EmailCtrl(): FormControl {
     return this.userFg.get('emailCtrl') as FormControl;
   }
-  // get PasswordCtrl(): FormControl {
-  //   return this.userFg.get('passwordCtrl') as FormControl;
+  // get AgeCtrl(): FormControl {
+  //   return this.userFg.get('ageCtrl') as FormControl;
   // }
-  // get ConfirmPasswordCtrl(): FormControl {
-  //   return this.userFg.get('confirmPasswordCtrl') as FormControl;
-  // }
-  get AgeCtrl(): FormControl {
-    return this.userFg.get('ageCtrl') as FormControl;
-  }
   get EducationCtrl(): FormControl {
     return this.userFg.get('educationCtrl') as FormControl;
   }
@@ -126,8 +112,6 @@ export class EditComponent implements OnInit {
 
   //#region Methods
   editUser(): void {
-    // const dobUpdated: string | undefined = this.getDateOnly(this.AgeCtrl.value);
-
     var userId = sessionStorage.getItem('user-id');
 
     console.log(this.userFg.value);
@@ -138,9 +122,7 @@ export class EditComponent implements OnInit {
       name: this.NameCtrl.value,
       family: this.FamilyCtrl.value,
       email: this.EmailCtrl.value,
-      // password: this.PasswordCtrl.value,
-      // confirmPassword: this.ConfirmPasswordCtrl.value,
-      age: this.AgeCtrl.value,
+      // age: this.AgeCtrl.value,
       education: this.EducationCtrl.value,
     }
 
@@ -159,11 +141,4 @@ export class EditComponent implements OnInit {
 
   // }
   //#endregion
-
-  private getDateOnly(dob: string | null): string | undefined {
-    if (!dob) return undefined;
-
-    let theDob: Date = new Date(dob);
-    return new Date(theDob.setMinutes(theDob.getMinutes() - theDob.getTimezoneOffset())).toISOString().slice(0, 10);
-  }
 }

@@ -12,7 +12,7 @@ export const authLoggedInGuard: CanActivateFn = (route, state) => {
   if (isPlatformBrowser(platformId)) {
 
     // if (localStorage.getItem('token')) {
-      if (localStorage.getItem('loggedInUser')) {
+    if (localStorage.getItem('loggedInUser')) {
 
       snackbar.open('You are already logged in', 'Close', { horizontalPosition: 'center', duration: 7000 })
 

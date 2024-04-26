@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-
 namespace api.Repositoreis;
 
 public class AccountRepository : IAccountRepository
@@ -71,19 +69,7 @@ public class AccountRepository : IAccountRepository
         return null;
     }
 
-    public async Task<LoggedInDto?> ReloadLoggedInUserAsync(string? userId, string? tokenValue, CancellationToken cancellationToken)
-    {
-        AppUser? appUser = await _collection.Find<AppUser>(appUser => appUser.Id == userId).FirstOrDefaultAsync(cancellationToken);
-
-        if (appUser?.Id is not null && tokenValue is not null)
-        {
-            return Mappers.ConvertAppUserToLoggedInDto(appUser, tokenValue);
-        }
-
-        return null;
-    }
-
-      public async Task<UpdateResult?> UpdateLastActive(string loggedInUserId, CancellationToken cancellationToken)
+    public async Task<UpdateResult?> UpdateLastActive(string loggedInUserId, CancellationToken cancellationToken)
     {
         UpdateDefinition<AppUser> newLastActive = Builders<AppUser>.Update
         .Set(appUser =>
@@ -92,6 +78,18 @@ public class AccountRepository : IAccountRepository
         return await _collection.UpdateOneAsync<AppUser>(user =>
         user.Id == loggedInUserId, newLastActive, null, cancellationToken);
     }
+
+    // public async Task<LoggedInDto?> ReloadLoggedInUserAsync(string? userId, string? tokenValue, CancellationToken cancellationToken)
+    // {
+    //     AppUser? appUser = await _collection.Find<AppUser>(appUser => appUser.Id == userId).FirstOrDefaultAsync(cancellationToken);
+
+    //     if (appUser?.Id is not null && tokenValue is not null)
+    //     {
+    //         return Mappers.ConvertAppUserToLoggedInDto(appUser, tokenValue);
+    //     }
+
+    //     return null;
+    // }
     
     // private async void UpdateLastActiveInDb(AppUser appUser, CancellationToken cancellationToken)
     // {

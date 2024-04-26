@@ -54,8 +54,7 @@
             <mat-error>عددی بین 1 تا 4 قابل قبول است</mat-error>
             }
         </mat-form-field>
-        <button routerLink="/list-questions" (click)="editQuestion()" [disabled]="questionFg.invalid" mat-raised-button
-            class="button">ثبت
+        <button (click)="editQuestion()" [disabled]="questionFg.invalid" mat-raised-button class="button">ثبت
             تغییرات</button>
         <button routerLink="/admin-profile" mat-raised-button class="my-button">بازگشت به پروفایل </button>
     </form>

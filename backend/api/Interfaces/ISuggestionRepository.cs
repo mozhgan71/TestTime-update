@@ -7,5 +7,4 @@ public interface ISuggestionRepository
     public Task<PagedList<Suggestion>?> GetAllAsync(PaginationParams paginationParams, CancellationToken cancellationToken);
 
     public Task<List<Suggestion>?> GetByUserIdAsync(string userId, CancellationToken cancellationToken);
-
 }

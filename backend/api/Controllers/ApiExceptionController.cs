@@ -3,7 +3,7 @@ namespace api.Controllers;
 public class ApiExceptionController(IApiExceptionRepository _apiExceptionRepository) : BaseApiController
 {
     [HttpGet]
-     public async Task<ActionResult<IEnumerable<ApiException>>> GetAll([FromQuery] PaginationParams paginationParams, CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<ApiException>>> GetAll([FromQuery] PaginationParams paginationParams, CancellationToken cancellationToken)
     {
         PagedList<ApiException>? pagedApiExceptions = await _apiExceptionRepository.GetAllAsync(paginationParams, cancellationToken);
 

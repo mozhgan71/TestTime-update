@@ -89,6 +89,7 @@ export class AccountService {
     this.loggedInUserSig.set(null);
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
+      sessionStorage.removeItem('user-id');
     }
 
     this.router.navigate([''])

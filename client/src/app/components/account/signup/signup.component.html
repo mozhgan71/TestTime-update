@@ -4,7 +4,8 @@
     }
     <mat-form-field appearance="outline">
         <mat-label>نام:</mat-label>
-        <input [errorStateMatcher]="customErrorStateMatcher" autoFocusDir type="text" formControlName="nameCtrl" matInput>
+        <input [errorStateMatcher]="customErrorStateMatcher" autoFocusDir type="text" formControlName="nameCtrl"
+            matInput>
         <!-- @if (NameCtrl.dirty) { -->
         <mat-error>نام حداقل باید شامل 2 کاراکتر باشد</mat-error>
         <!-- } -->
@@ -30,7 +31,8 @@
     <!-- Password -->
     <mat-form-field appearance="outline">
         <mat-label>رمزعبور</mat-label>
-        <input [errorStateMatcher]="customErrorStateMatcher" type="password" formControlName="passwordCtrl" label="Password" placeHolder="Your password" matInput>
+        <input [errorStateMatcher]="customErrorStateMatcher" type="password" formControlName="passwordCtrl"
+            label="Password" placeHolder="Your password" matInput>
         @if (PasswordCtrl.hasError('required')) {
         <mat-error>وارد کردن رمز عبور الزامی است</mat-error>
         }
@@ -47,8 +49,8 @@
     <!-- Confirm Password -->
     <mat-form-field appearance="outline">
         <mat-label> تکرار رمزعبور</mat-label>
-        <input [errorStateMatcher]="customErrorStateMatcher" type="password" formControlName="confirmPasswordCtrl" label="Confirm Password"
-            placeHolder="Re-enter password" matInput>
+        <input [errorStateMatcher]="customErrorStateMatcher" type="password" formControlName="confirmPasswordCtrl"
+            label="Confirm Password" placeHolder="Re-enter password" matInput>
         @if (ConfirmPasswordCtrl.hasError('required')) {
         <mat-error>وارد کردن تکرار رمز عبور الزامی است</mat-error>
         }
@@ -66,8 +68,8 @@
     <!-- Date of Birth -->
     <mat-form-field appearance="outline">
         <mat-label>تاریخ تولد:</mat-label>
-        <input [errorStateMatcher]="customErrorStateMatcher" formControlName="dateOfBirthCtrl" [min]="minDate" [max]="maxDate" matInput [matDatepicker]="dp3"
-            placeholder="تاریخ تولد خود را وارد کنید">
+        <input [errorStateMatcher]="customErrorStateMatcher" formControlName="dateOfBirthCtrl" [min]="minDate"
+            [max]="maxDate" matInput [matDatepicker]="dp3" placeholder="تاریخ تولد خود را وارد کنید">
         @if (DateOfBirthCtrl.invalid) {
         <mat-hint>بین {{minDate.getFullYear()}} تا {{maxDate.getFullYear()}}</mat-hint>
         }

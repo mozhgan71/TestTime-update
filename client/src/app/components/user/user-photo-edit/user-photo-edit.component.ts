@@ -44,6 +44,7 @@ export class UserPhotoEditComponent {
 
       }
     }
+
     //   this.accountService.getLoggedInUser().pipe(take(1)).subscribe(loggedInUser => {
     //     if (loggedInUser)
     //       this.memberService.getMemberByEmail(loggedInUser.email)?.pipe(take(1)).subscribe(member => {

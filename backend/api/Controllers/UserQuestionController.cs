@@ -14,7 +14,7 @@ public class UserQuestionController(IUserQuestionRepository _userQuestionReposit
     }
 
     [HttpGet]
-     public async Task<ActionResult<IEnumerable<Question>>> GetAll([FromQuery] PaginationParams paginationParams, CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<Question>>> GetAll([FromQuery] PaginationParams paginationParams, CancellationToken cancellationToken)
     {
         PagedList<Question>? pagedQuestion = await _userQuestionRepository.GetAllAsync(paginationParams, cancellationToken);
 

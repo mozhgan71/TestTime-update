@@ -5,7 +5,7 @@
         }
         <mat-form-field appearance="outline">
             <mat-label>نام فیلد:</mat-label>
-            <select matNativeControl formControlName="feildNameCtrl">
+            <select [errorStateMatcher]="customErrorStateMatcher"  matNativeControl formControlName="feildNameCtrl">
                 <option value="C++">C++</option>
                 <option value="C#">C#</option>
                 <option value="Python">Python</option>
@@ -24,8 +24,9 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>صورت سوال:</mat-label>
-            <textarea [errorStateMatcher]="customErrorStateMatcher" cdkTextareaAutosize type="text" formControlName="descriptionCtrl" matInput></textarea>
-            <mat-error>حد اقل شامل 10 کاراکتر باشد</mat-error>
+            <textarea [errorStateMatcher]="customErrorStateMatcher" cdkTextareaAutosize type="text"
+                formControlName="descriptionCtrl" matInput></textarea>
+            <mat-error>حد اقل شامل 5 کاراکتر باشد</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>گزینه 1:</mat-label>
@@ -41,7 +42,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>گزینه 4:</mat-label>
-            <input  [errorStateMatcher]="customErrorStateMatcher" type="text" formControlName="option4Ctrl" matInput>
+            <input [errorStateMatcher]="customErrorStateMatcher" type="text" formControlName="option4Ctrl" matInput>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label> گزینه درست:</mat-label>

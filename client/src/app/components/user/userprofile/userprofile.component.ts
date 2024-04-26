@@ -4,19 +4,19 @@ import { Router, RouterModule } from '@angular/router';
 import { AppUser } from '../../../models/app-user.model';
 import { AccountService } from '../../../services/account.service';
 import { UserService } from '../../../services/user.service';
-import { CommonModule ,NgOptimizedImage} from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MemberService } from '../../../services/member.service';
 import { LoggedInUser } from '../../../models/logged-in-user.model';
 import { environment } from '../../../../environments/environment.development';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  standalone: true, 
+  standalone: true,
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
   styleUrls: ['./userprofile.component.scss'],
-  imports: [CommonModule, RouterModule,NgOptimizedImage,
-            MatIconModule]
+  imports: [CommonModule, RouterModule, NgOptimizedImage,
+    MatIconModule]
 })
 export class UserProfileComponent implements OnInit {
   // @Input('userInput') user: LoggedInUser | null | undefined;

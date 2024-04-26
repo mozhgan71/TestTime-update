@@ -1,5 +1,3 @@
-using System.Security.Claims;
-
 namespace api.Extensions;
 
 public static class ClaimPrincipalExtensions

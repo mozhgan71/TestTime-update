@@ -16,11 +16,11 @@ import { CustomErrorStateMatcher } from '../../../error-state-matcher';
   templateUrl: './suggestion.component.html',
   styleUrls: ['./suggestion.component.scss'],
   imports: [MatFormFieldModule, MatInputModule, MatButtonModule,
-     ReactiveFormsModule,RouterModule,AutoFocusDirective]
+    ReactiveFormsModule, RouterModule, AutoFocusDirective]
 })
 export class SuggestionComponent {
   private readonly baseApiUrl = environment.apiUrl;
-  
+
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
 
@@ -71,7 +71,7 @@ export class SuggestionComponent {
       }
     );
     this.suggestionFg.reset();
-    // alert("نظر شما با موفقیت ثبت شد.");
+    alert("نظر شما با موفقیت ثبت شد.");
   }
   //#endregion
 }

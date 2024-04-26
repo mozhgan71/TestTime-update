@@ -6,7 +6,7 @@ import { Question } from '../../../models/question.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { environment } from '../../../../environments/environment.development';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -21,6 +21,7 @@ export class EditQuestionComponent {
 
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
+  private router = inject(Router);
 
   questionRes: Question | undefined;
   showError: Question | undefined;
@@ -112,6 +113,7 @@ export class EditQuestionComponent {
         next: res => {
           this.questionRes = res;
           console.log(res);
+          this.router.navigateByUrl('/adminn/list-questions');
         },
       }
     );

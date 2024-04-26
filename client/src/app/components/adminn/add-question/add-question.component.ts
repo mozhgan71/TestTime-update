@@ -7,13 +7,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { environment } from '../../../../environments/environment.development';
 import { RouterModule } from '@angular/router';
+import { CustomErrorStateMatcher } from '../../../error-state-matcher';
 
 @Component({
   standalone: true,
   selector: 'app-add-question',
   templateUrl: './add-question.component.html',
   styleUrls: ['./add-question.component.scss'],
-  imports: [RouterModule,MatFormFieldModule, MatInputModule,
+  imports: [RouterModule, MatFormFieldModule, MatInputModule,
     MatButtonModule, ReactiveFormsModule]
 })
 export class AddQuestionComponent {
@@ -23,6 +24,8 @@ export class AddQuestionComponent {
   private http = inject(HttpClient);
 
   questionRes: Question | undefined;
+
+  customErrorStateMatcher = new CustomErrorStateMatcher();
 
   //#region Create Form Group/controler (AbstractControl)
   questionFg = this.fb.group({ // formGroup

@@ -14,6 +14,12 @@ global using api.Extensions;
 global using api.Models.Errors;
 global using System.Text.Json;
 global using api.Models.Helpers;
+global using api.Extensions.Validations;
+global using System.Security.Cryptography;
+global using System.Security.Claims;
+global using Microsoft.AspNetCore.Mvc.Filters;
+global using System.Net;
+global using System.IdentityModel.Tokens.Jwt;
 
 global using System.Text;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;

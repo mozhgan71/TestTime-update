@@ -9,8 +9,7 @@
         <div class="gallery">
             @for (photo of member.photos; track $index) {
             <div class="photos">
-                <img ngSrc="{{photoUrl + photo.url_165}}" width="165" height="165" alt="{{member.name}} photo"
-                    priority>
+                <img ngSrc="{{photoUrl + photo.url_165}}" width="165" height="165" alt="{{member.name}} photo" priority>
                 <div class="buttons">
                     <button (click)="setMainPhotoComp(photo.url_165)" mat-stroked-button color="primary"
                         [disabled]="photo.isMain">Set profile</button>

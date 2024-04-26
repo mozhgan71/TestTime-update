@@ -15,7 +15,7 @@ import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
   templateUrl: './admin-login.component.html',
   styleUrls: ['./admin-login.component.scss'],
   imports: [MatFormFieldModule, MatInputModule, MatButtonModule,
-     ReactiveFormsModule,AutoFocusDirective]
+    ReactiveFormsModule, AutoFocusDirective]
 })
 export class AdminLogInComponent {
   private readonly baseApiUrl = environment.apiUrl;

@@ -38,7 +38,7 @@ div {
     }
 
     .top {
-        --offset:  calc((100vh + var(--offset)) - 8rem);
+        --offset: calc((100vh + var(--offset)) - 8rem);
         position: sticky;
         bottom: 20px;
         margin-right: 10px;

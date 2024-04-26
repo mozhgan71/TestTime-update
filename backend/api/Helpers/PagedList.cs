@@ -12,7 +12,6 @@ public class PagedList<T> : List<T> // Generic
         AddRange(items);
     }
 
-
     public int CurrentPage { get; set; }
     public int TotalPages { get; set; }
     public int PageSize { get; set; }

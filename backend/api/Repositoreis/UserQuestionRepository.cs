@@ -1,11 +1,11 @@
 namespace api.Repositoreis;
 
-public class UserQuestionRepository :IUserQuestionRepository
+public class UserQuestionRepository : IUserQuestionRepository
 {
-      private readonly IMongoCollection<Question> _collection;
-      private const string _collectionName = "user-questions";
+    private readonly IMongoCollection<Question> _collection;
+    private const string _collectionName = "user-questions";
 
-     public UserQuestionRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    public UserQuestionRepository(IMongoClient client, IMongoDbSettings dbSettings)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<Question>(_collectionName);
@@ -30,9 +30,9 @@ public class UserQuestionRepository :IUserQuestionRepository
         return question;
     }
 
-    public async Task<PagedList<Question>?> GetAllAsync(PaginationParams paginationParams,CancellationToken cancellationToken)
+    public async Task<PagedList<Question>?> GetAllAsync(PaginationParams paginationParams, CancellationToken cancellationToken)
     {
-         IMongoQueryable<Question> query = _collection.AsQueryable();
+        IMongoQueryable<Question> query = _collection.AsQueryable();
 
         return await PagedList<Question>.CreatePagedListAsync(query, paginationParams.PageNumber, paginationParams.PageSize, cancellationToken);
     }

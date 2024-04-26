@@ -35,7 +35,7 @@ public class UserRepository : IUserRepository
         return null;
     }
 
-    public async Task<UpdateResult?> UpdateByIdAsync(UpdateDto userInput,string? userId, CancellationToken cancellationToken)
+    public async Task<UpdateResult?> UpdateByIdAsync(UpdateDto userInput, string? userId, CancellationToken cancellationToken)
     {
         UpdateDefinition<AppUser> updatedDoc = Builders<AppUser>.Update
         .Set(doc => doc.Name, userInput.Name.Trim())

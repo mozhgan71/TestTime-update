@@ -1,4 +1,3 @@
-
 namespace api.Repositoreis;
 
 public class MemberRepository : IMemberRepository
@@ -13,8 +12,8 @@ public class MemberRepository : IMemberRepository
 
         // // _tokenService = tokenService;
     }
-    
-       public async Task<PagedList<AppUser>> GetAllAsync(PaginationParams paginationParams, CancellationToken cancellationToken)
+
+    public async Task<PagedList<AppUser>> GetAllAsync(PaginationParams paginationParams, CancellationToken cancellationToken)
     {
         IMongoQueryable<AppUser> query = _collection.AsQueryable();
 
@@ -42,7 +41,7 @@ public class MemberRepository : IMemberRepository
     //     return memberDtos ; // []
     // }
 
-     public async Task<MemberDto?> GetByIdAsync(string? memberId, CancellationToken cancellationToken)
+    public async Task<MemberDto?> GetByIdAsync(string? memberId, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(appUser => appUser.Id == memberId).FirstOrDefaultAsync(cancellationToken);
 
@@ -54,7 +53,7 @@ public class MemberRepository : IMemberRepository
         return null;
     }
 
-       public async Task<MemberDto?> GetByEmailAsync(string memberEmail, CancellationToken cancellationToken)
+    public async Task<MemberDto?> GetByEmailAsync(string memberEmail, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(appUser =>
                 appUser.Email == memberEmail).FirstOrDefaultAsync(cancellationToken);

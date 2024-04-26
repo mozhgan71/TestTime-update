@@ -20,15 +20,14 @@ import { ApiException } from '../models/api-exception.model';
 export class UserService {
   private http = inject(HttpClient);
 
-  userId = sessionStorage.getItem('user-id');
+  private userId = sessionStorage.getItem('user-id');
 
-  private readonly apiUrlReult = environment.apiUrl + 'result/get-by-user-id/' + this.userId;
+  private readonly apiUrlResult = environment.apiUrl + 'result/get-by-user-id/' + this.userId;
   private readonly baseApiUrlQuestion = environment.apiUrl + 'question/';
   private readonly baseApiUrl = environment.apiUrl + 'member/';
   private readonly baseApiUrlSuggestion = environment.apiUrl + 'suggestion/';
   private readonly baseApiUrlUserQuestion = environment.apiUrl + 'userquestion/';
   private readonly baseApiUrlApiException = environment.apiUrl + 'apiexception/';
-
 
   private readonly apiUrl = environment.apiUrl + 'user/';
 
@@ -52,7 +51,7 @@ export class UserService {
 
   //pagination methods
 
-  getMyResults(url: string, memberParams: MemberParams): Observable<PaginatedResult<Result[]>> {
+  getMyResults(memberParams: MemberParams): Observable<PaginatedResult<Result[]>> {
 
     let params = new HttpParams();
 
@@ -61,7 +60,7 @@ export class UserService {
       params = params.append('pageSize', memberParams.pageSize);
     }
 
-    return this.paginationHandler.getPaginatedResult<Result[]>(this.apiUrlReult, params);
+    return this.paginationHandler.getPaginatedResult<Result[]>(this.apiUrlResult, params);
   }
 
   getAllQuestions(memberParams: MemberParams): Observable<PaginatedResult<Question[]>> {

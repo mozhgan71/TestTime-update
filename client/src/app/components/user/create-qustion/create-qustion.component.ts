@@ -21,7 +21,7 @@ export class CreateQustionComponent {
   private readonly baseApiUrl = environment.apiUrl;
 
   customErrorStateMatcher = new CustomErrorStateMatcher();
-  
+
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
 
@@ -30,7 +30,7 @@ export class CreateQustionComponent {
   //#region Create Form Group/controler (AbstractControl)
   questionFg = this.fb.group({ // formGroup
     feildNameCtrl: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    descriptionCtrl: ['', [Validators.required, Validators.minLength(10)]],
+    descriptionCtrl: ['', [Validators.required, Validators.minLength(5)]],
     option1Ctrl: ['', [Validators.required]],
     option2Ctrl: ['', [Validators.required]],
     option3Ctrl: ['', [Validators.required]],

@@ -17,7 +17,7 @@ public class ResultController(IResultRepository _resultRepository) : BaseApiCont
     [HttpGet("get-by-user-id/{userId}")]
     public async Task<ActionResult<IEnumerable<Result>>> GetByUserId(string userId, [FromQuery] PaginationParams paginationParams, CancellationToken cancellationToken)
     {
-        PagedList<Result>? pagedResult= await _resultRepository.GetByUserIdAsync(userId, paginationParams, cancellationToken);
+        PagedList<Result>? pagedResult = await _resultRepository.GetByUserIdAsync(userId, paginationParams, cancellationToken);
 
         if (pagedResult!.Count == 0) // []
             return NoContent();
@@ -46,6 +46,7 @@ public class ResultController(IResultRepository _resultRepository) : BaseApiCont
 
         return results;
     }
+    
     // public async Task<ActionResult<IEnumerable<Result>>> GetByUserId(string userId, CancellationToken cancellationToken)
     // {
     //     List<Result>? results = await _resultRepository.GetByUserIdAsync(userId, cancellationToken);

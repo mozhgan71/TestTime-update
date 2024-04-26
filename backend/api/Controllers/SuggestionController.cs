@@ -45,7 +45,7 @@ public class SuggestionController(ISuggestionRepository _suggestionRepository) :
 
         return suggestions;
     }
-    
+
     // public async Task<ActionResult<IEnumerable<Suggestion>>> GetAll(CancellationToken cancellationToken)
     // {
     //     List<Suggestion>? suggestions = await _suggestionRepository.GetAllAsync(cancellationToken);

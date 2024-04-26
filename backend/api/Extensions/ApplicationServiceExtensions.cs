@@ -9,11 +9,9 @@ public static class ApplicationServiceExtensions
         // get section
         services.Configure<MongoDbSettings>(configuration.GetSection(nameof(MongoDbSettings)));
 
-
         // get values
         services.AddSingleton<IMongoDbSettings>(serviceProvider =>
         serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
-
 
         // get connectionString to the db
         services.AddSingleton<IMongoClient>(serviceProvider =>
@@ -35,7 +33,7 @@ public static class ApplicationServiceExtensions
         #region other
 
         services.AddScoped<LogUserActivity>(); // monitor/log userActivity
-        
+
         #endregion
 
         return services;

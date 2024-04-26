@@ -21,10 +21,9 @@ import { UserService } from '../../../services/user.service';
 export class CorrectAnswersComponent implements OnInit, OnDestroy {
   // adminService = inject(AdminService);
   userService = inject(UserService);
-  
-  private readonly baseApiUrl = environment.apiUrl;
-
   private http = inject(HttpClient);
+
+  private readonly baseApiUrl = environment.apiUrl;
 
   questions: Question[] | undefined;
 

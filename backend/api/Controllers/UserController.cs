@@ -1,10 +1,10 @@
-using api.Extensions.Validations;
-
 namespace api.Controllers;
 
+// [Authorize]
 public class UserController(IUserRepository _userRepository) : BaseApiController
 {
-    #region user anagemant
+    #region user managemant
+
     [HttpGet("get-by-id")]
     public async Task<ActionResult<AppUser>?> GetById(CancellationToken cancellationToken)
     {
@@ -33,6 +33,7 @@ public class UserController(IUserRepository _userRepository) : BaseApiController
     {
         return await _userRepository.DeleteAsync(userId, cancellationToken);
     }
+
     #endregion
 
     #region  photomanagement

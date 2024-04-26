@@ -69,6 +69,7 @@ public class QuestionController(IQuestionRepository _questionRepository) : BaseA
 
         return questions;
     }
+
     // public async Task<ActionResult<IEnumerable<Question>>> GetAll(CancellationToken cancellationToken)
     // {
     //     List<Question>? questions = await _questionRepository.GetAllAsync(cancellationToken);

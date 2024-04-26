@@ -14,7 +14,6 @@ import { Pagination } from '../../../models/helpers/pagination';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { UserService } from '../../../services/user.service';
 
-
 @Component({
   standalone: true,
   selector: 'app-list-users',

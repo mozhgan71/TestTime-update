@@ -1,7 +1,5 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-
 namespace api.Services;
+
 public class TokenService : ITokenService
 {
     //TODO: A token authorizes all users. Should each user work with one token only?

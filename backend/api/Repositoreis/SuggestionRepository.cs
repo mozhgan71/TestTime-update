@@ -13,7 +13,6 @@ public class SuggestionRepository : ISuggestionRepository
 
     public async Task<Suggestion> CreateAsync(SuggestionDto userInput, CancellationToken cancellationToken)
     {
-
         Suggestion suggestion = new Suggestion(
          Id: null,
          UserId: userInput.UserId,

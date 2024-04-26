@@ -21,7 +21,7 @@ import { UserService } from '../../../services/user.service';
 export class ListSuggestionsComponent implements OnInit, OnDestroy {
   // adminService = inject(AdminService);
   userService = inject(UserService);
-  
+
   private readonly baseApiUrl = environment.apiUrl;
 
   private http = inject(HttpClient);

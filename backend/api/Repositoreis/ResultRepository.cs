@@ -1,5 +1,3 @@
-using api.Controllers;
-
 namespace api.Repositoreis;
 
 public class ResultRepository : IResultRepository
@@ -15,7 +13,6 @@ public class ResultRepository : IResultRepository
 
     public async Task<Result?> CreateAsync(ResultInputDto userInput, CancellationToken cancellationToken)
     {
-
         Result result = new Result(
             Id: null,
             UserId: userInput.UserId,

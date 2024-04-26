@@ -1,6 +1,3 @@
-using System.Net;
-using api.Settings;
-
 namespace api.Middleware;
 
 public class ExceptionMiddleware

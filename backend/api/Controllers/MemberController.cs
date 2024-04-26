@@ -1,5 +1,3 @@
-using api.Models.Helpers;
-
 namespace api.Controllers;
 
 [Authorize]
@@ -50,7 +48,7 @@ public class MemberController(IMemberRepository _memberRepository) : BaseApiCont
     //     return memberDtos;
     // }
     #endregion
-    
+
     [HttpGet("get-by-id/{memberId}")]
     public async Task<ActionResult<MemberDto>> GetById(string memberId, CancellationToken cancellationToken)
     {

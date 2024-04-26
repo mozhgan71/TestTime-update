@@ -10,6 +10,7 @@ public class QuestionRipository : IQuestionRepository
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<Question>(_collectionName);
     }
+
     public async Task<Question?> CreateAsync(QuestionDto adminInput, CancellationToken cancellationToken)
     {
         // check if question already exists
@@ -85,12 +86,12 @@ public class QuestionRipository : IQuestionRepository
         return null;
     }
 
-    public async Task<PagedList<Question>?> GetAllAsync(PaginationParams paginationParams,CancellationToken cancellationToken)
+    public async Task<PagedList<Question>?> GetAllAsync(PaginationParams paginationParams, CancellationToken cancellationToken)
     {
-         IMongoQueryable<Question> query = _collection.AsQueryable();
+        IMongoQueryable<Question> query = _collection.AsQueryable();
 
         return await PagedList<Question>.CreatePagedListAsync(query, paginationParams.PageNumber, paginationParams.PageSize, cancellationToken);
-        
+
         // List<Question> questions = await _collection.Find<Question>(new BsonDocument()).ToListAsync(cancellationToken);
 
         // if (questions.Count != 0)
