@@ -1,10 +1,10 @@
-import { Directive, ElementRef, OnInit, inject } from '@angular/core';
+import { Directive, ElementRef, inject } from '@angular/core';
 
 @Directive({
   selector: '[autoFocusDir]',
   standalone: true
 })
-export class AutoFocusDirective implements OnInit {
+export class AutoFocusDirective {
 
   private elRef = inject(ElementRef);
 
