@@ -51,7 +51,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   showResultByUserId() {
     if (this.memberParams)
-      this.subscribed = this.userService.getMyResults(this.memberParams).subscribe({
+      this.subscribed = this.userService.getMyResults(this.memberParams)!.subscribe({
         next: (response: PaginatedResult<Result[]>) => {
           if (response.body && response.pagination) {
             this.resultRes = response.body;

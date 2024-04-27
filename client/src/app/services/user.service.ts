@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { AppUser } from '../models/app-user.model';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment.development';
@@ -13,16 +13,15 @@ import { Question } from '../models/question.model';
 import { Member } from '../models/member-model';
 import { Suggestion } from '../models/suggestion.model';
 import { ApiException } from '../models/api-exception.model';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private http = inject(HttpClient);
+  platformId = inject(PLATFORM_ID)
 
-  private userId = sessionStorage.getItem('user-id');
-
-  private readonly apiUrlResult = environment.apiUrl + 'result/get-by-user-id/' + this.userId;
   private readonly baseApiUrlQuestion = environment.apiUrl + 'question/';
   private readonly baseApiUrl = environment.apiUrl + 'member/';
   private readonly baseApiUrlSuggestion = environment.apiUrl + 'suggestion/';
@@ -51,16 +50,22 @@ export class UserService {
 
   //pagination methods
 
-  getMyResults(memberParams: MemberParams): Observable<PaginatedResult<Result[]>> {
+  getMyResults(memberParams: MemberParams): Observable<PaginatedResult<Result[]>> | null {
+    if (isPlatformBrowser(this.platformId)) {
+      var userId = sessionStorage.getItem('user-id');
+      var apiUrlResult = environment.apiUrl + 'result/get-by-user-id/' + userId;
 
-    let params = new HttpParams();
+      let params = new HttpParams();
 
-    if (memberParams) {
-      params = params.append('pageNumber', memberParams.pageNumber);
-      params = params.append('pageSize', memberParams.pageSize);
+      if (memberParams) {
+        params = params.append('pageNumber', memberParams.pageNumber);
+        params = params.append('pageSize', memberParams.pageSize);
+      }
+
+      return this.paginationHandler.getPaginatedResult<Result[]>(apiUrlResult, params);
     }
 
-    return this.paginationHandler.getPaginatedResult<Result[]>(this.apiUrlResult, params);
+    return null;
   }
 
   getAllQuestions(memberParams: MemberParams): Observable<PaginatedResult<Question[]>> {

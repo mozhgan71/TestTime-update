@@ -9,6 +9,7 @@ import { MemberService } from '../../../services/member.service';
 import { LoggedInUser } from '../../../models/logged-in-user.model';
 import { environment } from '../../../../environments/environment.development';
 import { MatIconModule } from '@angular/material/icon';
+import { take } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -37,12 +38,12 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.accountService.currentUser$.subscribe(
-      (response: any) => {
-        this.userRes = response
-        console.log(this.userRes);
-      }
-    );
+    // this.accountService.currentUser$.pipe(take(1)).subscribe(
+    //   (response: any) => {
+    //     this.userRes = response
+    //     // console.log(this.userRes);
+    //   }
+    // );
 
     this.loggedInUserSig = this.accountService.loggedInUserSig;
   }

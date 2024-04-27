@@ -30,7 +30,7 @@ export class CompareInCsharpComponent {
   showCsharpResult(): void {
     var userId = sessionStorage.getItem('user-id');
 
-    this.http.get<Result[]>(this.baseApiUrl + 'result/get-by-test-name/csharp').subscribe(
+    this.http.get<Result[]>(this.baseApiUrl + 'result/get-by-test-name/CSHARP').subscribe(
       {
         next: response => {
           this.cSharpResults = response

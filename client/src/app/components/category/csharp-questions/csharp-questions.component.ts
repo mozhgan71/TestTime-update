@@ -8,15 +8,15 @@ import { RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-csharp-questions',
   templateUrl: './csharp-questions.component.html',
   styleUrls: ['./csharp-questions.component.scss'],
-  imports:[RouterModule,CommonModule,MatRadioModule]
+  imports: [RouterModule, CommonModule, MatRadioModule]
 })
 export class CsharpQuestionsComponent {
   private readonly baseApiUrl = environment.apiUrl;
-  
+
   private http = inject(HttpClient);
 
   cSharpQuestions: Question[] | undefined;
@@ -232,7 +232,7 @@ export class CsharpQuestionsComponent {
 
     let result: Result = {
       userId: userId!,
-      testName: "C#",
+      testName: "CSHARP",
       myDate: new Date().toString(),
       testHour: this.hour,
       testMinute: this.minute,
