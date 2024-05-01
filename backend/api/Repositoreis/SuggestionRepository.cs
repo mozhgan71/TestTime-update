@@ -22,7 +22,7 @@ public class SuggestionRepository : ISuggestionRepository
          Text: userInput.Text
       );
 
-        await _collection.InsertOneAsync(suggestion);
+        await _collection.InsertOneAsync(suggestion,cancellationToken);
 
         return suggestion;
     }

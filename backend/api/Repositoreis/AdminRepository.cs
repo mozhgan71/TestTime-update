@@ -75,13 +75,13 @@ public class AdminRepository : IAdminRepository
         .Set(doc => doc.Password, userInput.Password)
         .Set(doc => doc.ConfirmPassword, userInput.ConfirmPassword);
 
-        return await _collection.UpdateOneAsync<Admin>(doc => doc.Id == userId, updatedDoc);
+        return await _collection.UpdateOneAsync<Admin>(doc => doc.Id == userId, updatedDoc,null,cancellationToken);
     }
 
     public async Task<DeleteResult?> DeleteAsync(string userId, CancellationToken cancellationToken)
 
     {
-        return await _collection.DeleteOneAsync<Admin>(doc => doc.Id == userId);
+        return await _collection.DeleteOneAsync<Admin>(doc => doc.Id == userId,cancellationToken);
     }
 
     public async Task<AdminResponseDto?> LoginAsync(AdminLoginDto userInput, CancellationToken cancellationToken)

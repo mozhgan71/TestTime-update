@@ -44,13 +44,13 @@ public class UserRepository : IUserRepository
         // .Set(doc => doc.DateOfBirth, userInput.DateOfBirth)
         .Set(doc => doc.Education, userInput.Education);
 
-        return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id == userId, updatedDoc);
+        return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id == userId, updatedDoc,null,cancellationToken);
     }
 
     public async Task<DeleteResult?> DeleteAsync(string userId, CancellationToken cancellationToken)
 
     {
-        return await _collection.DeleteOneAsync<AppUser>(doc => doc.Id == userId);
+        return await _collection.DeleteOneAsync<AppUser>(doc => doc.Id == userId,cancellationToken);
     }
     #endregion
 

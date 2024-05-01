@@ -20,7 +20,6 @@ global using System.Security.Claims;
 global using Microsoft.AspNetCore.Mvc.Filters;
 global using System.Net;
 global using System.IdentityModel.Tokens.Jwt;
-
 global using System.Text;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.IdentityModel.Tokens;
@@ -30,7 +29,6 @@ global using image_processing.Services;
 global using image_processing.Helpers;
 global using api.Helpers;
 global using api.Middleware;
-
 global using api.Repositoreis;
 //global using Microsoft.Extensions.Options;
 global using api.Controllers.Helpers;

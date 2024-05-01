@@ -25,7 +25,7 @@ public class UserQuestionRepository : IUserQuestionRepository
           CorrectAnswer: userInput.CorrectAnswer
       );
 
-        await _collection.InsertOneAsync(question);
+        await _collection.InsertOneAsync(question,cancellationToken);
 
         return question;
     }

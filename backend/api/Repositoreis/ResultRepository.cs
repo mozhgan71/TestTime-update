@@ -27,7 +27,7 @@ public class ResultRepository : IResultRepository
             Description: userInput.Description
          );
 
-        await _collection.InsertOneAsync(result);
+        await _collection.InsertOneAsync(result,cancellationToken);
 
         return result;
     }
@@ -84,6 +84,6 @@ public class ResultRepository : IResultRepository
     public async Task<DeleteResult?> DeleteAsync(string resultId, CancellationToken cancellationToken)
 
     {
-        return await _collection.DeleteOneAsync<Result>(doc => doc.Id == resultId);
+        return await _collection.DeleteOneAsync<Result>(doc => doc.Id == resultId,cancellationToken);
     }
 }

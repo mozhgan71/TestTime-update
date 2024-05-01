@@ -114,12 +114,12 @@ public class QuestionRipository : IQuestionRepository
         .Set(doc => doc.Option4, userInput.Option4)
         .Set(doc => doc.CorrectAnswer, userInput.CorrectAnswer);
 
-        return await _collection.UpdateOneAsync<Question>(doc => doc.Id == questionId, updatedDoc);
+        return await _collection.UpdateOneAsync<Question>(doc => doc.Id == questionId, updatedDoc,null,cancellationToken);
     }
 
     public async Task<DeleteResult?> DeleteAsync(string questionId, CancellationToken cancellationToken)
 
     {
-        return await _collection.DeleteOneAsync<Question>(doc => doc.Id == questionId);
+        return await _collection.DeleteOneAsync<Question>(doc => doc.Id == questionId,cancellationToken);
     }
 }

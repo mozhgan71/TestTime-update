@@ -33,7 +33,7 @@ public class AccountRepository : IAccountRepository
 
         if (appUser.Id is not null)
         {
-            LoggedInDto loggedInDto = Mappers.ConvertAppUserToLoggedInDto(appUser, _tokenService.CreateToken(appUser));
+            LoggedInDto loggedInDto = Mappers.ConvertAppUserToLoggedInDto(appUser,await _tokenService.CreateToken(appUser));
 
             return loggedInDto;
         }
@@ -60,7 +60,7 @@ public class AccountRepository : IAccountRepository
         {
             if (appUser.Id is not null)
             {
-                string token = _tokenService.CreateToken(appUser);
+                string token = await _tokenService.CreateToken(appUser);
 
                 return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
             }
