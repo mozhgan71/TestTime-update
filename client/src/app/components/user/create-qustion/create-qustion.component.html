@@ -47,7 +47,7 @@
         <mat-form-field appearance="outline">
             <mat-label> گزینه درست:</mat-label>
             <input [errorStateMatcher]="customErrorStateMatcher" type="number" formControlName="correctCtrl" matInput>
-            <mat-error>فقط عدد گزینه درست را وارد کنید</mat-error>
+            <mat-hint>فقط عددی بین 1 تا 4 وارد کنید</mat-hint>
         </mat-form-field>
         <button (click)="addQuestion()" [disabled]="questionFg.invalid" mat-raised-button>ثبت سوال
         </button>

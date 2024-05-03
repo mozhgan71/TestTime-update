@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,8 @@ import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserProfileComponent } from '../../user/userprofile/userprofile.component';
 import { LoggedInUser } from '../../../models/logged-in-user.model';
+import { CustomErrorStateMatcher } from '../../../error-state-matcher';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   standalone: true,
@@ -19,12 +21,16 @@ import { LoggedInUser } from '../../../models/logged-in-user.model';
   styleUrls: ['./login.component.scss'],
   imports: [RouterModule, MatFormFieldModule, MatInputModule,
     MatButtonModule, ReactiveFormsModule, MatSnackBarModule,
-    AutoFocusDirective, UserProfileComponent]
+    AutoFocusDirective, UserProfileComponent, MatIconModule]
 })
-export class LogInComponent {
+export class LogInComponent implements OnDestroy {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private accountService = inject(AccountService);
+
+  public showPassword: boolean = false;
+
+  customErrorStateMatcher = new CustomErrorStateMatcher();
 
   userLogIn: LoggedInUser | null | undefined;
   showError: AppUser | undefined;
@@ -85,6 +91,10 @@ export class LogInComponent {
     //     }
     //   }
     // );
+  }
+
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   getState(): void {

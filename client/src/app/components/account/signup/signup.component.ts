@@ -16,6 +16,7 @@ import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
 import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CustomErrorStateMatcher } from '../../../error-state-matcher';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   standalone: true,
@@ -25,12 +26,14 @@ import { CustomErrorStateMatcher } from '../../../error-state-matcher';
   imports: [RouterModule, MatFormFieldModule, MatInputModule,
     MatButtonModule, MatCheckboxModule, ReactiveFormsModule,
     MatDatepickerModule, MatNativeDateModule, MatSnackBarModule,
-    AutoFocusDirective]
+    AutoFocusDirective,MatIconModule]
 })
 export class SignUpComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
   private accountService = inject(AccountService);
+
+  public showPassword: boolean = false;
 
   customErrorStateMatcher = new CustomErrorStateMatcher();
 
@@ -147,5 +150,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
     let theDob: Date = new Date(dob);
     return new Date(theDob.setMinutes(theDob.getMinutes() - theDob.getTimezoneOffset())).toISOString().slice(0, 10);
+  }
+
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }

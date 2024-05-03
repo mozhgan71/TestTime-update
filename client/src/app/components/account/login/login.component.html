@@ -13,7 +13,11 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>رمزعبور</mat-label>
-            <input type="text" formControlName="passwordCtrl" matInput>
+            <input [errorStateMatcher]="customErrorStateMatcher" matInput formControlName="passwordCtrl"
+                [type]="showPassword ? 'text' : 'password'" name="confirmPassword">
+            <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                {{showPassword?'visibility':'visibility_off'}}
+            </mat-icon>
             @if (PasswordCtrl.hasError('required')) {
             <mat-error>وارد کردن رمز عبور اجباری است</mat-error>
             }

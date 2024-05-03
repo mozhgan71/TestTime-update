@@ -4,14 +4,24 @@
         <mat-form-field appearance="outline">
             <mat-label>ایمیل</mat-label>
             <input autoFocusDir type="text" formControlName="emailCtrl" matInput>
-            @if (adminFg.dirty) {
+            @if (EmailCtrl.hasError('required')) {
+            <mat-error> وارد کردن ایمیل اجباری است</mat-error>
+            }
+            @else if (EmailCtrl.hasError('pattern')) {
             <mat-error>لطفا یک ایمیل صحیح وارد کنید</mat-error>
             }
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>رمزعبور</mat-label>
-            <input type="text" formControlName="passwordCtrl" matInput>
-            @if (adminFg.dirty) {
+            <input [errorStateMatcher]="customErrorStateMatcher" matInput formControlName="passwordCtrl"
+                [type]="showPassword ? 'text' : 'password'" name="confirmPassword">
+            <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                {{showPassword?'visibility':'visibility_off'}}
+            </mat-icon>
+            @if (PasswordCtrl.hasError('required')) {
+            <mat-error> وارد کردن رمز عبور اجباری است</mat-error>
+            }
+            @else if (PasswordCtrl.hasError('minlength')) {
             <mat-error>حداقل 8 کاراکتر</mat-error>
             }
         </mat-form-field>

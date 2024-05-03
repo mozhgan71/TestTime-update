@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { environment } from '../../../../environments/environment.development';
 import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
+import { CustomErrorStateMatcher } from '../../../error-state-matcher';
+import { MatIconModule } from '@angular/material/icon'
 
 @Component({
   standalone: true,
@@ -15,7 +17,7 @@ import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
   templateUrl: './admin-login.component.html',
   styleUrls: ['./admin-login.component.scss'],
   imports: [MatFormFieldModule, MatInputModule, MatButtonModule,
-    ReactiveFormsModule, AutoFocusDirective]
+    ReactiveFormsModule, AutoFocusDirective, MatIconModule]
 })
 export class AdminLogInComponent {
   private readonly baseApiUrl = environment.apiUrl;
@@ -26,6 +28,10 @@ export class AdminLogInComponent {
 
   mainAdmin: Admin | undefined;
   showError: Admin | undefined;
+
+  public showPassword: boolean = false;
+
+  customErrorStateMatcher = new CustomErrorStateMatcher();
 
   //#region Create Form Group/controler (AbstractControl)
   adminFg = this.fb.group({ // formGroup
@@ -64,5 +70,9 @@ export class AdminLogInComponent {
           this.showError = err.error;
         }
       });
+  }
+
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }
