@@ -53,16 +53,8 @@
         gap: 2rem;
         padding-bottom: 1rem;
 
-        // button {
-        //     color: black;
-        //     background-color: purple;
-        //     min-width: 10rem;
-        // }
-
-        h1 {
-            padding: 0;
-            margin: 0;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        p{
+            font-size: larger;
         }
 
         h2 {
@@ -72,8 +64,8 @@
         }
 
         .img-right {
-            width: 10rem;
-            height: 10rem;
+            width: 15rem;
+            height: 12rem;
         }
     }
 }

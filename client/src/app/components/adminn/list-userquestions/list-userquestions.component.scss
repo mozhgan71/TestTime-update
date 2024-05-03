@@ -6,6 +6,15 @@ div {
     color: rgb(187, 11, 158);
     min-height: calc(100vh - (18.6rem));
 
+    ul {
+        list-style-type: none;
+
+        li {
+            font-size: x-large;
+            line-height: 1.5rem;
+        }
+    }
+
     .top {
         --offset: 50px;
         position: sticky;

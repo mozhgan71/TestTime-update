@@ -20,6 +20,11 @@ div {
         display: flex;
         flex-direction: column;
 
+        li{
+            font-size:x-large;
+            line-height: 1.5rem;
+        }
+
         :nth-child(9) {
             align-self: flex-end;
             margin-right: 1rem;
