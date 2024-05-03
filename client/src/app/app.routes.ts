@@ -59,6 +59,8 @@ import { authLoggedInGuard } from './guards/auth-logged-in.guard';
 import { NoAccessComponent } from './components/errors/no-access/no-access.component';
 import { UserPhotoEditComponent } from './components/user/user-photo-edit/user-photo-edit.component';
 import { ListApiexceptionsComponent } from './components/adminn/list-apiexceptions/list-apiexceptions.component';
+import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
+
 
 export const routes: Routes = [
     { path: '', component: MainComponent },
@@ -133,5 +135,6 @@ export const routes: Routes = [
     { path: 'old-question', component: OldQuestionsComponent },
     { path: 'server-error', component: ServerErrorComponent },
     { path: 'adminn/list-apiexceptions', component: ListApiexceptionsComponent },
+    { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
     { path: '**', component: NotFoundComponent, pathMatch: 'full' },
 ];
