@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { environment } from '../../../../environments/environment.development';
 import { RouterModule } from '@angular/router';
 import { CustomErrorStateMatcher } from '../../../error-state-matcher';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -22,6 +23,7 @@ export class AddQuestionComponent {
 
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
+  private snackBar = inject(MatSnackBar);
 
   questionRes: Question | undefined;
 
@@ -90,7 +92,8 @@ export class AddQuestionComponent {
         }
       }
     );
-    alert(" سوال شما با موفقیت ثبت شد.");
+    this.snackBar.open("سوال شما با موفقیت ثبت شد", "Close", { horizontalPosition: 'center', verticalPosition: 'top', duration: 4000 });
+
     this.questionFg.reset();
   }
   //#endregion

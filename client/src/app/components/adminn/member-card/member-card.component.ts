@@ -45,7 +45,6 @@ export class MemberCardComponent {
         next: response => {
           this.delUser = response
           console.log(response);
-          alert("عملیات حذف کاربر با موفقیت انجام شد.");
         }
       }
     );

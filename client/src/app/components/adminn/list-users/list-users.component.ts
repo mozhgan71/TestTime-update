@@ -13,6 +13,7 @@ import { PaginatedResult } from '../../../models/helpers/paginatedResult';
 import { Pagination } from '../../../models/helpers/pagination';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { UserService } from '../../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -28,6 +29,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
   private http = inject(HttpClient);
   // memberService = inject(MemberService);
   userService = inject(UserService);
+  private snackBar = inject(MatSnackBar);
 
   subscribed: Subscription | undefined;
 
@@ -94,8 +96,8 @@ export class ListUsersComponent implements OnInit, OnDestroy {
         next: response => {
           this.delUser = response
           console.log(response);
-          // alert("عملیات حذف کاربر با موفقیت انجام شد.");
           this.members!.splice(i, 1);
+          this.snackBar.open(".عملیات حذف کاربر با موفقیت انجام شد", "Close", { horizontalPosition: 'center', verticalPosition: 'top', duration: 4000 });
         }
       }
     );

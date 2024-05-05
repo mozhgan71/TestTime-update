@@ -69,7 +69,6 @@ export class LogInComponent implements OnDestroy {
       },
       error: err => {
         this.showError = err.error;
-        // alert(this.showError);
         // this.router.navigateByUrl('/sign-up');
       }
     });

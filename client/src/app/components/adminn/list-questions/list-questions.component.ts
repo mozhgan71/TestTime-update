@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { AdminService } from '../../../services/admin.service';
 import { PaginatedResult } from '../../../models/helpers/paginatedResult';
 import { UserService } from '../../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -27,6 +28,7 @@ export class ListQuestionsComponent implements OnInit, OnDestroy {
   private readonly baseApiUrl = environment.apiUrl;
 
   private http = inject(HttpClient);
+  private snackBar = inject(MatSnackBar);
 
   questions: Question[] | undefined;
   delQuestion: Question | undefined;
@@ -73,7 +75,7 @@ export class ListQuestionsComponent implements OnInit, OnDestroy {
         next: response => {
           this.delQuestion = response
           console.log(response);
-          alert("عملیات حذف سوال با موفقیت انجام شد.");
+          this.snackBar.open(".عملیات حذف سوال با موفقیت انجام شد", "Close", { horizontalPosition: 'center', verticalPosition: 'top', duration: 4000 });
           this.questions!.splice(i, 1);
         }
       }

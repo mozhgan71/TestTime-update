@@ -14,7 +14,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { LoggedInUser } from '../../../models/logged-in-user.model';
 import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
 import { RouterModule } from '@angular/router';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CustomErrorStateMatcher } from '../../../error-state-matcher';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -26,12 +26,13 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [RouterModule, MatFormFieldModule, MatInputModule,
     MatButtonModule, MatCheckboxModule, ReactiveFormsModule,
     MatDatepickerModule, MatNativeDateModule, MatSnackBarModule,
-    AutoFocusDirective,MatIconModule]
+    AutoFocusDirective, MatIconModule]
 })
 export class SignUpComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
   private accountService = inject(AccountService);
+  private snackBar = inject(MatSnackBar);
 
   public showPassword: boolean = false;
 
@@ -129,13 +130,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
           },
           error: err => {
             this.showError = err.error;
-            // alert(this.showError);
           }
         }
       );
     }
     else {
-      alert("تکرار رمز عبور مشابه رمز عبور نمی باشد.");
+      this.snackBar.open(".تکرار رمز عبور مشابه رمز عبور نمی باشد", "Close", { horizontalPosition: 'center', verticalPosition: 'top', duration: 4000 });
     }
   }
   //#endregion

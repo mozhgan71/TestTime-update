@@ -11,6 +11,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Pagination } from '../../../models/helpers/pagination';
 import { UserService } from '../../../services/user.service';
 import { PaginatedResult } from '../../../models/helpers/paginatedResult';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -29,6 +30,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   // private readonly apiUrl = environment.apiUrl + 'result/get-by-user-id/' + this.userId;
 
   private http = inject(HttpClient);
+  private snackBar = inject(MatSnackBar);
 
   resultRes: Result[] | undefined;
   delResult: Result | undefined;
@@ -95,7 +97,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
         next: response => {
           this.delResult = response
           console.log(response);
-          alert(" حذف کارنامه با موفقیت انجام شد.");
+          this.snackBar.open(". حذف کارنامه با موفقیت انجام شد", "Close", { horizontalPosition: 'center', verticalPosition: 'top', duration: 4000 });
+
           this.resultRes!.splice(i, 1);
         }
       }

@@ -136,9 +136,5 @@ export class EditComponent implements OnInit {
         }
       });
   }
-  //   else {
-  //     alert("تغییرات اعمال نشد؛ تکرار رمز عبور مشابه رمز عبور نمی باشد.");
-
-  // }
   //#endregion
 }

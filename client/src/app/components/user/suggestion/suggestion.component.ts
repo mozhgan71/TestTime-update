@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
 import { AutoFocusDirective } from '../../../directives/auto-focus.directive';
 import { CustomErrorStateMatcher } from '../../../error-state-matcher';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -23,6 +24,7 @@ export class SuggestionComponent {
 
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
+  private snackBar = inject(MatSnackBar);
 
   suggestionRes: Suggestion | undefined;
 
@@ -70,8 +72,9 @@ export class SuggestionComponent {
         }
       }
     );
+    this.snackBar.open("نظر شما با موفقیت ثبت شد", "Close", { horizontalPosition: 'center', verticalPosition: 'top', duration: 4000 });
+
     this.suggestionFg.reset();
-    alert("نظر شما با موفقیت ثبت شد.");
   }
   //#endregion
 }
