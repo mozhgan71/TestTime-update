@@ -25,14 +25,16 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>شماره سوال:</mat-label>
-            <input [errorStateMatcher]="customErrorStateMatcher" type="number" formControlName="numberQuestionCtrl" matInput>
+            <input [errorStateMatcher]="customErrorStateMatcher" type="number" formControlName="numberQuestionCtrl"
+                matInput>
             @if (questionFg.dirty) {
             <mat-error>عددی بین 1 تا 10 قابل قبول است</mat-error>
             }
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>صورت سوال:</mat-label>
-            <textarea [errorStateMatcher]="customErrorStateMatcher" cdkTextareaAutosize type="text" formControlName="descriptionCtrl" matInput></textarea>
+            <textarea [errorStateMatcher]="customErrorStateMatcher" cdkTextareaAutosize type="text"
+                formControlName="descriptionCtrl" matInput></textarea>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>گزینه 1:</mat-label>

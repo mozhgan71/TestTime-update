@@ -22,6 +22,7 @@ div {
         }
 
         mat-form-field {
+            min-height: 3rem;
             width: 25%;
         }
 
@@ -29,8 +30,9 @@ div {
             color: red;
         }
 
-        input {
-            height: 2.5rem;
+        input,
+        textarea {
+            min-height: 2.5rem;
             color: purple;
             font-size: larger;
             // direction: rtl;

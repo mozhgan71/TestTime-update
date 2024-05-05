@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
         this.accountService.authorizeLoggedInUser();
 
         // Then, set the authorized logged-in user
-        this.accountService.setCurrentUser(JSON.parse(loggedInUserStr))
+        this.accountService.setCurrentUser(JSON.parse(loggedInUserStr));
       }
     }
   }
