@@ -1,23 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';import { MatRadioModule } from '@angular/material/radio';
+import { Component, inject } from '@angular/core'; import { MatRadioModule } from '@angular/material/radio';
 import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
 ;
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-python-questions',
   templateUrl: './python-questions.component.html',
   styleUrls: ['./python-questions.component.scss'],
-  imports:[RouterModule,CommonModule,MatRadioModule]
+  imports: [RouterModule, CommonModule, MatRadioModule]
 })
 export class PythonQuestionsComponent {
   private readonly baseApiUrl = environment.apiUrl;
-  
+
   private http = inject(HttpClient);
+  private router = inject(Router);
 
   pythonQuestions: Question[] | undefined;
 
@@ -249,15 +250,12 @@ export class PythonQuestionsComponent {
           this.resultRes = res;
           console.log(res);
           if (this.resultRes) {
-            var end = document.getElementById("end");
-            end!.hidden = true;
             var start = document.getElementById("start");
             start!.hidden = true;
             var back = document.getElementById("back");
             back!.hidden = true;
-            var end = document.getElementById("result");
-            end!.hidden = false;
             sessionStorage.setItem('result-id', this.resultRes.id!);
+            this.router.navigateByUrl('/show-result');
           }
         }
       }

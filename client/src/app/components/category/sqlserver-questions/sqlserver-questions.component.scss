@@ -15,13 +15,9 @@ div {
             width: 15rem;
             background-color: rgb(109, 6, 109);
             color: rgb(5, 3, 5);
-            font-weight: bold;
-        }
-
-        button {
-            width: 17rem;
-            background-color: rgb(137, 189, 18);
-            font-weight: bold;
+            font-size: larger;
+            min-height: 3rem;
+            margin: 0.2rem;
         }
     }
 
@@ -31,9 +27,10 @@ div {
         justify-content: center;
         justify-content: space-around;
         min-height: 3rem;
+        margin: 0.2rem;
 
         button {
-            width: 17rem;
+            width: 15rem;
             background-color: purple;
         }
 

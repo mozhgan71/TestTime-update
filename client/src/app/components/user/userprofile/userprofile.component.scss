@@ -20,6 +20,10 @@ div {
         padding: 0.2rem;
         direction: rtl;
 
+        :nth-child(8) {
+            direction: ltr;
+        }
+
         .top {
             display: flex;
             flex-direction: column;

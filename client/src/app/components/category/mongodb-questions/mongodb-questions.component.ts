@@ -4,20 +4,21 @@ import { Component, inject } from '@angular/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-mongodb-questions',
   templateUrl: './mongodb-questions.component.html',
   styleUrls: ['./mongodb-questions.component.scss'],
-  imports:[RouterModule,CommonModule,MatRadioModule]
+  imports: [RouterModule, CommonModule, MatRadioModule]
 })
 export class MongoDBQuestionsComponent {
   private readonly baseApiUrl = environment.apiUrl;
-  
+
   private http = inject(HttpClient);
+  private router = inject(Router);
 
   mongoDBQuestions: Question[] | undefined;
 
@@ -249,15 +250,12 @@ export class MongoDBQuestionsComponent {
           this.resultRes = res;
           console.log(res);
           if (this.resultRes) {
-            var end = document.getElementById("end");
-            end!.hidden = true;
             var start = document.getElementById("start");
             start!.hidden = true;
             var back = document.getElementById("back");
             back!.hidden = true;
-            var end = document.getElementById("result");
-            end!.hidden = false;
             sessionStorage.setItem('result-id', this.resultRes.id!);
+            this.router.navigateByUrl('/show-result');
           }
         }
       }

@@ -20,8 +20,6 @@
             }
         </section>
         <hr>
-        <!-- <h4>مشخصات کاربر</h4> -->
-        <!-- <h4>----------------------------------</h4> -->
         <h4>نام : {{userRes.name}}</h4>
         <h4>نام خانوادگی : {{userRes.family}}</h4>
         <h4>ایمیل : {{userRes.email}}</h4>
@@ -29,7 +27,7 @@
         @if (userRes.education) {
         <h4> تحصیلات : {{userRes.education}}</h4>
         }
-        <h4>آخرین فعالیت:{{userRes.lastActive}}</h4>
+        <h4> {{userRes.lastActive}} : تاریخ آخرین فعالیت</h4>
 
         <section class="button-down">
             <button routerLink="/edit" mat-raised-button color="warn">ویرایش اطلاعات</button>
