@@ -23,7 +23,7 @@ public class PhotoService(
     /// <param name="formFile"></param>
     /// <param name="userId"></param>
     /// <returns>ADD: array of filePaths. DELETE: boolean</returns>
-    public async Task<string[]?> AddPhotoToDisk(IFormFile formFile, string userId)
+    public async Task<string[]?> AddPhotoToDisk(IFormFile formFile, string userId, CancellationToken cancellationToken)
     {
         // copy file/s to the folder
         if (formFile.Length > 0) // 301kb => 301_000 byte
@@ -72,7 +72,7 @@ public class PhotoService(
     /// </summary>
     /// <param name="photo"></param>
     /// <returns>bool</returns>
-    public async Task<bool> DeletePhotoFromDisk(Photo photo)
+    public async Task<bool> DeletePhotoFromDisk(Photo photo,CancellationToken cancellationToken)
     {
         List<string> photoPaths = [];
 

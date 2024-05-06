@@ -44,13 +44,13 @@ public class UserRepository : IUserRepository
         // .Set(doc => doc.DateOfBirth, userInput.DateOfBirth)
         .Set(doc => doc.Education, userInput.Education);
 
-        return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id == userId, updatedDoc,null,cancellationToken);
+        return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id == userId, updatedDoc, null, cancellationToken);
     }
 
     public async Task<DeleteResult?> DeleteAsync(string userId, CancellationToken cancellationToken)
 
     {
-        return await _collection.DeleteOneAsync<AppUser>(doc => doc.Id == userId,cancellationToken);
+        return await _collection.DeleteOneAsync<AppUser>(doc => doc.Id == userId, cancellationToken);
     }
     #endregion
 
@@ -68,7 +68,7 @@ public class UserRepository : IUserRepository
 
         // userId, appUser, file
         // save file in Storage using PhotoService / userId makes the folder name
-        string[]? imageUrls = await _photoService.AddPhotoToDisk(file, userId);
+        string[]? imageUrls = await _photoService.AddPhotoToDisk(file, userId, cancellationToken);
 
         if (imageUrls is not null)
         {
@@ -147,7 +147,7 @@ public class UserRepository : IUserRepository
 
         if (photo.IsMain) return null; // prevent from deleting main photo!
 
-        bool isDeleteSuccess = await _photoService.DeletePhotoFromDisk(photo);
+        bool isDeleteSuccess = await _photoService.DeletePhotoFromDisk(photo, cancellationToken);
         if (!isDeleteSuccess)
         {
             _logger.LogError("Delete from disk failed.");
