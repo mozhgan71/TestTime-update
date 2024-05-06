@@ -6,19 +6,22 @@ import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
+import { response } from 'express';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
   selector: 'app-cplus-questions',
   templateUrl: './cplus-questions.component.html',
   styleUrls: ['./cplus-questions.component.scss'],
-  imports: [RouterModule,CommonModule, MatRadioModule,]
+  imports: [RouterModule, CommonModule, MatRadioModule,]
 })
 export class CplusQuestionsComponent {
   private readonly baseApiUrl = environment.apiUrl;
-  
+
   private http = inject(HttpClient);
   private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
 
   cplusQuestions: Question[] | undefined;
 
@@ -39,16 +42,25 @@ export class CplusQuestionsComponent {
 
   showCplusQuestion(): void {
     this.http.get<Question[]>(this.baseApiUrl + 'question/get-by-feild-name/c++').subscribe(
-      { next: response => this.cplusQuestions = response }
+      {
+        next: response => {
+          if (response) {
+            this.cplusQuestions = response;
+
+            var end = document.getElementById("end");
+            end!.hidden = false;
+
+            var text = document.getElementById("text");
+            text!.hidden = true;
+
+            this.startTime = new Date();
+          }
+          else {
+            this.snackBar.open(". در حال حاضر سوالی وجود ندارد", "Close", { horizontalPosition: 'center', verticalPosition: 'top', duration: 4000 });
+          }
+        }
+      }
     );
-
-    var end = document.getElementById("end");
-    end!.hidden = false;
-
-    var text = document.getElementById("text");
-    text!.hidden = true;
-
-    this.startTime = new Date();
   }
 
   calcResultCplus(): void {

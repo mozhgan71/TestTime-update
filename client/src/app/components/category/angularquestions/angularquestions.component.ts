@@ -7,6 +7,7 @@ import { Result } from '../../../models/result.model';
 import { ResultInputDto } from '../../../models/resultInputDto.model';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -20,6 +21,7 @@ export class AngularQuestionsComponent {
 
   private http = inject(HttpClient);
   private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
 
   angularQuestions: Question[] | undefined;
 
@@ -40,16 +42,25 @@ export class AngularQuestionsComponent {
 
   showAngularQuestion(): void {
     this.http.get<Question[]>(this.baseApiUrl + 'question/get-by-feild-name/ANGULAR').subscribe(
-      { next: response => this.angularQuestions = response }
+      {
+        next: response => {
+          if (response) {
+            this.angularQuestions = response;
+
+            var end = document.getElementById("end");
+            end!.hidden = false;
+
+            var text = document.getElementById("text");
+            text!.hidden = true;
+
+            this.startTime = new Date();
+          }
+          else {
+            this.snackBar.open(". در حال حاضر سوالی وجود ندارد", "Close", { horizontalPosition: 'center', verticalPosition: 'top', duration: 4000 });
+          }
+        }
+      }
     );
-
-    var end = document.getElementById("end");
-    end!.hidden = false;
-
-    var text = document.getElementById("text");
-    text!.hidden = true;
-
-    this.startTime = new Date();
   }
 
   calcResultAngular(): void {

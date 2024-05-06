@@ -6,6 +6,7 @@ import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -19,6 +20,7 @@ export class SqlServerQuestionsComponent {
 
   private http = inject(HttpClient);
   private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
 
   sqlServerQuestions: Question[] | undefined;
 
@@ -39,16 +41,25 @@ export class SqlServerQuestionsComponent {
 
   showSqlServerQuestions(): void {
     this.http.get<Question[]>(this.baseApiUrl + 'question/get-by-feild-name/sqlserver').subscribe(
-      { next: response => this.sqlServerQuestions = response }
+      {
+        next: response => {
+          if (response) {
+            this.sqlServerQuestions = response;
+
+            var end = document.getElementById("end");
+            end!.hidden = false;
+
+            var text = document.getElementById("text");
+            text!.hidden = true;
+
+            this.startTime = new Date();
+          }
+          else {
+            this.snackBar.open(". در حال حاضر سوالی وجود ندارد", "Close", { horizontalPosition: 'center', verticalPosition: 'top', duration: 4000 });
+          }
+        }
+      }
     );
-
-    var end = document.getElementById("end");
-    end!.hidden = false;
-
-    var text = document.getElementById("text");
-    text!.hidden = true;
-
-    this.startTime = new Date();
   }
 
   calcResultSqlServer(): void {

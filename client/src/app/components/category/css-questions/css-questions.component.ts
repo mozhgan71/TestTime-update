@@ -6,6 +6,7 @@ import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -16,9 +17,10 @@ import { environment } from '../../../../environments/environment.development';
 })
 export class CssQuestionsComponent {
   private readonly baseApiUrl = environment.apiUrl;
-  
+
   private http = inject(HttpClient);
-  private router = inject(Router)
+  private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
 
   cssQuestions: Question[] | undefined;
 
@@ -39,16 +41,25 @@ export class CssQuestionsComponent {
 
   showCssQuestion(): void {
     this.http.get<Question[]>(this.baseApiUrl + 'question/get-by-feild-name/css').subscribe(
-      { next: response => this.cssQuestions = response }
+      {
+        next: response => {
+          if (response) {
+            this.cssQuestions = response;
+
+            var end = document.getElementById("end");
+            end!.hidden = false;
+
+            var text = document.getElementById("text");
+            text!.hidden = true;
+
+            this.startTime = new Date();
+          }
+          else {
+            this.snackBar.open(". در حال حاضر سوالی وجود ندارد", "Close", { horizontalPosition: 'center', verticalPosition: 'top', duration: 4000 });
+          }
+        }
+      }
     );
-
-    var end = document.getElementById("end");
-    end!.hidden = false;
-
-    var text = document.getElementById("text");
-    text!.hidden = true;
-
-    this.startTime = new Date();
   }
 
   calcResultCss(): void {
