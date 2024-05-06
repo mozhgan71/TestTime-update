@@ -1,66 +1,26 @@
 /*#regionmobile*/
-.div-main {
+div {
     display: flex;
-    flex-wrap: wrap-reverse;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    background-color: rgb(252, 250, 250);
-    min-height: calc(100vh - (20rem));
+    justify-content: center;
+    background-color: rgb(255, 254, 254);
+    // min-height: calc(100vh - (20rem));
+    color: purple;
+    font-weight: bold;
+    font-size: x-large;
+    gap: 2rem;
+    padding-bottom: 1rem;
 
-    .div-slider {
-        display: flex;
-        flex-direction: column;
-        background-color: rgb(245, 242, 242);
-        margin: 0.1rem;
-
-        .div-button {
-            background-color: rgb(250, 247, 250);
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin: 0.3rem;
-
-            h3 {
-                cursor: pointer;
-            }
-        }
-
-        button {
-            background-color: purple;
-        }
-
-        img {
-            cursor: pointer;
-            height: auto;
-            width: 100%;
-        }
+    .img-right {
+        width: 15rem;
+        height: 12rem;
     }
 
-    .div-right {
-        background-color: rgb(249, 250, 250);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        color: purple;
-        font-weight: bold;
-        font-size:x-large;
-        direction: rtl;
-        gap: 2rem;
-        padding-bottom: 1rem;
-
-        p{
-            font-size: larger;
-        }
-
-        .img-right {
-            width: 15rem;
-            height: 12rem;
-        }
+    p {
+        font-size: larger;
+        padding: 0.5rem;
+        margin: 0.5rem;
     }
 }
 
