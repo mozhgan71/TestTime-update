@@ -1,19 +1,29 @@
 <div>
     <div class="left">
         <button (click)="checkAdminLogIn()" title="Admin-LogIn"
-        mat-icon-button><mat-icon>brightness_auto</mat-icon></button>
+            mat-icon-button><mat-icon>brightness_auto</mat-icon></button>
         @if (loggedInUserSig && loggedInUserSig()) {
         <button (click)="logOut()" title="User-LogOut" mat-icon-button><mat-icon>exit_to_app</mat-icon>
         </button>
         }
         @if (loggedInUserSig && loggedInUserSig(); as user) {
-        <span class="email">ایمیل  : {{user.email}}</span>
+        <span class="name"> {{user.name | titlecase}} {{user.family | titlecase}}</span>
+        @if(user.profilePhotoUrl) {
+        <img class="top-avatar" mat-card-avatar ngSrc="{{photoUrl + user.profilePhotoUrl}}" width="50" height="45"
+            alt="{{user.name[0]}}">
+        <!-- // localhost:5000/storage/photo/sldkfjlsj92374.web -->
+        }
+        @else {
+        <!-- {{user.name[0] | titlecase}} -->
+        <img class="top-avatar" ngSrc="../assets/images/member.png" width="50" height="45" alt="{{user.name}} photo"
+            mat-card-image>
+        }
         }
         @else {
         <button routerLink="login" title="User-LogIn" mat-icon-button><mat-icon>account_circle</mat-icon></button>
         }
     </div>
-    <nav class="nav-class" mat-tab-nav-bar [color]="'primary'" [tabPanel]="tabPanel"> 
+    <nav class="nav-class" mat-tab-nav-bar [color]="'primary'" [tabPanel]="tabPanel">
         @if (loggedInUserSig && loggedInUserSig()) {
         <a> </a>
         }
@@ -25,7 +35,7 @@
             [active]="rla.isActive">پروفایل من</a>
         <a mat-tab-link routerLink="test-category" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">دسته
             بندی آزمون ها</a>
-        <a mat-tab-link routerLink="home" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">خانه</a> 
+        <a mat-tab-link routerLink="home" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">خانه</a>
     </nav>
     <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 </div>

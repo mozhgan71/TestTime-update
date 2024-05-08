@@ -8,10 +8,11 @@ import { AccountService } from '../../services/account.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { LoggedInUser } from '../../models/logged-in-user.model';
 import { MatTabsModule } from '@angular/material/tabs';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   standalone: true,
@@ -20,7 +21,7 @@ import { MatTabsModule } from '@angular/material/tabs';
   styleUrls: ['./header.component.scss'],
   imports: [RouterModule, CommonModule, MatSidenavModule,
     MatToolbarModule, MatIconModule, MatListModule,
-    MatTabsModule]
+    MatTabsModule,NgOptimizedImage]
 })
 export class HeaderComponent implements OnInit {
   private breakpointObserver = inject(BreakpointObserver);
@@ -30,6 +31,8 @@ export class HeaderComponent implements OnInit {
   user: AppUser | null | undefined;
   //user$: Observable<LoggedInUser | null> | undefined;
   loggedInUserSig: Signal<LoggedInUser | null> | undefined;
+
+  photoUrl: string = environment.apiPhotoUrl;
 
   isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
