@@ -14,7 +14,7 @@
                 <option value="Vue.Js">Vue.Js</option>
                 <option value="Html">Html</option>
                 <option value="React">React</option>
-                <option value="Css">Css</option>
+                <option value="Css">CSS</option>
                 <option value="Oracle">Oracle</option>
                 <option value="SqlServer">SqlServer</option>
                 <option value="MongoDB">MongoDB</option>
@@ -50,9 +50,7 @@
         <mat-form-field appearance="outline">
             <mat-label> گزینه درست:</mat-label>
             <input type="number" formControlName="correctCtrl" matInput>
-            @if (questionFg.dirty){
-            <mat-error>عددی بین 1 تا 4 قابل قبول است</mat-error>
-            }
+            <mat-hint>فقط عددی بین 1 تا 4 وارد کنید</mat-hint>
         </mat-form-field>
         <button (click)="editQuestion()" [disabled]="questionFg.invalid" mat-raised-button class="button">ثبت
             تغییرات</button>
