@@ -99,6 +99,9 @@ export class CplusQuestionsComponent implements OnDestroy {
 
             var end = document.getElementById("end");
             end!.hidden = false;
+            
+            var start = document.getElementById("start");
+            start!.hidden = true;
 
             var text = document.getElementById("text");
             text!.hidden = true;

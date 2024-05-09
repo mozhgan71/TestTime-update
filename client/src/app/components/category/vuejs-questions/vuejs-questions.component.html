@@ -3,6 +3,12 @@
         <div class="top1">
             <button id="start" mat-raised-button (click)="showVuejsQuestions()">شروع آزمون</button>
             <p id="text">با فشردن دکمه شروع زمان آزمون برای شما محاسبه می شود وبا فشردن دکمه پایان زمان متوقف می شود</p>
+            <span class="timer" *ngFor="let entry of entries">
+                <span *ngIf="getElapsedTime(entry) as elapsed ">
+                    زمان شما: {{elapsed.hours}} ساعت {{elapsed.minutes}} دقیقه {{elapsed.seconds}} ثانیه
+                </span>
+                <mat-icon>access_time</mat-icon>
+            </span>
             <button id="back" routerLink="/test-category" mat-raised-button> بازگشت به دسته بندی</button>
         </div>
     </ng-container>

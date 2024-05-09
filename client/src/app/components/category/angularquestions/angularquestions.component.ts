@@ -92,18 +92,7 @@ export class AngularQuestionsComponent implements OnDestroy {
   description: string | undefined;
 
   showAngularQuestion(): void {
-    this.newId = 'first';
-    this.addEntry();
-
-    interval(1000).subscribe(() => {
-      // if (!this.changeDetector['destroyed']) {
-      this.changeDetector.detectChanges();
-      // }
-    });
-
-    this.changeDetector.detectChanges();
-
-    this.http.get<Question[]>(this.baseApiUrl + 'question/get-by-feild-name/ANGULAR').subscribe(
+    this.http.get<Question[]>(this.baseApiUrl + 'question/get-by-feild-name/angular').subscribe(
       {
         next: response => {
           if (response) {
@@ -112,10 +101,24 @@ export class AngularQuestionsComponent implements OnDestroy {
             var end = document.getElementById("end");
             end!.hidden = false;
 
+            var start = document.getElementById("start");
+            start!.hidden = true;
+
             var text = document.getElementById("text");
             text!.hidden = true;
 
             this.startTime = new Date();
+
+            this.newId = 'first';
+            this.addEntry();
+
+            interval(1000).subscribe(() => {
+              // if (!this.changeDetector['destroyed']) {
+              this.changeDetector.detectChanges();
+              // }
+            });
+
+            this.changeDetector.detectChanges();
           }
           else {
             this.snackBar.open(". در حال حاضر سوالی وجود ندارد", "Close", { horizontalPosition: 'center', verticalPosition: 'top', duration: 4000 });
