@@ -1,21 +1,72 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, inject } from '@angular/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { Question } from '../../../models/question.model';
 import { Result } from '../../../models/result.model';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject, interval } from 'rxjs';
+import { Entry } from '../../../models/entry.model';
+import { TimeSpan } from '../../../models/timespan.model';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   standalone: true,
   selector: 'app-css-questions',
   templateUrl: './css-questions.component.html',
   styleUrls: ['./css-questions.component.scss'],
-  imports: [RouterModule, CommonModule, MatRadioModule]
+  imports: [RouterModule, CommonModule, MatRadioModule, MatIconModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CssQuestionsComponent {
+export class CssQuestionsComponent implements OnDestroy {
+  constructor(private changeDetector: ChangeDetectorRef) { }
+
+  entries: Entry[] = [];
+  newId!: string | null;
+
+  private destroyed$ = new Subject();
+
+  ngOnDestroy() {
+    // this.destroyed$.next(undefined);
+    this.destroyed$.complete();
+  }
+
+  addEntry() {
+    this.entries.push({
+      created: new Date(),
+      id: this.newId!
+    });
+    this.newId = '';
+  }
+
+  getElapsedTime(entry: Entry): TimeSpan {
+    let totalSeconds = Math.floor((new Date().getTime() - entry.created.getTime()) / 1000);
+
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+
+    if (totalSeconds >= 3600) {
+      hours = Math.floor(totalSeconds / 3600);
+      totalSeconds -= 3600 * hours;
+    }
+
+    if (totalSeconds >= 60) {
+      minutes = Math.floor(totalSeconds / 60);
+      totalSeconds -= 60 * minutes;
+    }
+
+    seconds = totalSeconds;
+
+    return {
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds
+    };
+  }
+
   private readonly baseApiUrl = environment.apiUrl;
 
   private http = inject(HttpClient);
@@ -40,6 +91,17 @@ export class CssQuestionsComponent {
   description: string | undefined;
 
   showCssQuestion(): void {
+    this.newId = 'first';
+    this.addEntry();
+
+    interval(1000).subscribe(() => {
+      // if (!this.changeDetector['destroyed']) {
+      this.changeDetector.detectChanges();
+      // }
+    });
+
+    this.changeDetector.detectChanges();
+
     this.http.get<Question[]>(this.baseApiUrl + 'question/get-by-feild-name/css').subscribe(
       {
         next: response => {
@@ -131,7 +193,7 @@ export class CssQuestionsComponent {
     var question8 = document.getElementsByName("6") as NodeListOf<HTMLInputElement>;
     for (var i = 0; i < question8.length; i++) {
       if (question8[i].checked == true) {
-        if ((parseInt(question8[i].value)) == 4) {
+        if ((parseInt(question8[i].value)) == 2) {
           this.correctAnswers++;
           break;
         }
@@ -144,7 +206,7 @@ export class CssQuestionsComponent {
     var question8 = document.getElementsByName("7") as NodeListOf<HTMLInputElement>;
     for (var i = 0; i < question8.length; i++) {
       if (question8[i].checked == true) {
-        if ((parseInt(question8[i].value)) == 4) {
+        if ((parseInt(question8[i].value)) == 3) {
           this.correctAnswers++;
           break;
         }
@@ -157,7 +219,7 @@ export class CssQuestionsComponent {
     var question8 = document.getElementsByName("8") as NodeListOf<HTMLInputElement>;
     for (var i = 0; i < question8.length; i++) {
       if (question8[i].checked == true) {
-        if ((parseInt(question8[i].value)) == 2) {
+        if ((parseInt(question8[i].value)) == 3) {
           this.correctAnswers++;
           break;
         }
@@ -170,7 +232,7 @@ export class CssQuestionsComponent {
     var question9 = document.getElementsByName("9") as NodeListOf<HTMLInputElement>;
     for (var i = 0; i < question9.length; i++) {
       if (question9[i].checked == true) {
-        if ((parseInt(question9[i].value)) == 2) {
+        if ((parseInt(question9[i].value)) == 3) {
           this.correctAnswers++;
           break;
         }
@@ -183,7 +245,7 @@ export class CssQuestionsComponent {
     var question10 = document.getElementsByName("10") as NodeListOf<HTMLInputElement>;
     for (var i = 0; i < question10.length; i++) {
       if (question10[i].checked == true) {
-        if ((parseInt(question10[i].value)) == 3) {
+        if ((parseInt(question10[i].value)) == 2) {
           this.correctAnswers++;
           break;
         }
@@ -216,12 +278,14 @@ export class CssQuestionsComponent {
     this.finalTime = parseInt(((this.matchTime) / 1000).toFixed(0));  //tabdil az milisanie be sanie va hazfe ashar
     if (this.finalTime >= 3600) {
       this.hour = parseInt(((this.finalTime) / 3600).toFixed(0));
+      this.finalTime -= 3600 * this.hour;
     }
     else {
       this.hour = 0;
     }
     if (this.finalTime >= 60) {
       this.minute = parseInt(((this.finalTime) / 60).toFixed(0));
+      this.finalTime -= 60 * this.minute;
     }
     else {
       this.minute = 0;
