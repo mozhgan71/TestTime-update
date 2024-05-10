@@ -9,13 +9,14 @@ import { Pagination } from '../../../models/helpers/pagination';
 import { MemberParams } from '../../../models/helpers/member-params';
 import { PaginatedResult } from '../../../models/helpers/paginatedResult';
 import { UserService } from '../../../services/user.service';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-list-apiexceptions',
   standalone: true,
   templateUrl: './list-apiexceptions.component.html',
   styleUrl: './list-apiexceptions.component.scss',
-  imports: [CommonModule, MatPaginatorModule],
+  imports: [CommonModule, MatPaginatorModule, MatExpansionModule],
 })
 export class ListApiexceptionsComponent implements OnInit, OnDestroy {
   // adminService = inject(AdminService);

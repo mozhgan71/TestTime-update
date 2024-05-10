@@ -12,6 +12,27 @@ div {
         li {
             font-size: x-large;
             line-height: 1.5rem;
+
+            p {
+                font-size: x-large;
+                line-height: 2rem;
+            }
+
+            .panel {
+                background-color: rgb(8, 8, 8);
+                color: rgb(187, 11, 158);
+                margin: 0;
+                font-size: large;
+                padding: 0;
+            }
+
+            .description {
+                background-color: rgb(8, 8, 8);
+                color: rgb(187, 11, 158);
+                margin: 0;
+                font-size: larger;
+                padding: 0;
+            }
         }
     }
 

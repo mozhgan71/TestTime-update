@@ -2,9 +2,22 @@
     @for (exception of apiExceptions; track $index) {
     <ul>
         <li>StatusCode:{{exception.statusCode}}</li><br>
+        <li>Time:{{exception.time}}</li><br>
         <li>Message:{{exception.message}}</li><br>
+        <li>
+            <mat-expansion-panel class="panel">
+                <mat-expansion-panel-header class="panel" hideToggle>
+                    <!-- <mat-panel-title>
+                        Details:
+                    </mat-panel-title> -->
+                    <mat-panel-description class="description">
+                        more details...
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>{{exception.details}}</p>
+            </mat-expansion-panel>
+        </li>
         <!-- <li>Details:{{exception.details}}</li><br> -->
-        <li>Time:{{exception.time}}</li>
         <hr>
     </ul>
     }
