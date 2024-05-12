@@ -9,7 +9,6 @@ import { MemberParams } from '../../../models/helpers/member-params';
 import { Subscription } from 'rxjs';
 import { Pagination } from '../../../models/helpers/pagination';
 import { PaginatedResult } from '../../../models/helpers/paginatedResult';
-import { UserService } from '../../../services/user.service';
 
 @Component({
   standalone: true,
@@ -19,8 +18,8 @@ import { UserService } from '../../../services/user.service';
   imports: [CommonModule, MatPaginatorModule]
 })
 export class ListSuggestionsComponent implements OnInit, OnDestroy {
-  // adminService = inject(AdminService);
-  userService = inject(UserService);
+  adminService = inject(AdminService);
+  // userService = inject(UserService);
 
   private readonly baseApiUrl = environment.apiUrl;
 
@@ -46,7 +45,7 @@ export class ListSuggestionsComponent implements OnInit, OnDestroy {
 
   getAll(): void {
     if (this.memberParams)
-      this.subscribed = this.userService.getAllSuggestion(this.memberParams).subscribe({
+      this.subscribed = this.adminService.getAllSuggestion(this.memberParams).subscribe({
         next: (response: PaginatedResult<Suggestion[]>) => {
           if (response.body && response.pagination) {
             this.suggestions = response.body;

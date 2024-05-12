@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { AppUser } from '../models/app-user.model';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { ApiResponse } from '../models/helpers/apiResponse.model';
 import { UserUpdate } from '../models/user-update.model';
@@ -9,10 +8,6 @@ import { MemberParams } from '../models/helpers/member-params';
 import { PaginatedResult } from '../models/helpers/paginatedResult';
 import { Result } from '../models/result.model';
 import { PaginationHandler } from '../extensions/paginationHandler';
-import { Question } from '../models/question.model';
-import { Member } from '../models/member-model';
-import { Suggestion } from '../models/suggestion.model';
-import { ApiException } from '../models/api-exception.model';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
@@ -68,58 +63,58 @@ export class UserService {
     return null;
   }
 
-  getAllQuestions(memberParams: MemberParams): Observable<PaginatedResult<Question[]>> {
-    let params = new HttpParams();
+  // getAllQuestions(memberParams: MemberParams): Observable<PaginatedResult<Question[]>> {
+  //   let params = new HttpParams();
 
-    if (memberParams) {
-      params = params.append('pageNumber', memberParams.pageNumber);
-      params = params.append('pageSize', memberParams.pageSize);
-    }
+  //   if (memberParams) {
+  //     params = params.append('pageNumber', memberParams.pageNumber);
+  //     params = params.append('pageSize', memberParams.pageSize);
+  //   }
 
-    return this.paginationHandler.getPaginatedResult<Question[]>(this.baseApiUrlQuestion, params);
-  }
+  //   return this.paginationHandler.getPaginatedResult<Question[]>(this.baseApiUrlQuestion, params);
+  // }
 
-  getAllMembers(memberParams: MemberParams): Observable<PaginatedResult<Member[]>> {
-    let params = new HttpParams();
+  // getAllMembers(memberParams: MemberParams): Observable<PaginatedResult<Member[]>> {
+  //   let params = new HttpParams();
 
-    if (memberParams) {
-      params = params.append('pageNumber', memberParams.pageNumber);
-      params = params.append('pageSize', memberParams.pageSize);
-    }
+  //   if (memberParams) {
+  //     params = params.append('pageNumber', memberParams.pageNumber);
+  //     params = params.append('pageSize', memberParams.pageSize);
+  //   }
 
-    return this.paginationHandler.getPaginatedResult<Member[]>(this.baseApiUrl, params);
-  }
+  //   return this.paginationHandler.getPaginatedResult<Member[]>(this.baseApiUrl, params);
+  // }
 
-  getAllSuggestion(memberParams: MemberParams): Observable<PaginatedResult<Suggestion[]>> {
-    let params = new HttpParams();
+  // getAllSuggestion(memberParams: MemberParams): Observable<PaginatedResult<Suggestion[]>> {
+  //   let params = new HttpParams();
 
-    if (memberParams) {
-      params = params.append('pageNumber', memberParams.pageNumber);
-      params = params.append('pageSize', memberParams.pageSize);
-    }
+  //   if (memberParams) {
+  //     params = params.append('pageNumber', memberParams.pageNumber);
+  //     params = params.append('pageSize', memberParams.pageSize);
+  //   }
 
-    return this.paginationHandler.getPaginatedResult<Suggestion[]>(this.baseApiUrlSuggestion, params);
-  }
+  //   return this.paginationHandler.getPaginatedResult<Suggestion[]>(this.baseApiUrlSuggestion, params);
+  // }
 
-  getAllUserQuestion(memberParams: MemberParams): Observable<PaginatedResult<Question[]>> {
-    let params = new HttpParams();
+  // getAllUserQuestion(memberParams: MemberParams): Observable<PaginatedResult<Question[]>> {
+  //   let params = new HttpParams();
 
-    if (memberParams) {
-      params = params.append('pageNumber', memberParams.pageNumber);
-      params = params.append('pageSize', memberParams.pageSize);
-    }
+  //   if (memberParams) {
+  //     params = params.append('pageNumber', memberParams.pageNumber);
+  //     params = params.append('pageSize', memberParams.pageSize);
+  //   }
 
-    return this.paginationHandler.getPaginatedResult<Question[]>(this.baseApiUrlUserQuestion, params);
-  }
+  //   return this.paginationHandler.getPaginatedResult<Question[]>(this.baseApiUrlUserQuestion, params);
+  // }
 
-  getAllApiException(memberParams: MemberParams): Observable<PaginatedResult<ApiException[]>> {
-    let params = new HttpParams();
+  // getAllApiException(memberParams: MemberParams): Observable<PaginatedResult<ApiException[]>> {
+  //   let params = new HttpParams();
 
-    if (memberParams) {
-      params = params.append('pageNumber', memberParams.pageNumber);
-      params = params.append('pageSize', memberParams.pageSize);
-    }
+  //   if (memberParams) {
+  //     params = params.append('pageNumber', memberParams.pageNumber);
+  //     params = params.append('pageSize', memberParams.pageSize);
+  //   }
 
-    return this.paginationHandler.getPaginatedResult<ApiException[]>(this.baseApiUrlApiException, params);
-  }
+  //   return this.paginationHandler.getPaginatedResult<ApiException[]>(this.baseApiUrlApiException, params);
+  // }
 }

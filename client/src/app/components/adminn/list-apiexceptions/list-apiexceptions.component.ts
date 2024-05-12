@@ -8,8 +8,8 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Pagination } from '../../../models/helpers/pagination';
 import { MemberParams } from '../../../models/helpers/member-params';
 import { PaginatedResult } from '../../../models/helpers/paginatedResult';
-import { UserService } from '../../../services/user.service';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { AdminService } from '../../../services/admin.service';
 
 @Component({
   selector: 'app-list-apiexceptions',
@@ -19,8 +19,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
   imports: [CommonModule, MatPaginatorModule, MatExpansionModule],
 })
 export class ListApiexceptionsComponent implements OnInit, OnDestroy {
-  // adminService = inject(AdminService);
-  userService = inject(UserService);
+  adminService = inject(AdminService);
+  // userService = inject(UserService);
 
   private readonly baseApiUrl = environment.apiUrl;
 
@@ -46,7 +46,7 @@ export class ListApiexceptionsComponent implements OnInit, OnDestroy {
 
   getAll(): void {
     if (this.memberParams)
-      this.subscribed = this.userService.getAllApiException(this.memberParams).subscribe({
+      this.subscribed = this.adminService.getAllApiException(this.memberParams).subscribe({
         next: (response: PaginatedResult<ApiException[]>) => {
           if (response.body && response.pagination) {
             this.apiExceptions = response.body;

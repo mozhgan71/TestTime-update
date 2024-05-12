@@ -9,7 +9,6 @@ import { MemberParams } from '../../../models/helpers/member-params';
 import { Subscription } from 'rxjs';
 import { Pagination } from '../../../models/helpers/pagination';
 import { PaginatedResult } from '../../../models/helpers/paginatedResult';
-import { UserService } from '../../../services/user.service';
 
 @Component({
   standalone: true,
@@ -19,8 +18,8 @@ import { UserService } from '../../../services/user.service';
   imports: [CommonModule, MatPaginatorModule]
 })
 export class CorrectAnswersComponent implements OnInit, OnDestroy {
-  // adminService = inject(AdminService);
-  userService = inject(UserService);
+  adminService = inject(AdminService);
+  // userService = inject(UserService);
   private http = inject(HttpClient);
 
   private readonly baseApiUrl = environment.apiUrl;
@@ -45,7 +44,7 @@ export class CorrectAnswersComponent implements OnInit, OnDestroy {
 
   showAnswerQuestion(): void {
     if (this.memberParams)
-      this.subscribed = this.userService.getAllQuestions(this.memberParams).subscribe({
+      this.subscribed = this.adminService.getAllQuestions(this.memberParams).subscribe({
         next: (response: PaginatedResult<Question[]>) => {
           if (response.body && response.pagination) {
             this.questions = response.body;

@@ -11,7 +11,6 @@ import { MemberParams } from '../../../models/helpers/member-params';
 import { Subscription } from 'rxjs';
 import { AdminService } from '../../../services/admin.service';
 import { PaginatedResult } from '../../../models/helpers/paginatedResult';
-import { UserService } from '../../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -22,8 +21,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   imports: [CommonModule, RouterModule, MatIconModule, MatPaginatorModule]
 })
 export class ListQuestionsComponent implements OnInit, OnDestroy {
-  // adminService = inject(AdminService);
-  userService = inject(UserService);
+  adminService = inject(AdminService);
+  // userService = inject(UserService);
 
   private readonly baseApiUrl = environment.apiUrl;
 
@@ -52,7 +51,7 @@ export class ListQuestionsComponent implements OnInit, OnDestroy {
 
   getAll(): void {
     if (this.memberParams)
-      this.subscribed = this.userService.getAllQuestions(this.memberParams).subscribe({
+      this.subscribed = this.adminService.getAllQuestions(this.memberParams).subscribe({
         next: (response: PaginatedResult<Question[]>) => {
           if (response.body && response.pagination) {
             this.questions = response.body;
