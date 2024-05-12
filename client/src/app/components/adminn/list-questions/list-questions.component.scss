@@ -2,7 +2,7 @@ div {
     display: flex;
     flex-direction: column;
     width: auto;
-    background-color: rgb(8, 8, 8);
+    background-color: rgb(165, 172, 172);
     color: rgb(187, 11, 158);
     min-height: calc(100vh - (18.6rem));
 
@@ -20,8 +20,8 @@ div {
         display: flex;
         flex-direction: column;
 
-        li{
-            font-size:x-large;
+        li {
+            font-size: x-large;
             line-height: 1.5rem;
         }
 

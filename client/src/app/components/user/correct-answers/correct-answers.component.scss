@@ -2,12 +2,17 @@ div {
     display: flex;
     flex-direction: column;
     width: auto;
-    background-color: rgb(8, 8, 8);
-    color: rgb(187, 11, 158);
+    background-color: rgb(165, 172, 172);
+    color: purple;
     min-height: calc(100vh - (18.6rem));
 
     ul {
         list-style-type: none;
+
+        li {
+            font-size: x-large;
+            line-height: 1.5rem;
+        }
     }
 }
 

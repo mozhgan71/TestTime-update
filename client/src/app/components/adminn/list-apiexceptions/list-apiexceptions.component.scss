@@ -2,7 +2,7 @@ div {
     display: flex;
     flex-direction: column;
     width: auto;
-    background-color: rgb(8, 8, 8);
+    background-color: rgb(165, 172, 172);
     color: rgb(187, 11, 158);
     min-height: calc(100vh - (13.5rem));
 
@@ -19,7 +19,7 @@ div {
             }
 
             .panel {
-                background-color: rgb(8, 8, 8);
+                background-color: rgb(165, 172, 172);
                 color: rgb(187, 11, 158);
                 margin: 0;
                 font-size: large;
@@ -27,11 +27,12 @@ div {
             }
 
             .description {
-                background-color: rgb(8, 8, 8);
+                background-color: rgb(165, 172, 172);
                 color: rgb(187, 11, 158);
                 margin: 0;
                 font-size: larger;
-                padding: 0;
+                // padding: 0;
+                padding-left: 0.5rem;
             }
         }
     }

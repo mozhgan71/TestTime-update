@@ -3,13 +3,18 @@ div {
 
     form {
         margin-top: 1rem;
-        margin-bottom: 2rem;
+        padding-bottom: 0.5rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         // gap: 2.5rem;
-        background-color: rgb(253, 253, 253);
+        background-color: rgb(165, 172, 172);
         color: purple;
+
+        mat-hint {
+            margin-top: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
 
         h2 {
             background-color: rgb(139, 23, 139);
@@ -36,7 +41,8 @@ div {
             height: 2.5rem;
         }
 
-        input,textarea {
+        input,
+        textarea {
             min-height: 2.5rem;
             color: purple;
             font-size: larger;

@@ -1,5 +1,5 @@
 .div-compare {
-    background-color: black;
+    background-color: rgb(165, 172, 172);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -32,7 +32,7 @@
         margin-top: 0.5rem;
         width: 9rem;
         height: 7rem;
-        background-color: rgb(214, 77, 196);
+        background-color: rgb(202, 127, 192);
         color: black;
         border: solid 0.2rem rgb(133, 6, 101);
         border-radius: 100%;
@@ -41,9 +41,7 @@
 
     .div-button:hover {
         border: solid 0.4rem rgb(95, 4, 83);
-        background-color: rgb(199, 160, 196);
-        width: 10rem;
-        height: 8rem;
+        background-color: rgb(148, 134, 147);
     }
 }
 

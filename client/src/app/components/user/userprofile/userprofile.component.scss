@@ -3,7 +3,7 @@ div {
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
-    background-color: rgb(243, 206, 243);
+    background-color: rgb(165, 172, 172);
     color: purple;
     width: 100%;
     gap: 1rem;
@@ -14,7 +14,7 @@ div {
         flex-direction: column;
         justify-content: center;
         // border: solid 0.1rem purple;
-        background-color: rgb(243, 206, 243);
+        background-color: rgb(165, 172, 172);
         width: 30%;
         margin: 0.2rem;
         padding: 0.2rem;
@@ -72,7 +72,7 @@ div {
 
         .button-down {
             display: flex;
-            background-color: rgb(243, 206, 243);
+            background-color: rgb(165, 172, 172);
             color: black;
             gap: 1rem;
             // width: 20rem;
@@ -104,7 +104,7 @@ div {
         margin-top: 0.5rem;
         width: 7rem;
         height: 7rem;
-        background-color: rgb(221, 97, 221);
+        background-color: rgb(223, 157, 223);
         color: black;
         border: solid 0.2rem pink;
         border-radius: 100%;
@@ -112,10 +112,9 @@ div {
 
     .div-button:hover {
         border: solid 0.4rem rgb(95, 4, 83);
-        background-color: rgb(212, 230, 50);
+        background-color: rgb(165, 172, 172);
         font-weight: bolder;
-        width: 10rem;
-        height: 10rem;
+        cursor: pointer;
     }
 
     mat-label {
