@@ -10,7 +10,7 @@ public class UserRepository : IUserRepository
 
     private readonly IPhotoService _photoService;
 
-    public UserRepository(IMongoClient client, IMongoDbSettings dbSettings, IPhotoService photoService, ILogger<UserRepository> logger)
+    public UserRepository(IMongoClient client, IMyMongoDbSettings dbSettings, IPhotoService photoService, ILogger<UserRepository> logger)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<AppUser>(_collectionName);
@@ -25,7 +25,7 @@ public class UserRepository : IUserRepository
     {
         if (string.IsNullOrEmpty(userId)) return null;
 
-        AppUser appUser = await _collection.Find<AppUser>(user => user.Id == userId).FirstOrDefaultAsync(cancellationToken);
+        AppUser appUser = await _collection.Find<AppUser>(user => user.Id.ToString() == userId).FirstOrDefaultAsync(cancellationToken);
 
         if (appUser is not null)
         {
@@ -44,13 +44,13 @@ public class UserRepository : IUserRepository
         // .Set(doc => doc.DateOfBirth, userInput.DateOfBirth)
         .Set(doc => doc.Education, userInput.Education);
 
-        return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id == userId, updatedDoc, null, cancellationToken);
+        return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id.ToString() == userId, updatedDoc, null, cancellationToken);
     }
 
     public async Task<DeleteResult?> DeleteAsync(string userId, CancellationToken cancellationToken)
 
     {
-        return await _collection.DeleteOneAsync<AppUser>(doc => doc.Id == userId, cancellationToken);
+        return await _collection.DeleteOneAsync<AppUser>(doc => doc.Id.ToString() == userId, cancellationToken);
     }
     #endregion
 
@@ -93,7 +93,7 @@ public class UserRepository : IUserRepository
                 .Set(doc => doc.Photos, appUser.Photos);
             // .Set(doc => doc.City, "Tehran");
 
-            UpdateResult result = await _collection.UpdateOneAsync<AppUser>(doc => doc.Id == userId, updatedUser, null, cancellationToken);
+            UpdateResult result = await _collection.UpdateOneAsync<AppUser>(doc => doc.Id.ToString() == userId, updatedUser, null, cancellationToken);
 
             // return the saved photo if save on disk and DB is successfull.
             return result.ModifiedCount == 1 ? photo : null;
@@ -111,7 +111,7 @@ public class UserRepository : IUserRepository
         // set query
         FilterDefinition<AppUser>? filterOld = Builders<AppUser>.Filter
             .Where(appUser =>
-                appUser.Id == userId && appUser.Photos.Any<Photo>(photo => photo.IsMain == true));
+                appUser.Id.ToString() == userId && appUser.Photos.Any<Photo>(photo => photo.IsMain == true));
 
         UpdateDefinition<AppUser>? updateOld = Builders<AppUser>.Update
             .Set(appUser => appUser.Photos.FirstMatchingElement().IsMain, false);
@@ -123,7 +123,7 @@ public class UserRepository : IUserRepository
         #region  SET the new main photo: find new photo by its Url_165; update IsMain to True
         FilterDefinition<AppUser>? filterNew = Builders<AppUser>.Filter
             .Where(appUser =>
-                appUser.Id == userId && appUser.Photos.Any<Photo>(photo => photo.Url_165 == photoUrlIn));
+                appUser.Id.ToString() == userId && appUser.Photos.Any<Photo>(photo => photo.Url_165 == photoUrlIn));
 
         UpdateDefinition<AppUser>? updateNew = Builders<AppUser>.Update
             .Set(appUser => appUser.Photos.FirstMatchingElement().IsMain, true);
@@ -138,7 +138,7 @@ public class UserRepository : IUserRepository
 
         // Find the photo in AppUser
         Photo photo = await _collection.AsQueryable()
-            .Where(appUser => appUser.Id == userId) // filter by user email
+            .Where(appUser => appUser.Id.ToString() == userId) // filter by user email
             .SelectMany(appUser => appUser.Photos) // flatten the Photos array
             .Where(photo => photo.Url_165 == url_165_In) // filter by photo url
             .FirstOrDefaultAsync(cancellationToken); // return the photo or null
@@ -157,7 +157,7 @@ public class UserRepository : IUserRepository
         var update = Builders<AppUser>.Update
             .PullFilter(appUser => appUser.Photos, photo => photo.Url_165 == url_165_In);
 
-        return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id == userId, update, null, cancellationToken);
+        return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id.ToString() == userId, update, null, cancellationToken);
     }
     #endregion
 }

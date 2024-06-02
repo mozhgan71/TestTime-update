@@ -5,7 +5,7 @@ public class MemberRepository : IMemberRepository
     private const string _collectionName = "users";
     private readonly IMongoCollection<AppUser>? _collection;
 
-    public MemberRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    public MemberRepository(IMongoClient client, IMyMongoDbSettings dbSettings)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<AppUser>(_collectionName);
@@ -43,9 +43,9 @@ public class MemberRepository : IMemberRepository
 
     public async Task<MemberDto?> GetByIdAsync(string? memberId, CancellationToken cancellationToken)
     {
-        AppUser appUser = await _collection.Find<AppUser>(appUser => appUser.Id == memberId).FirstOrDefaultAsync(cancellationToken);
+        AppUser appUser = await _collection.Find<AppUser>(appUser => (appUser.Id).ToString() == memberId).FirstOrDefaultAsync(cancellationToken);
 
-        if (appUser.Id is not null)
+        if (appUser.Id.ToString() is not null)
         {
             return Mappers.ConvertAppUserToMemberDto(appUser);
         }
@@ -58,7 +58,7 @@ public class MemberRepository : IMemberRepository
         AppUser appUser = await _collection.Find<AppUser>(appUser =>
                 appUser.Email == memberEmail).FirstOrDefaultAsync(cancellationToken);
 
-        if (appUser.Id is not null)
+        if (appUser.Id.ToString() is not null)
         {
             return Mappers.ConvertAppUserToMemberDto(appUser);
         }
