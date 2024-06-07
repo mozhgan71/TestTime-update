@@ -1,40 +1,38 @@
 namespace api.DTOs;
 
-public class Mappers
+public static class Mappers
 {
     public static AppUser ConvertRegisterDtoToAppUser(RegisterDto userInput)
     {
         // manually dispose HMACSHA512 after being done
-        using var hmac = new HMACSHA512();
+        // using var hmac = new HMACSHA512();
 
-        return new AppUser(
-            Id: null,
-            Name: userInput.Name,
-            Family: userInput.Family,
-            Email: userInput.Email.ToLower().Trim(),
-            PasswordHash: hmac.ComputeHash(Encoding.UTF8.GetBytes(userInput.Password)),
-            PasswordSalt: hmac.Key,
-            Education: userInput.Education,
-            Rules: userInput.Rules,
-            DateOfBirth: userInput.DateOfBirth,
-            Created: DateTime.UtcNow,
-            LastActive: DateTime.UtcNow,
-            Photos: []
-        );
+        return new AppUser
+        {
+            Email = userInput.Email, // required by AspNet Identity
+            UserName = userInput.UserName, // required by AspNet Identity
+            Name = userInput.Name,
+            Family = userInput.Family,
+            Education = userInput.Education!,
+            Rules = userInput.Rules,
+            DateOfBirth = userInput.DateOfBirth,
+            LastActive = DateTime.UtcNow,
+            Photos = []
+        };
     }
 
     public static LoggedInDto ConvertAppUserToLoggedInDto(AppUser appUser, string tokenValue)
     {
-        return new LoggedInDto(
-                  Id: appUser.Id!,
-                  Name: appUser.Name,
-                  Family: appUser.Family,
-                  Email: appUser.Email,
-                  Age: CustomDateTimeExtensions.CalculateAge(appUser.DateOfBirth),
-                  Education: appUser.Education!,
-                  Token: tokenValue,
-                  ProfilePhotoUrl: appUser.Photos.FirstOrDefault(photo => photo.IsMain)?.Url_165 // If list is empty it can return null. So use ?
-            );
+        return new LoggedInDto
+        {
+            Token = tokenValue,
+            Email = appUser.NormalizedEmail,
+            Name = appUser.Name,
+            Family = appUser.Family,
+            Age = CustomDateTimeExtensions.CalculateAge(appUser.DateOfBirth),
+            Education = appUser.Education!,
+            ProfilePhotoUrl = appUser.Photos.FirstOrDefault(photo => photo.IsMain)?.Url_165 // If list is empty it can return null. So use ?
+        };
     }
 
     public static UserDto ConvertAppUserToUserDto(AppUser appUser)
@@ -42,10 +40,10 @@ public class Mappers
         return new UserDto(
             Name: appUser.Name,
             Family: appUser.Family,
-            Email: appUser.Email,
+            Email: appUser.NormalizedEmail!,
             Age: CustomDateTimeExtensions.CalculateAge(appUser.DateOfBirth),
             Education: appUser.Education!,
-            Created: appUser.Created,
+            Created: appUser.CreatedOn,
             LastActive: appUser.LastActive,
             Photos: appUser.Photos
         // IsPrivate: appUser.IsPrivate,
@@ -55,10 +53,10 @@ public class Mappers
     public static MemberDto ConvertAppUserToMemberDto(AppUser appUser)
     {
         return new MemberDto(
-            Id: appUser.Id!,
+            Id: appUser.Id.ToString(),
             Name: appUser.Name,
             Family: appUser.Family,
-            Email: appUser.Email,
+            Email: appUser.NormalizedEmail!,
             Age: CustomDateTimeExtensions.CalculateAge(appUser.DateOfBirth),
             Education: appUser.Education!,
             LastActive: appUser.LastActive,
