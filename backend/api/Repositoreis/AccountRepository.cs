@@ -1,72 +1,119 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace api.Repositoreis;
 
 public class AccountRepository : IAccountRepository
 {
     private const string _collectionName = "users";
     private readonly IMongoCollection<AppUser>? _collection;
+    private readonly UserManager<AppUser> _userManager;
     private readonly ITokenService _tokenService;
 
-    public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings, ITokenService tokenService)
+    public AccountRepository(IMongoClient client, IMyMongoDbSettings dbSettings, UserManager<AppUser> userManager, ITokenService tokenService)
     {
-        var database = client.GetDatabase(dbSettings.DatabaseName);
-        _collection = database.GetCollection<AppUser>(_collectionName);
+       var database = client.GetDatabase(dbSettings.DatabaseName);
+        _collection = database.GetCollection<AppUser>(AppVariablesExtensions.collectionUsers);
+        _userManager = userManager;
         _tokenService = tokenService;
     }
 
-    public async Task<LoggedInDto?> CreateAsync(RegisterDto userInput, CancellationToken cancellationToken)
+    public async Task<LoggedInDto> CreateAsync(RegisterDto userInput, CancellationToken cancellationToken)
     {
-        // check if user/email already exists
-        bool doesAccountExist = await _collection.Find<AppUser>(user =>
-            user.Email == userInput.Email.ToLower().Trim()).AnyAsync(cancellationToken);
+        LoggedInDto loggedInDto = new();
 
-        if (doesAccountExist)
-            return null;
-
-        //maually dispose HMACSHA512 after being done
-        using var hmac = new HMACSHA512();
-
-        // if user/email does not exist, create a new AppUser. 
         AppUser appUser = Mappers.ConvertRegisterDtoToAppUser(userInput);
 
-        if (_collection is not null)
-            await _collection.InsertOneAsync(appUser, null, cancellationToken);
+        IdentityResult? userCreatedResult = await _userManager.CreateAsync(appUser, userInput.Password);
 
-        if (appUser.Id is not null)
+        if (userCreatedResult.Succeeded)
         {
-            LoggedInDto loggedInDto = Mappers.ConvertAppUserToLoggedInDto(appUser,await _tokenService.CreateToken(appUser));
+            IdentityResult roleResult = await _userManager.AddToRoleAsync(appUser, "member");
 
-            return loggedInDto;
+            if (!roleResult.Succeeded) // failed
+                return loggedInDto;
+
+            string? token = await _tokenService.CreateToken(appUser);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
+            }
+        }
+        else // Store and return userCreatedResult errors if failed.
+        {
+            foreach (IdentityError error in userCreatedResult.Errors)
+            {
+                loggedInDto.Errors.Add(error.Description);
+            }
         }
 
-        return null;
+        return loggedInDto; // failed
     }
 
     public async Task<LoggedInDto?> LoginAsync(string userLogInEmail, string userLogInPassword, CancellationToken cancellationToken)
     {
-        AppUser appUser = await _collection.Find<AppUser>(user =>
-            user.Email == userLogInEmail.ToLower().Trim()).FirstOrDefaultAsync(cancellationToken);
+        LoggedInDto loggedInDto = new();
+
+        AppUser? appUser;
+
+        // Find appUser by Email or UserName
+        appUser = await _userManager!.FindByEmailAsync(userLogInEmail);
+
+        // AppUser appUser = await _collection.Find<AppUser>(user =>
+        //     user.Email == userLogInEmail.ToLower().Trim()).FirstOrDefaultAsync(cancellationToken);
 
         if (appUser is null)
-            return null;
-
-        //Import and use HMACSHA512 including PasswordSalt
-        using var hmac = new HMACSHA512(appUser.PasswordSalt);
-
-        //Convert userIputPassword to Hash
-        var ComptedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userLogInPassword));
-
-        // Check if password is correct and matched with Database PasswordHash.
-        if (appUser.PasswordHash is not null && appUser.PasswordHash.SequenceEqual(ComptedHash))
         {
-            if (appUser.Id is not null)
-            {
-                string token = await _tokenService.CreateToken(appUser);
-
-                return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
-            }
+            loggedInDto.IsWrongCreds = true;
+            return loggedInDto;
         }
 
-        return null;
+        if (!await _userManager.CheckPasswordAsync(appUser, userLogInPassword)) //CheckPasswordAsync returns boolean
+        {
+            loggedInDto.IsWrongCreds = true;
+            return loggedInDto;
+        }
+
+        string? token = await _tokenService.CreateToken(appUser);
+
+        if (!string.IsNullOrEmpty(token))
+        {
+            return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
+        }
+
+        return loggedInDto;
+
+        //Import and use HMACSHA512 including PasswordSalt
+        // using var hmac = new HMACSHA512(appUser.PasswordSalt);
+
+        //Convert userIputPassword to Hash
+        // var ComptedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userLogInPassword));
+
+        // Check if password is correct and matched with Database PasswordHash.
+        // if (appUser.PasswordHash is not null && appUser.PasswordHash.SequenceEqual(ComptedHash))
+        // {
+        //     if ((appUser.Id).ToString() is not null)
+        //     {
+        //         string token = await _tokenService.CreateToken(appUser);
+
+        //         return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
+        //     }
+        // }
+
+        // return null;
+    }
+
+    public async Task<LoggedInDto?> ReloadLoggedInUserAsync(string userId, string token, CancellationToken cancellationToken)
+    {
+        bool isObjectId = ObjectId.TryParse(userId, out ObjectId objectId);
+
+        if (!isObjectId || objectId.Equals(ObjectId.Empty)) return null;
+
+        AppUser appUser = await _collection.Find<AppUser>(appUser => appUser.Id == objectId).FirstOrDefaultAsync(cancellationToken);
+
+        return appUser is null
+            ? null
+            : Mappers.ConvertAppUserToLoggedInDto(appUser, token);
     }
 
     public async Task<UpdateResult?> UpdateLastActive(string loggedInUserId, CancellationToken cancellationToken)
@@ -76,7 +123,7 @@ public class AccountRepository : IAccountRepository
             appUser.LastActive, DateTime.UtcNow);
 
         return await _collection.UpdateOneAsync<AppUser>(user =>
-        user.Id == loggedInUserId, newLastActive, null, cancellationToken);
+        (user.Id).ToString() == loggedInUserId, newLastActive, null, cancellationToken);
     }
 
     // public async Task<LoggedInDto?> ReloadLoggedInUserAsync(string? userId, string? tokenValue, CancellationToken cancellationToken)
@@ -90,7 +137,7 @@ public class AccountRepository : IAccountRepository
 
     //     return null;
     // }
-    
+
     // private async void UpdateLastActiveInDb(AppUser appUser, CancellationToken cancellationToken)
     // {
     //     UpdateDefinition<AppUser> newLastActive = Builders<AppUser>.Update.Set(user =>

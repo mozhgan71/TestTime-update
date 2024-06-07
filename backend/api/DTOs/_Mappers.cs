@@ -11,8 +11,8 @@ public static class Mappers
         {
             Email = userInput.Email, // required by AspNet Identity
             UserName = userInput.UserName, // required by AspNet Identity
-            Name = userInput.Name,
-            Family = userInput.Family,
+            Name = userInput.Name.Trim(),
+            Family = userInput.Family.Trim(),
             Education = userInput.Education!,
             Rules = userInput.Rules,
             DateOfBirth = userInput.DateOfBirth,
