@@ -3,9 +3,16 @@
     <mat-hint>وارد کردن موارد ستاره دار(*)الزامی می باشد</mat-hint>
     }
     <mat-form-field appearance="outline">
-        <mat-label>نام:</mat-label>
-        <input [errorStateMatcher]="customErrorStateMatcher" autoFocusDir type="text" formControlName="nameCtrl"
+        <mat-label>نام کاربری:</mat-label>
+        <input [errorStateMatcher]="customErrorStateMatcher" autoFocusDir type="text" formControlName="userNameCtrl"
             matInput>
+        <!-- @if (NameCtrl.dirty) { -->
+        <mat-error>نام کاربری حداقل باید شامل 2 کاراکتر باشد</mat-error>
+        <!-- } -->
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>نام:</mat-label>
+        <input [errorStateMatcher]="customErrorStateMatcher" type="text" formControlName="nameCtrl" matInput>
         <!-- @if (NameCtrl.dirty) { -->
         <mat-error>نام حداقل باید شامل 2 کاراکتر باشد</mat-error>
         <!-- } -->

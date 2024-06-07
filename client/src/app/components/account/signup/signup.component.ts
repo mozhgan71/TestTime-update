@@ -62,6 +62,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   //#region Create Form Group/controler (AbstractControl)
   userFg = this.fb.group({ // formGroup
+    userNameCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
     nameCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
     familyCtrl: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
     emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
@@ -74,6 +75,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
   //#endregion
 
   //#region Forms Properties
+  get UserNameCtrl(): FormControl {
+    return this.userFg.get('userNameCtrl') as FormControl;
+  }
   get NameCtrl(): FormControl {
     return this.userFg.get('nameCtrl') as FormControl;
   }
@@ -108,6 +112,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     if (this.PasswordCtrl.value == this.ConfirmPasswordCtrl.value) {
 
       let user: AppUserRegister = {
+        userName: this.UserNameCtrl.value,
         name: this.NameCtrl.value,
         family: this.FamilyCtrl.value,
         email: this.EmailCtrl.value,
