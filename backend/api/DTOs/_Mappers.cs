@@ -1,5 +1,5 @@
 namespace api.DTOs;
-
+ 
 public static class Mappers
 {
     public static AppUser ConvertRegisterDtoToAppUser(RegisterDto userInput)
