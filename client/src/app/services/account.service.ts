@@ -78,11 +78,21 @@ export class AccountService {
   }
 
   setCurrentUser(loggedInUser: LoggedInUser): void {
+    this.setLoggedInUserRoles(loggedInUser);
+
     this.loggedInUserSig.set(loggedInUser);
 
     if (isPlatformBrowser(this.platformId)) // we make sure this code is ran on the browser and NOT server
       // localStorage.setItem('token', loggedInUser.token);
       localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+  }
+
+  setLoggedInUserRoles(loggedInUser: LoggedInUser): void {
+    loggedInUser.roles = []; // We have to initialize it before pushing. Otherwise, it's 'undefined' and push will not work. 
+
+    const roles: string | string[] = JSON.parse(atob(loggedInUser.token.split('.')[1])).role; // get the token's 2nd part then select role
+
+    Array.isArray(roles) ? loggedInUser.roles = roles : loggedInUser.roles.push(roles);
   }
 
   logOut(): void {
