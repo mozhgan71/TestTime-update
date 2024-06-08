@@ -1,7 +1,9 @@
 <div>
     <div class="left">
-        <button (click)="checkAdminLogIn()" title="Admin-LogIn"
+        @if (loggedInUserSig && loggedInUserSig()?.roles?.includes('admin')){
+            <button routerLink="admin-profile" title="Admin-panel"
             mat-icon-button><mat-icon>brightness_auto</mat-icon></button>
+        }
         @if (loggedInUserSig && loggedInUserSig()) {
         <button (click)="logOut()" title="User-LogOut" mat-icon-button><mat-icon>exit_to_app</mat-icon>
         </button>

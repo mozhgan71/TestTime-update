@@ -77,15 +77,4 @@ export class HeaderComponent implements OnInit {
   //     this.router.navigateByUrl('/login');
   //   }
   // }
-
-  checkAdminLogIn(): void {     //for admin with session
-    var adminLogedIn = sessionStorage.getItem('logedin');
-
-    if (adminLogedIn == "true") {
-      this.router.navigateByUrl('/admin-profile');
-    }
-    else {
-      this.router.navigateByUrl('/admin-login');
-    }
-  }
 }
