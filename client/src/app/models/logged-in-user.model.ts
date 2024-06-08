@@ -6,5 +6,6 @@ export interface LoggedInUser {
     age: number,
     education: string,
     token: string,
-    profilePhotoUrl: string
+    profilePhotoUrl: string,
+    roles: string[];
 }
