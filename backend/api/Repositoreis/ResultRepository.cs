@@ -5,7 +5,7 @@ public class ResultRepository : IResultRepository
     private readonly IMongoCollection<Result> _collection;
     private const string _collectionName = "results";
 
-    public ResultRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    public ResultRepository(IMongoClient client, IMyMongoDbSettings dbSettings)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<Result>(_collectionName);

@@ -1,4 +1,5 @@
 export interface AppUserRegister {
+    userName: string,
     name: string,
     family: string,
     email: string,

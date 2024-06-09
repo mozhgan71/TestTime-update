@@ -43,7 +43,7 @@ public class MemberRepository : IMemberRepository
 
     public async Task<MemberDto?> GetByIdAsync(string? memberId, CancellationToken cancellationToken)
     {
-        AppUser appUser = await _collection.Find<AppUser>(appUser => (appUser.Id).ToString() == memberId).FirstOrDefaultAsync(cancellationToken);
+        AppUser appUser = await _collection.Find<AppUser>(appUser => appUser.Id.ToString() == memberId).FirstOrDefaultAsync(cancellationToken);
 
         if (appUser.Id.ToString() is not null)
         {

@@ -5,7 +5,7 @@ public class SuggestionRepository : ISuggestionRepository
     private const string _collectionName = "suggestions";
     private readonly IMongoCollection<Suggestion> _collection;
 
-    public SuggestionRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    public SuggestionRepository(IMongoClient client, IMyMongoDbSettings dbSettings)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<Suggestion>(_collectionName);

@@ -5,7 +5,7 @@ public class UserQuestionRepository : IUserQuestionRepository
     private readonly IMongoCollection<Question> _collection;
     private const string _collectionName = "user-questions";
 
-    public UserQuestionRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    public UserQuestionRepository(IMongoClient client, IMyMongoDbSettings dbSettings)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<Question>(_collectionName);

@@ -9,7 +9,7 @@ public class ExceptionMiddleware
 
     public ExceptionMiddleware(
         RequestDelegate next, IHostEnvironment env,
-        IMongoClient client, IMongoDbSettings dbSettings,
+        IMongoClient client, IMyMongoDbSettings dbSettings,
         ILogger<ExceptionMiddleware> logger)
     {
         _next = next;
@@ -35,7 +35,7 @@ public class ExceptionMiddleware
 
             ApiException response = new()
             {
-                Id = ObjectId.Empty,
+                Id = ObjectId.GenerateNewId(),
                 StatusCode = context.Response.StatusCode,
                 Message = ex.Message,
                 Details = ex.StackTrace?.ToString(),

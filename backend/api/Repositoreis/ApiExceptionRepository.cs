@@ -4,7 +4,7 @@ public class ApiExceptionRepository : IApiExceptionRepository
 {
     private readonly IMongoCollection<ApiException> _collection;
 
-    public ApiExceptionRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    public ApiExceptionRepository(IMongoClient client, IMyMongoDbSettings dbSettings)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<ApiException>("exception-logs");
